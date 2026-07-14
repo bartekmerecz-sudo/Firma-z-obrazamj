@@ -177,14 +177,57 @@
           </div>
         </article>
 
-        <article class="card card--soon" data-style="Klockowy Świat">
-          <div class="card__img card__img--placeholder">
-            <span>LEGO</span>
-          </div>
+        <article class="card" data-style="Klockowy Świat">
+          <div class="card__img"><img src="assets/gallery/lego.jpg" alt="Para w scenerii zbudowanej z kolorowych klocków" loading="lazy" /></div>
           <div class="card__body">
             <h3>Klockowy Świat</h3>
             <p class="card__tag">Klocki / Pop-art</p>
-            <p>Trójwymiarowa konstrukcja z kultowych klocków. Nasycone kolory i zabawa formą — dostępny na zamówienie.</p>
+            <p>Trójwymiarowa konstrukcja z kolorowych cegiełek. Nasycone barwy i zabawa formą — idealne dla fanów kreatywnej zabawy.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Akwarela">
+          <div class="card__img"><img src="assets/gallery/akwarela.jpg" alt="Zaręczyny nad morzem w stylu akwareli" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Akwarela</h3>
+            <p class="card__tag">Malarstwo akwarelowe</p>
+            <p>Delikatne, rozmyte barwy i lekkość akwareli. Subtelny, romantyczny efekt pełen powietrza i światła.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Komiks Pop-art">
+          <div class="card__img"><img src="assets/gallery/komiks.jpg" alt="Para w górach w stylu komiksu pop-art z dymkiem" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Komiks Pop-art</h3>
+            <p class="card__tag">Komiks / Pop-art</p>
+            <p>Wyraziste kontury, rastrowe cienie i dymek z Waszym tekstem. Energetyczny, zabawny akcent w stylu retro-komiksu.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Bajkowy 3D">
+          <div class="card__img"><img src="assets/gallery/bajka-3d.jpg" alt="Para o zachodzie słońca w stylu animacji 3D" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Bajkowy 3D</h3>
+            <p class="card__tag">Animacja / 3D</p>
+            <p>Ciepły, filmowy klimat rodem z animowanego kina. Magiczne światło i bajkowa sceneria — jak kadr z wymarzonej opowieści.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Kubizm Geometryczny">
+          <div class="card__img"><img src="assets/gallery/kubizm.jpg" alt="Para w stylu kubistycznym, geometryczne formy" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Kubizm Geometryczny</h3>
+            <p class="card__tag">Kubizm / Abstrakcja</p>
+            <p>Świat rozłożony na geometryczne formy i płaszczyzny. Artystyczny, nowoczesny charakter dla miłośników sztuki.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Superbohater">
+          <div class="card__img"><img src="assets/gallery/superbohater.jpg" alt="Para jako bohaterowie komiksu superbohaterskiego" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Superbohater</h3>
+            <p class="card__tag">Komiks / Superhero</p>
+            <p>Zostańcie bohaterami własnej legendy — peleryny, epicka sceneria i Wasze inicjały w herbie. Efektowny prezent z charakterem.</p>
           </div>
         </article>
       </div>
@@ -217,6 +260,11 @@
                 <label class="chip"><input type="radio" name="style_radio" value="Nowoczesny Wektor" /><span>Nowoczesny Wektor</span></label>
                 <label class="chip"><input type="radio" name="style_radio" value="Mozaika Witrażowa" /><span>Mozaika</span></label>
                 <label class="chip"><input type="radio" name="style_radio" value="Klockowy Świat" /><span>Klockowy Świat</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Akwarela" /><span>Akwarela</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Komiks Pop-art" /><span>Komiks Pop-art</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Bajkowy 3D" /><span>Bajkowy 3D</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Kubizm Geometryczny" /><span>Kubizm</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Superbohater" /><span>Superbohater</span></label>
               </div>
             </fieldset>
 
@@ -257,7 +305,7 @@
                 <span>Razem</span>
                 <strong id="sumTotal">144 zł</strong>
               </div>
-              <p class="summary__note">Darmowa dostawa od 250 zł. Płatność przelewem / BLIK po potwierdzeniu zamówienia.</p>
+              <p class="summary__note">Darmowa dostawa od 250 zł. Bezpieczna płatność online: karta, BLIK lub Przelewy24.</p>
             </div>
 
             <div class="fields-contact">
@@ -289,7 +337,7 @@
                 <span>Akceptuję <a href="regulamin.html" target="_blank">regulamin</a> i wyrażam zgodę na przetwarzanie danych w celu realizacji zamówienia (<a href="polityka-prywatnosci.html" target="_blank">polityka prywatności</a>).</span>
               </label>
 
-              <button type="submit" class="btn btn--gold btn--block">Wyślij zamówienie</button>
+              <button type="submit" class="btn btn--gold btn--block">Zamawiam i płacę &rarr;</button>
               <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
             </div>
           </aside>
@@ -359,7 +407,7 @@
         </details>
         <details class="faq__item">
           <summary>Jak wygląda płatność?</summary>
-          <p>Po złożeniu zamówienia otrzymasz e-mail z potwierdzeniem i danymi do płatności (przelew lub BLIK). Do realizacji przystępujemy po zaksięgowaniu wpłaty.</p>
+          <p>Płatność odbywa się online w bezpiecznym systemie — możesz zapłacić <strong>kartą, BLIK-iem lub przez Przelewy24</strong>. Po opłaceniu zamówienia przygotowujemy projekt i wysyłamy Ci podgląd do akceptacji przed drukiem.</p>
         </details>
         <details class="faq__item">
           <summary>Ile trwa realizacja i wysyłka?</summary>

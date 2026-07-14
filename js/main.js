@@ -115,65 +115,112 @@
     });
   }
 
-  /* ---------- Wysyłka formularza (Formspree AJAX) ---------- */
+  /* ---------- Wysyłka zamówienia + płatność ----------
+     Przepływ:
+     1) Zapis zamówienia (+ zdjęcie) przez Formspree — jeśli skonfigurowane.
+     2) Płatność online przez Stripe Checkout — jeśli skonfigurowana na serwerze.
+     3) Fallback: jeśli brak płatności online, potwierdzamy zamówienie w trybie
+        ręcznym (przelew / BLIK). Nic się nie "wywala", gdy coś nie jest gotowe.
+  */
+  const PAYMENT_ENDPOINT = "/api/create-checkout-session";
   const statusEl = $("#formStatus");
+
+  function resetFormUI() {
+    form.reset();
+    if (uploadPreview) uploadPreview.hidden = true;
+    if (uploadBox) uploadBox.classList.remove("has-file");
+    if (uploadText)
+      uploadText.innerHTML =
+        "Kliknij, aby wybrać zdjęcie<br /><small>JPG lub PNG, max ~10 MB, jedno zdjęcie</small>";
+    recalc();
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     recalc();
-
-    // Jeśli formularz nie został jeszcze skonfigurowany (placeholder FORM_ID)
-    if (form.action.includes("FORM_ID")) {
-      setStatus(
-        "Formularz nie jest jeszcze podłączony. Skonfiguruj Formspree (patrz README) " +
-          "lub napisz na kontakt@pixelpedzel.pl.",
-        "err"
-      );
-      return;
-    }
 
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
-    setStatus("Wysyłanie…", "");
     const btn = $('button[type="submit"]', form);
-    if (btn) btn.disabled = true;
+    const order = {
+      style: selectedStyle(),
+      size: selectedSize().label,
+      name: (($("#name") || {}).value || "").trim(),
+      email: (($("#email") || {}).value || "").trim(),
+    };
 
-    try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      });
-      if (res.ok) {
-        form.reset();
-        if (uploadPreview) uploadPreview.hidden = true;
-        if (uploadBox) uploadBox.classList.remove("has-file");
-        if (uploadText)
-          uploadText.innerHTML =
-            "Kliknij, aby wybrać zdjęcie<br /><small>JPG lub PNG, max ~10 MB, jedno zdjęcie</small>";
-        recalc();
-        setStatus(
-          "Dziękujemy! Zamówienie przyjęte. Wkrótce wyślemy e-mail z potwierdzeniem i danymi do płatności.",
-          "ok"
-        );
-      } else {
-        const data = await res.json().catch(() => ({}));
-        const msg =
-          data.errors && data.errors.length
-            ? data.errors.map((x) => x.message).join(", ")
-            : "Coś poszło nie tak. Spróbuj ponownie lub napisz na kontakt@pixelpedzel.pl.";
-        setStatus(msg, "err");
+    if (btn) btn.disabled = true;
+    setStatus("Przetwarzanie zamówienia…", "");
+
+    // 1) Zapis zamówienia (+ zdjęcie) w Formspree
+    let orderRecorded = false;
+    const formspreeConfigured = !form.action.includes("FORM_ID");
+    if (formspreeConfigured) {
+      try {
+        const r = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        orderRecorded = r.ok;
+      } catch (_) {
+        orderRecorded = false;
       }
-    } catch (err) {
+    }
+
+    // 2) Płatność online (Stripe Checkout)
+    try {
+      const r = await fetch(PAYMENT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+      if (r.ok) {
+        const data = await r.json().catch(() => ({}));
+        if (data && data.url) {
+          window.location.href = data.url; // przekierowanie do bezpiecznej płatności
+          return;
+        }
+      } else if (r.status !== 501) {
+        // 501 = płatności nieskonfigurowane -> przechodzimy do fallbacku.
+        // Inny błąd i brak zapisu zamówienia -> pokaż komunikat.
+        const d = await r.json().catch(() => ({}));
+        if (!orderRecorded) {
+          setStatus(
+            d.error || "Nie udało się rozpocząć płatności. Spróbuj ponownie.",
+            "err"
+          );
+          if (btn) btn.disabled = false;
+          return;
+        }
+      }
+    } catch (_) {
+      /* brak funkcji płatności (np. hosting statyczny) -> fallback niżej */
+    }
+
+    // 3) Fallback — tryb ręczny / komunikaty
+    if (orderRecorded) {
+      resetFormUI();
       setStatus(
-        "Błąd połączenia. Sprawdź internet i spróbuj ponownie, lub napisz na kontakt@pixelpedzel.pl.",
+        "Dziękujemy! Zamówienie przyjęte. Wyślemy e-mail z potwierdzeniem i danymi do płatności (przelew / BLIK).",
+        "ok"
+      );
+    } else if (!formspreeConfigured) {
+      setStatus(
+        "Sklep nie jest jeszcze w pełni skonfigurowany (formularz/płatności). " +
+          "Patrz README lub napisz na kontakt@pixelpedzel.pl.",
         "err"
       );
-    } finally {
-      if (btn) btn.disabled = false;
+    } else {
+      setStatus(
+        "Nie udało się wysłać zamówienia. Spróbuj ponownie lub napisz na kontakt@pixelpedzel.pl.",
+        "err"
+      );
     }
+    if (btn) btn.disabled = false;
   });
 
   function setStatus(msg, kind) {

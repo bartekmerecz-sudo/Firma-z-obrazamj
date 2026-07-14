@@ -1,0 +1,12 @@
+{
+  "name": "pixelpedzel",
+  "version": "1.0.0",
+  "description": "Sklep PixelPędzel — personalizowane obrazy na płótnie. Frontend statyczny + funkcja płatności Stripe.",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 8000"
+  },
+  "dependencies": {
+    "stripe": "^17.7.0"
+  }
+}

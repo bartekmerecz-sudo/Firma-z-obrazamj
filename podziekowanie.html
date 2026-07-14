@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dziękujemy za zamówienie — PixelPędzel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .thanks { min-height: 70vh; display: grid; place-items: center; text-align: center; padding: 4rem 0; }
+    .thanks__icon { font-size: 3.4rem; margin-bottom: 1rem; }
+    .thanks h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+    .thanks p { max-width: 46ch; margin-inline: auto; color: var(--graphite-700); }
+    .thanks .steps-mini { list-style: none; padding: 0; margin: 2rem auto; max-width: 480px; text-align: left; }
+    .thanks .steps-mini li { padding: .7rem 0 .7rem 2rem; position: relative; border-bottom: 1px solid var(--beige-200); }
+    .thanks .steps-mini li::before { content: "✦"; position: absolute; left: 0; color: var(--gold-dark); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand"><span class="brand__mark">P</span><span class="brand__name">PixelPędzel</span></a>
+      <nav class="nav__links"><a href="index.html">← Strona główna</a></nav>
+    </div>
+  </header>
+
+  <main class="thanks container container--narrow">
+    <div>
+      <div class="thanks__icon">🎉</div>
+      <h1>Dziękujemy za zamówienie!</h1>
+      <p>Twoja płatność została przyjęta, a zamówienie trafiło do realizacji.
+         Na Twój e-mail wyślemy potwierdzenie oraz — po przygotowaniu projektu —
+         <strong>cyfrowy podgląd do akceptacji</strong>.</p>
+
+      <ol class="steps-mini">
+        <li>Przygotowujemy Twój obraz w wybranym stylu.</li>
+        <li>Wysyłamy podgląd — akceptujesz lub prosisz o poprawki.</li>
+        <li>Drukujemy na płótnie premium i wysyłamy kurierem.</li>
+      </ol>
+
+      <p id="reminderPhoto" hidden><strong>Pamiętaj:</strong> jeśli nie udało się
+        dołączyć zdjęcia przy zamówieniu, odpowiedz na nasz e-mail potwierdzający
+        i prześlij je nam — bez zdjęcia nie ruszymy z projektem 🙂</p>
+
+      <p style="margin-top:2rem">
+        <a href="index.html" class="btn btn--gold">Wróć do sklepu</a>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    // Drobne "święto" — nic krytycznego.
+    try {
+      var p = new URLSearchParams(location.search);
+      if (p.get("status") === "success") {
+        document.getElementById("reminderPhoto").hidden = false;
+      }
+    } catch (e) {}
+  </script>
+</body>
+</html>
