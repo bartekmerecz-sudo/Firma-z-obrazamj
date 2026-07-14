@@ -20,6 +20,8 @@ firmy.
 ├── css/style.css                 # Style (paleta beż / grafit / złoto)
 ├── js/main.js                    # Konfigurator, kalkulacja ceny, zamówienie + płatność
 ├── assets/gallery/               # Przykłady stylów (galeria, 13 stylów)
+├── assets/mockups/               # Gotowe wizualizacje „obraz na ścianie" (PNG do social)
+├── tools/mockup.html             # Generator mockupów (patrz sekcja niżej)
 ├── api/
 │   └── create-checkout-session.js       # Płatności Stripe (Vercel)
 ├── netlify/functions/
@@ -35,8 +37,23 @@ firmy.
     ├── 06-prawne-rodo.md         # Formalności, regulamin, RODO
     ├── 07-marketing.md           # Jak zdobyć pierwszych klientów
     ├── 08-opisy-produktow.md     # Gotowe opisy sprzedażowe wszystkich stylów
-    └── 09-platnosci.md           # Automatyczne płatności — jak działają
+    ├── 09-platnosci.md           # Automatyczne płatności — jak działają
+    └── 10-social-media.md        # Gotowe posty, hooki Reels/TikTok, hashtagi
 ```
+
+## 🖼️ Generator mockupów „obraz na ścianie"
+
+W `assets/mockups/` znajdziesz gotowe wizualizacje do postów. Aby wygenerować
+własne (np. dla nowego stylu), otwórz `tools/mockup.html` z parametrami w adresie:
+
+```
+tools/mockup.html?img=../assets/gallery/olej-klasyczny.jpg&style=Olejny%20Klasyk&scene=warm&caption=1
+```
+
+- `img` — ścieżka do obrazu · `style` — nazwa stylu · `scene` — `warm`/`cool`/`dark`
+- `caption=1` — wersja z logo i podpisem (na social); pomiń dla czystego mockupu
+
+Zrób zrzut ekranu kadru `#stage` (1080×1350) — to Twój gotowy post.
 
 ## 🚀 Jak zobaczyć stronę lokalnie
 

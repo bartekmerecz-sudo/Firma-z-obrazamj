@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Generator mockupów — PixelPędzel</title>
+<!--
+  Generator wizualizacji "obraz na ścianie".
+  Użycie (parametry w adresie):
+    tools/mockup.html?img=../assets/gallery/olej-klasyczny.jpg&style=Olejny%20Klasyk&caption=1
+  Parametry:
+    img      – ścieżka do obrazu (wymagany)
+    style    – nazwa stylu (opcjonalnie; pokazywana gdy caption=1)
+    caption  – 1 = wersja z brandingiem/podpisem (na social), brak = czysty mockup
+    scene    – warm | cool | dark (kolor ściany), domyślnie warm
+  Rozmiar kadru: 1080×1350 (format pod Instagram/Pinterest).
+-->
+<style>
+  :root {
+    --wall-top: #e9ddca;
+    --wall-bot: #d8c9b0;
+    --floor: #b89f7e;
+    --gold: #b8860b;
+    --graphite: #2b2b2b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #999; }
+  #stage {
+    position: relative;
+    width: 1080px; height: 1350px;
+    overflow: hidden;
+    font-family: "Jost", system-ui, sans-serif;
+  }
+  /* Ściana z delikatnym światłem */
+  .wall {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 80% at 50% 22%, rgba(255,252,244,.75), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, var(--wall-top) 0%, var(--wall-bot) 78%);
+  }
+  .scene-cool .wall { background:
+      radial-gradient(120% 80% at 50% 22%, rgba(245,248,255,.7), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, #e4e7ec 0%, #d2d7de 78%); }
+  .scene-dark .wall { background:
+      radial-gradient(120% 80% at 50% 20%, rgba(90,84,74,.5), rgba(0,0,0,0) 62%),
+      linear-gradient(180deg, #34302b 0%, #211e1a 82%); }
+  /* Podłoga */
+  .floor {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 20%;
+    background: linear-gradient(180deg, var(--floor), #a88f6d);
+    box-shadow: inset 0 8px 18px rgba(0,0,0,.12);
+  }
+  .scene-dark .floor { background: linear-gradient(180deg, #2a2724, #1c1a17); }
+  .baseboard {
+    position: absolute; left: 0; right: 0; bottom: 20%; height: 14px;
+    background: rgba(255,255,255,.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  }
+  .scene-dark .baseboard { background: rgba(255,255,255,.08); }
+
+  /* Obraz na płótnie (gallery wrap – bez ramy, z grubością boku) */
+  .art-wrap {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -54%);
+  }
+  .art {
+    position: relative;
+    width: 560px;
+    aspect-ratio: 3/4;
+    background: #fff center/cover no-repeat;
+    /* grubość płótna: prawa i dolna krawędź + cień na ścianie */
+    box-shadow:
+      14px 0 0 -1px rgba(0,0,0,.28),      /* prawy bok płótna */
+      0 16px 0 -1px rgba(0,0,0,.20),      /* dolny bok */
+      34px 40px 60px rgba(0,0,0,.30);     /* cień na ścianie */
+  }
+  .art::after { /* subtelny odblask światła na płótnie */
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(115deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 30%);
+    pointer-events: none;
+  }
+
+  /* Wersja z podpisem/brandingiem (na social) */
+  .brand {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    display: none;
+    padding: 40px 56px;
+    align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55));
+    color: #fff;
+  }
+  .with-caption .brand { display: flex; }
+  .brand__logo { display: flex; align-items: center; gap: 14px; }
+  .brand__mark {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: var(--graphite); color: var(--gold);
+    display: grid; place-items: center;
+    font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 32px;
+  }
+  .brand__name { font-family: "Cormorant Garamond", serif; font-size: 34px; font-weight: 600; }
+  .brand__style { text-align: right; }
+  .brand__style small { display: block; font-size: 15px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+  .brand__style strong { font-family: "Cormorant Garamond", serif; font-size: 30px; font-weight: 600; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="stage">
+    <div class="wall"></div>
+    <div class="baseboard"></div>
+    <div class="floor"></div>
+    <div class="art-wrap"><div class="art" id="art"></div></div>
+    <div class="brand">
+      <div class="brand__logo">
+        <div class="brand__mark">P</div>
+        <div class="brand__name">PixelPędzel</div>
+      </div>
+      <div class="brand__style">
+        <small>Styl</small>
+        <strong id="styleName">—</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const q = new URLSearchParams(location.search);
+    const img = q.get("img");
+    const style = q.get("style") || "";
+    const caption = q.get("caption") === "1";
+    const scene = q.get("scene") || "warm";
+    const stage = document.getElementById("stage");
+    stage.classList.add("scene-" + scene);
+    if (img) document.getElementById("art").style.backgroundImage = `url("${img}")`;
+    document.getElementById("styleName").textContent = style || "—";
+    if (caption) stage.classList.add("with-caption");
+  </script>
+</body>
+</html>

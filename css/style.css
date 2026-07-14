@@ -264,6 +264,34 @@ img { max-width: 100%; display: block; }
 .footer__bottom { border-top: 1px solid var(--graphite-700); padding: 1.4rem 0; }
 .footer__bottom p { margin: 0; font-size: .82rem; color: var(--graphite-500); }
 
+/* ---------- Porównanie „przed → po" (suwak) ---------- */
+.compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+.compare {
+  position: relative; aspect-ratio: 3/4; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-md); border: 6px solid #fff; user-select: none; touch-action: none; cursor: ew-resize;
+}
+.compare__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.compare__after { clip-path: inset(0 0 0 50%); } /* prawa część widoczna, sterowana JS */
+.compare__label {
+  position: absolute; top: 12px; padding: .3rem .8rem; border-radius: 100px;
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: #fff;
+  background: rgba(30,30,30,.6); backdrop-filter: blur(4px); pointer-events: none;
+}
+.compare__label--before { left: 12px; }
+.compare__label--after { right: 12px; }
+.compare__handle {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: #fff;
+  transform: translateX(-50%); box-shadow: 0 0 8px rgba(0,0,0,.35); pointer-events: none;
+}
+.compare__grip {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--graphite-900);
+  display: grid; place-items: center; box-shadow: var(--shadow-md); font-size: 1.1rem; font-weight: 600;
+}
+.compare__note { text-align: center; color: var(--graphite-500); font-size: .88rem; margin-top: 1.6rem; }
+
+@media (max-width: 620px) { .compare-grid { grid-template-columns: 1fr; } }
+
 /* ---------- Strony prawne ---------- */
 .legal { padding: clamp(2.5rem, 5vw, 4.5rem) 0; }
 .legal .back { display: inline-block; margin-bottom: 1.5rem; color: var(--gold-dark); font-size: .9rem; }

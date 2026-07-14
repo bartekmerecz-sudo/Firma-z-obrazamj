@@ -30,6 +30,40 @@
     );
   }
 
+  /* ---------- Suwak „przed → po" ---------- */
+  $$("[data-compare]").forEach((box) => {
+    const after = $(".compare__after", box);
+    const handle = $(".compare__handle", box);
+    if (!after || !handle) return;
+
+    const setPos = (clientX) => {
+      const rect = box.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      after.style.clipPath = "inset(0 0 0 " + pct + "%)";
+      handle.style.left = pct + "%";
+    };
+
+    let dragging = false;
+    const start = (e) => { dragging = true; move(e); };
+    const stop = () => { dragging = false; };
+    const move = (e) => {
+      if (!dragging) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      setPos(x);
+      if (e.cancelable) e.preventDefault();
+    };
+
+    box.addEventListener("mousedown", start);
+    box.addEventListener("touchstart", start, { passive: true });
+    window.addEventListener("mousemove", move);
+    window.addEventListener("touchmove", move, { passive: false });
+    window.addEventListener("mouseup", stop);
+    window.addEventListener("touchend", stop);
+    // klik = ustaw pozycję
+    box.addEventListener("click", (e) => setPos(e.clientX));
+  });
+
   /* ---------- Konfigurator ---------- */
   const form = $("#orderForm");
   if (!form) return;
