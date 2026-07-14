@@ -68,6 +68,17 @@ tools/mockup.html?img=../assets/gallery/olej-klasyczny.jpg&style=Olejny%20Klasyk
 
 Zrób zrzut ekranu kadru `#stage` (1080×1350) — to Twój gotowy post.
 
+## 🎁 Generator bonu podarunkowego
+
+Przykładowy bon jest w `assets/bon/` (PNG i PDF). Aby wygenerować własny, otwórz
+`tools/bon.html` z parametrami:
+
+```
+tools/bon.html?kwota=150&kod=PP-A1B2&waznosc=31.12.2026&dla=Ania&od=Marek
+```
+
+Wydrukuj stronę do PDF (Ctrl+P → „Zapisz jako PDF") lub zrób zrzut kadru `#card`.
+
 ## 🚀 Jak zobaczyć stronę lokalnie
 
 Nie wymaga instalacji. W katalogu projektu uruchom prosty serwer:

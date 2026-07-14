@@ -32,6 +32,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://[adres-strony]/poradnik-prezent-dla-niej-dla-niego.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://[adres-strony]/poradnik-obraz-ze-zdjecia-pupila.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://[adres-strony]/regulamin.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
