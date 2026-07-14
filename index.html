@@ -18,6 +18,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232b2b2b'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23c9a24b' font-family='serif'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- ===== Dane strukturalne (SEO) — po wdrożeniu podmień [adres-strony] na własną domenę ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "PixelPędzel",
+    "description": "Personalizowane obrazy na płótnie tworzone z jednego zdjęcia klienta, przerobionego w wybranym stylu artystycznym.",
+    "url": "https://[adres-strony]",
+    "image": "https://[adres-strony]/assets/gallery/van-gogh.jpg",
+    "email": "kontakt@pixelpedzel.pl",
+    "areaServed": "PL",
+    "priceRange": "129–299 zł"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Personalizowany obraz na płótnie ze zdjęcia",
+    "description": "Twoje zdjęcie zamienione w dzieło sztuki w wybranym stylu (olej, Van Gogh, akwarela, cyberpunk, szkic i więcej) i wydrukowane na płótnie premium.",
+    "image": "https://[adres-strony]/assets/gallery/olej-klasyczny.jpg",
+    "brand": { "@type": "Brand", "name": "PixelPędzel" },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "PLN",
+      "lowPrice": "129",
+      "highPrice": "299",
+      "offerCount": "4",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Ile zdjęć muszę przesłać?", "acceptedAnswer": { "@type": "Answer", "text": "Wystarczy jedno dobrej jakości zdjęcie. Na jego podstawie tworzymy obraz w wybranym stylu." } },
+      { "@type": "Question", "name": "Czy zobaczę projekt przed drukiem?", "acceptedAnswer": { "@type": "Answer", "text": "Tak. Przed drukiem wysyłamy cyfrowy podgląd do akceptacji. Możesz zgłosić poprawki." } },
+      { "@type": "Question", "name": "Jak wygląda płatność?", "acceptedAnswer": { "@type": "Answer", "text": "Płatność odbywa się online: kartą, BLIK-iem lub przez Przelewy24. Po opłaceniu przygotowujemy projekt i wysyłamy podgląd do akceptacji." } },
+      { "@type": "Question", "name": "Ile trwa realizacja i wysyłka?", "acceptedAnswer": { "@type": "Answer", "text": "Przygotowanie projektu i druk to zwykle 3–7 dni roboczych. Wysyłka kurierem na terenie całej Polski." } }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -35,6 +81,7 @@
         <a href="#konfigurator">Konfigurator</a>
         <a href="#cennik">Cennik</a>
         <a href="#faq">FAQ</a>
+        <a href="o-nas.html">O nas</a>
         <a href="#konfigurator" class="btn btn--gold btn--sm">Zamów obraz</a>
       </nav>
       <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
@@ -476,6 +523,7 @@
         <a href="#style">Style</a>
         <a href="#konfigurator">Konfigurator</a>
         <a href="#cennik">Cennik</a>
+        <a href="o-nas.html">O nas</a>
         <a href="#faq">FAQ</a>
       </div>
       <div class="footer__col">

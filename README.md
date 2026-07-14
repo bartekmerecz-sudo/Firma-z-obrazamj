@@ -134,6 +134,10 @@ działania: `docs/09-platnosci.md`.
 - **Style** — dodaj/edytuj karty w sekcji galerii i opcje w konfiguratorze.
 - **Pola `[...]`** w `regulamin.html` i `polityka-prywatnosci.html` — uzupełnij
   swoimi danymi (patrz `docs/06-prawne-rodo.md`).
+- **SEO** — po wdrożeniu podmień `[adres-strony]` na własną domenę w:
+  `index.html` (bloki JSON-LD), `sitemap.xml` i `robots.txt`. Następnie dodaj
+  stronę w [Google Search Console](https://search.google.com/search-console)
+  i prześlij `sitemap.xml`, by szybciej pojawić się w Google.
 - **Numer konta / BLIK** — w szablonach wiadomości w `docs/04-proces-realizacji.md`.
 
 ## 🧭 Od czego zacząć (skrót)

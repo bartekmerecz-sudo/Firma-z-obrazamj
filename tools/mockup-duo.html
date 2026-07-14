@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Generator mockupów — ściana galeryjna (duo)</title>
+<!--
+  Aranżacja "ściana galeryjna" — dwa obrazy obok siebie nad konsolą.
+  Użycie:
+    tools/mockup-duo.html?img1=../assets/gallery/van-gogh.jpg&img2=../assets/gallery/akwarela.jpg&scene=warm
+  Kadr 1080×1350.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #999; font-family: "Jost", system-ui, sans-serif; }
+  #stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+  .wall { position: absolute; inset: 0;
+    background: radial-gradient(120% 80% at 50% 24%, rgba(255,252,244,.75), rgba(255,255,255,0) 60%),
+                linear-gradient(180deg, #e9ddca, #d8c9b0 80%); }
+  .scene-cool .wall { background: radial-gradient(120% 80% at 50% 24%, rgba(245,248,255,.7), rgba(255,255,255,0) 60%),
+                linear-gradient(180deg, #e4e7ec, #d2d7de 80%); }
+  .scene-dark .wall { background: radial-gradient(120% 80% at 50% 22%, rgba(90,84,74,.5), rgba(0,0,0,0) 62%),
+                linear-gradient(180deg, #34302b, #211e1a 82%); }
+  .floor { position: absolute; left:0; right:0; bottom:0; height:24%;
+    background: linear-gradient(180deg, #b89f7e, #a88f6d); box-shadow: inset 0 8px 18px rgba(0,0,0,.12); }
+  .scene-dark .floor { background: linear-gradient(180deg, #2a2724, #1c1a17); }
+  /* konsola/półka */
+  .console { position: absolute; left: 50%; bottom: 20%; transform: translateX(-50%);
+    width: 620px; height: 14px; background: #6f5a41; border-radius: 3px; box-shadow: 0 12px 24px rgba(0,0,0,.28); }
+  .console::before { content:""; position:absolute; left:60px; top:14px; width:12px; height:120px; background:#5c4a35; }
+  .console::after  { content:""; position:absolute; right:60px; top:14px; width:12px; height:120px; background:#5c4a35; }
+  .arts { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); display: flex; gap: 46px; }
+  .art { width: 300px; aspect-ratio: 3/4; background:#fff center/cover no-repeat;
+    border: 6px solid #fff;
+    box-shadow: 10px 0 0 -1px rgba(0,0,0,.22), 0 12px 0 -1px rgba(0,0,0,.16), 26px 34px 48px rgba(0,0,0,.28); }
+  .brand { position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center; gap:14px;
+    padding: 34px 50px; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.5)); color:#fff; }
+  .brand__mark { width:48px; height:48px; border-radius:11px; background:#2b2b2b; color:#b8860b;
+    display:grid; place-items:center; font-family:"Cormorant Garamond",serif; font-weight:700; font-size:28px; }
+  .brand__name { font-family:"Cormorant Garamond",serif; font-size:30px; font-weight:600; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="stage">
+    <div class="wall"></div>
+    <div class="floor"></div>
+    <div class="console"></div>
+    <div class="arts">
+      <div class="art" id="a1"></div>
+      <div class="art" id="a2"></div>
+    </div>
+    <div class="brand">
+      <div class="brand__mark">P</div>
+      <div class="brand__name">PixelPędzel</div>
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    document.getElementById("stage").classList.add("scene-" + (q.get("scene")||"warm"));
+    const s = (id,p)=>{ if(p) document.getElementById(id).style.backgroundImage=`url("${p}")`; };
+    s("a1", q.get("img1")); s("a2", q.get("img2"));
+  </script>
+</body>
+</html>
