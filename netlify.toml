@@ -1,0 +1,11 @@
+# Konfiguracja Netlify — pozwala wołać funkcję pod adresem /api/*
+# (taki sam jak na Vercel), więc frontend nie wymaga zmian między platformami.
+
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

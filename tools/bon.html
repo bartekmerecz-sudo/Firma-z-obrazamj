@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bon podarunkowy — generator | PixelPędzel</title>
+<!--
+  Generator bonu podarunkowego.
+  Parametry w adresie:
+    tools/bon.html?kwota=150&kod=PP-A1B2&waznosc=31.12.2026&dla=Ania&od=Marek
+  Kadr 1400×990 (proporcja ~A5 poziomo). Do PDF: wydrukuj stronę (Ctrl+P → zapisz jako PDF).
+-->
+<style>
+  :root{ --beige:#faf6ef; --beige2:#f0e6d5; --graph:#242424; --gold:#b8860b; --gold2:#c9a24b; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:#8a8a8a; font-family:"Jost",system-ui,sans-serif; }
+  #card{
+    position:relative; width:1400px; height:990px; overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 85% 10%, rgba(201,162,75,.14), rgba(255,255,255,0) 55%),
+      linear-gradient(135deg, var(--beige) 0%, var(--beige2) 100%);
+    color:var(--graph);
+  }
+  /* ramka */
+  #card::before{ content:""; position:absolute; inset:34px; border:2px solid var(--gold2); border-radius:18px; opacity:.7; }
+  .inner{ position:absolute; inset:34px; padding:56px 64px; display:flex; flex-direction:column; }
+  /* nagłówek */
+  .top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .brand{ display:flex; align-items:center; gap:16px; }
+  .brand img{ width:64px; height:64px; }
+  .brand b{ font-family:"Cormorant Garamond",Georgia,serif; font-size:36px; font-weight:700; }
+  .brand b span{ color:var(--gold); }
+  .kicker{ text-transform:uppercase; letter-spacing:.35em; font-size:14px; color:var(--gold); font-weight:500; text-align:right; }
+  /* środek */
+  .mid{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .title{ font-family:"Cormorant Garamond",Georgia,serif; font-size:88px; font-weight:700; line-height:1.02; }
+  .title span{ color:var(--gold); }
+  .sub{ font-size:21px; color:#6b6b6b; margin-top:10px; max-width:640px; }
+  .amount{ margin:26px 0 6px; display:flex; align-items:baseline; gap:14px; }
+  .amount .val{ font-family:"Cormorant Garamond",serif; font-size:120px; font-weight:700; color:var(--graph); line-height:1; }
+  .amount .cur{ font-family:"Cormorant Garamond",serif; font-size:44px; color:var(--gold); }
+  .amount .label{ font-size:16px; color:#6b6b6b; letter-spacing:.15em; text-transform:uppercase; }
+  /* pociągnięcie pędzla ozdobne */
+  .brush{ position:absolute; right:-40px; bottom:150px; width:520px; height:520px; opacity:.06; transform:rotate(-8deg); }
+  /* dół */
+  .bottom{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; }
+  .fields{ display:flex; gap:48px; }
+  .field .k{ font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:#9a9a9a; }
+  .field .v{ font-family:"Cormorant Garamond",serif; font-size:30px; font-weight:600; border-bottom:1.5px solid var(--gold2); min-width:170px; padding-bottom:4px; }
+  .redeem{ text-align:right; max-width:420px; }
+  .redeem .code{ font-family:"Cormorant Garamond",serif; font-size:34px; font-weight:700; color:var(--gold); letter-spacing:.06em; }
+  .redeem .how{ font-size:14px; color:#6b6b6b; margin-top:8px; line-height:1.5; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="card">
+    <img class="brush" src="../assets/logo/logo-icon.svg" alt="" />
+    <div class="inner">
+      <div class="top">
+        <div class="brand"><img src="../assets/logo/logo-icon.svg" alt="PixelPędzel" /><b>Pixel<span>Pędzel</span></b></div>
+        <div class="kicker">Bon podarunkowy</div>
+      </div>
+
+      <div class="mid">
+        <div class="title">Podaruj <span>dzieło sztuki</span></div>
+        <div class="sub">Bon do wykorzystania na dowolny personalizowany obraz na płótnie — obdarowany sam wybiera zdjęcie i styl.</div>
+        <div class="amount">
+          <span class="val" id="val">150</span><span class="cur">zł</span>
+          <span class="label">wartość bonu</span>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="fields">
+          <div class="field"><div class="k">Dla</div><div class="v" id="dla">&nbsp;</div></div>
+          <div class="field"><div class="k">Od</div><div class="v" id="od">&nbsp;</div></div>
+          <div class="field"><div class="k">Ważny do</div><div class="v" id="waznosc">&nbsp;</div></div>
+        </div>
+        <div class="redeem">
+          <div class="code" id="kod">PP-XXXX</div>
+          <div class="how">Zrealizuj na <b>pixelpedzel.pl</b> — wpisz kod w uwagach do zamówienia w konfiguratorze.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const q=new URLSearchParams(location.search);
+    const set=(id,v)=>{ if(v!=null&&v!=="") document.getElementById(id).textContent=v; };
+    set("val", q.get("kwota"));
+    set("kod", q.get("kod"));
+    set("waznosc", q.get("waznosc"));
+    set("dla", q.get("dla") || " ");
+    set("od", q.get("od") || " ");
+  </script>
+</body>
+</html>

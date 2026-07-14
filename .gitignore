@@ -1,0 +1,17 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Edytory
+.vscode/
+.idea/
+*.swp
+
+# Zależności / build (gdyby doszły w przyszłości)
+node_modules/
+dist/
+
+# Lokalne / tymczasowe
+*.log
+.env
+.netlify/

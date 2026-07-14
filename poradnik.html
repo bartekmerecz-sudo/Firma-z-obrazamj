@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poradnik — PixelPędzel</title>
+  <meta name="description" content="Poradnik PixelPędzel: pomysły na personalizowane prezenty, jak wybrać zdjęcie do obrazu i jaki styl artystyczny pasuje do Twojego wnętrza." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo/logo-icon.svg" />
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand"><span class="brand__mark">P</span><span class="brand__name">PixelPędzel</span></a>
+      <nav class="nav__links">
+        <a href="index.html#style">Style</a>
+        <a href="index.html#cennik">Cennik</a>
+        <a href="poradnik.html">Poradnik</a>
+        <a href="o-nas.html">O nas</a>
+        <a href="index.html#konfigurator" class="btn btn--gold btn--sm">Zamów obraz</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container container--narrow" style="text-align:center">
+      <p class="eyebrow">Wiedza i inspiracje</p>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.4rem)">Poradnik PixelPędzel</h1>
+      <p class="section__sub">Pomysły na prezenty, wskazówki jak wybrać zdjęcie i który styl będzie pasował do Ciebie.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt" style="padding-top:0">
+    <div class="container">
+      <div class="gallery" style="grid-template-columns:repeat(3,1fr)">
+        <a class="card" href="poradnik-prezent-na-rocznice.html">
+          <div class="card__img"><img src="assets/gallery/olej-klasyczny.jpg" alt="Prezent na rocznicę — obraz olejny pary" loading="lazy" /></div>
+          <div class="card__body">
+            <p class="card__tag">Prezenty</p>
+            <h3>Pomysł na prezent na rocznicę</h3>
+            <p>Dlaczego personalizowany obraz bije na głowę kwiaty i perfumy — i jak wybrać idealny.</p>
+          </div>
+        </a>
+        <a class="card" href="poradnik-jak-wybrac-zdjecie.html">
+          <div class="card__img"><img src="assets/gallery/pastel.jpg" alt="Jak wybrać zdjęcie do obrazu" loading="lazy" /></div>
+          <div class="card__body">
+            <p class="card__tag">Poradnik</p>
+            <h3>Jak wybrać zdjęcie do obrazu</h3>
+            <p>Proste zasady, dzięki którym efekt końcowy zachwyci — na co zwrócić uwagę.</p>
+          </div>
+        </a>
+        <a class="card" href="poradnik-jaki-styl-wybrac.html">
+          <div class="card__img"><img src="assets/gallery/van-gogh.jpg" alt="Jaki styl obrazu wybrać" loading="lazy" /></div>
+          <div class="card__body">
+            <p class="card__tag">Inspiracje</p>
+            <h3>Jaki styl wybrać do wnętrza</h3>
+            <p>Olej, cyberpunk, akwarela? Podpowiadamy, który styl pasuje do jakiego wnętrza i okazji.</p>
+          </div>
+        </a>
+        <a class="card" href="poradnik-prezent-dla-niej-dla-niego.html">
+          <div class="card__img"><img src="assets/gallery/akwarela.jpg" alt="Prezent dla niej i dla niego" loading="lazy" /></div>
+          <div class="card__body">
+            <p class="card__tag">Prezenty</p>
+            <h3>Prezent dla niej i dla niego</h3>
+            <p>Jak dobrać styl obrazu pod charakter osoby — trafiony prezent gwarantowany.</p>
+          </div>
+        </a>
+        <a class="card" href="poradnik-obraz-ze-zdjecia-pupila.html">
+          <div class="card__img"><img src="assets/gallery/komiks.jpg" alt="Obraz ze zdjęcia pupila" loading="lazy" /></div>
+          <div class="card__body">
+            <p class="card__tag">Inspiracje</p>
+            <h3>Obraz ze zdjęcia pupila</h3>
+            <p>Pies lub kot jako dzieło sztuki — style i wskazówki, jak zrobić dobre zdjęcie zwierzaka.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="brand brand--light"><span class="brand__mark">P</span><span class="brand__name">PixelPędzel</span></a>
+        <p>Personalizowane obrazy na płótnie. Twoje zdjęcie, Twój styl.</p>
+      </div>
+      <div class="footer__col"><h4>Sklep</h4><a href="index.html#style">Style</a><a href="index.html#konfigurator">Konfigurator</a><a href="index.html#cennik">Cennik</a></div>
+      <div class="footer__col"><h4>Firma</h4><a href="o-nas.html">O nas</a><a href="poradnik.html">Poradnik</a><a href="index.html#faq">FAQ</a></div>
+      <div class="footer__col"><h4>Informacje</h4><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></div>
+    </div>
+    <div class="footer__bottom"><div class="container"><p>© <span id="year">2026</span> PixelPędzel. Wszelkie prawa zastrzeżone.</p></div></div>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
