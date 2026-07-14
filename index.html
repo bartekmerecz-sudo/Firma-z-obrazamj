@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232b2b2b'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23c9a24b' font-family='serif'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="assets/logo/logo-icon.svg" />
   <link rel="manifest" href="site.webmanifest" />
 
   <!-- ===== Dane strukturalne (SEO) — po wdrożeniu podmień [adres-strony] na własną domenę ===== -->
@@ -81,6 +81,7 @@
         <a href="#konfigurator">Konfigurator</a>
         <a href="#cennik">Cennik</a>
         <a href="#faq">FAQ</a>
+        <a href="poradnik.html">Poradnik</a>
         <a href="o-nas.html">O nas</a>
         <a href="#konfigurator" class="btn btn--gold btn--sm">Zamów obraz</a>
       </nav>
@@ -279,6 +280,8 @@
           </div>
         </article>
       </div>
+
+      <p class="gallery__more">Nie widzisz swojego stylu? Tworzymy też m.in. <strong>Anime / Manga</strong>, <strong>Pixel Art</strong>, <strong>Sepia Vintage</strong> i <strong>Line Art</strong> — a jeśli masz własny pomysł, po prostu <a href="#konfigurator">napisz w uwagach do zamówienia</a>.</p>
     </div>
   </section>
 
@@ -344,7 +347,12 @@
                 <label class="chip"><input type="radio" name="style_radio" value="Bajkowy 3D" /><span>Bajkowy 3D</span></label>
                 <label class="chip"><input type="radio" name="style_radio" value="Kubizm Geometryczny" /><span>Kubizm</span></label>
                 <label class="chip"><input type="radio" name="style_radio" value="Superbohater" /><span>Superbohater</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Anime / Manga" /><span>Anime / Manga</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Pixel Art" /><span>Pixel Art</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Sepia Vintage" /><span>Sepia Vintage</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Line Art" /><span>Line Art</span></label>
               </div>
+              <p class="hint">Masz inny pomysł na styl? Opisz go w uwagach — spróbujemy go zrealizować.</p>
             </fieldset>
 
             <fieldset class="field">
@@ -358,7 +366,46 @@
             </fieldset>
 
             <fieldset class="field">
-              <legend>3. Prześlij swoje zdjęcie</legend>
+              <legend>3. Orientacja</legend>
+              <div class="chips" id="orientChips">
+                <label class="chip"><input type="radio" name="orient_radio" value="Pionowa" checked /><span>Pionowa</span></label>
+                <label class="chip"><input type="radio" name="orient_radio" value="Pozioma" /><span>Pozioma</span></label>
+                <label class="chip"><input type="radio" name="orient_radio" value="Kwadrat" /><span>Kwadrat</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>4. Opcje dodatkowe <span class="legend-opt">(opcjonalnie)</span></legend>
+              <div class="addons" id="addonOptions">
+                <label class="addon">
+                  <input type="checkbox" name="addon" value="ekspres" data-price="49" data-label="Ekspres 48h" />
+                  <span class="addon__box">
+                    <span class="addon__title">⚡ Ekspres 48h</span>
+                    <span class="addon__desc">Priorytetowa realizacja projektu i druku.</span>
+                  </span>
+                  <span class="addon__price">+49 zł</span>
+                </label>
+                <label class="addon">
+                  <input type="checkbox" name="addon" value="cyfrowa" data-price="29" data-label="Wersja cyfrowa" />
+                  <span class="addon__box">
+                    <span class="addon__title">💾 Wersja cyfrowa</span>
+                    <span class="addon__desc">Plik w wysokiej jakości do social media i wydruków.</span>
+                  </span>
+                  <span class="addon__price">+29 zł</span>
+                </label>
+                <label class="addon">
+                  <input type="checkbox" name="addon" value="rama" data-price="79" data-label="Rama drewniana" />
+                  <span class="addon__box">
+                    <span class="addon__title">🖼️ Rama drewniana</span>
+                    <span class="addon__desc">Elegancka listwa ozdobna wokół płótna.</span>
+                  </span>
+                  <span class="addon__price">+79 zł</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>5. Prześlij swoje zdjęcie</legend>
               <label class="upload" id="uploadBox">
                 <input type="file" name="zdjecie" id="photoInput" accept="image/*" />
                 <div class="upload__inner">
@@ -378,6 +425,8 @@
               <dl class="summary__list">
                 <div><dt>Styl</dt><dd id="sumStyle">Olejny Klasyk</dd></div>
                 <div><dt>Rozmiar</dt><dd id="sumSize">30×40 cm</dd></div>
+                <div><dt>Orientacja</dt><dd id="sumOrient">Pionowa</dd></div>
+                <div id="sumAddonsRow" hidden><dt>Dodatki</dt><dd id="sumAddons">—</dd></div>
                 <div><dt>Dostawa</dt><dd id="sumShip">15 zł</dd></div>
               </dl>
               <div class="summary__total">
@@ -408,6 +457,8 @@
               <!-- pola ukryte wypełniane automatycznie -->
               <input type="hidden" name="wybrany_styl" id="fStyle" />
               <input type="hidden" name="wybrany_rozmiar" id="fSize" />
+              <input type="hidden" name="orientacja" id="fOrient" />
+              <input type="hidden" name="dodatki" id="fAddons" />
               <input type="hidden" name="cena_lacznie" id="fTotal" />
               <input type="hidden" name="_subject" value="Nowe zamówienie PixelPędzel" />
 
@@ -461,6 +512,44 @@
         </div>
       </div>
       <p class="pricing__foot">Dostawa 15 zł (kurier). <strong>Darmowa dostawa od 250 zł.</strong> Realizacja zwykle 3–7 dni roboczych.</p>
+    </div>
+  </section>
+
+  <!-- ================= BON + POLECENIA ================= -->
+  <section id="bon" class="section">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Coś ekstra</p>
+        <h2>Bon podarunkowy i program poleceń</h2>
+        <p class="section__sub">Nie wiesz, jakie zdjęcie wybrać? Podaruj bon. A za polecenie — nagradzamy.</p>
+      </header>
+
+      <div class="feature-2">
+        <div class="feature">
+          <div class="feature__icon">🎁</div>
+          <h3>Bon podarunkowy</h3>
+          <p>Idealny prezent, gdy chcesz dać komuś wolną rękę w wyborze zdjęcia i stylu. Obdarowany sam tworzy swój obraz w konfiguratorze.</p>
+          <div class="denoms"><span>100 zł</span><span>150 zł</span><span>200 zł</span><span>dowolna kwota</span></div>
+          <ul>
+            <li>Wysyłamy elegancki bon w PDF (do wydruku lub na e-mail).</li>
+            <li>Ważny 6 miesięcy, do wykorzystania na dowolny obraz.</li>
+          </ul>
+          <a href="#konfigurator" class="btn btn--gold btn--sm">Zamów bon</a>
+          <p class="hint">Zaznacz w uwagach „Bon podarunkowy" i podaj kwotę — resztą się zajmiemy.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature__icon">💛</div>
+          <h3>Program poleceń</h3>
+          <p>Podziel się PixelPędzel ze znajomymi — zyskujecie oboje.</p>
+          <ul>
+            <li><strong>Twój znajomy</strong> dostaje <strong>−15%</strong> na pierwsze zamówienie.</li>
+            <li><strong>Ty</strong> otrzymujesz <strong>25 zł</strong> rabatu na kolejny obraz za każde skuteczne polecenie.</li>
+          </ul>
+          <p>Jak to działa? Niech znajomy wpisze w uwagach Twoje imię i nazwisko (lub Twój kod). Po realizacji jego zamówienia wysyłamy Ci kod rabatowy.</p>
+          <a href="#konfigurator" class="btn btn--ghost btn--sm">Polecam znajomym</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -529,6 +618,7 @@
       <div class="footer__col">
         <h4>Kontakt</h4>
         <a href="mailto:kontakt@pixelpedzel.pl">kontakt@pixelpedzel.pl</a>
+        <a href="poradnik.html">Poradnik</a>
         <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
         <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
       </div>

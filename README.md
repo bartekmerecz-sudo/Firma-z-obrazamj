@@ -38,8 +38,21 @@ firmy.
     ├── 07-marketing.md           # Jak zdobyć pierwszych klientów
     ├── 08-opisy-produktow.md     # Gotowe opisy sprzedażowe wszystkich stylów
     ├── 09-platnosci.md           # Automatyczne płatności — jak działają
-    └── 10-social-media.md        # Gotowe posty, hooki Reels/TikTok, hashtagi
+    ├── 10-social-media.md        # Gotowe posty, hooki Reels/TikTok, hashtagi
+    ├── 11-plan-wdrozenia.md      # Uruchomienie sklepu krok po kroku
+    ├── 12-plan-marketingowy.md   # Rozbudowany plan marketingowy
+    ├── 13-pozyskiwanie-klientow.md # Playbook zdobywania klientów
+    ├── 14-platnosci-nierejestrowana.md # Płatności przy działalności nierejestrowanej
+    └── 15-plan-dzialania-firmy.md # Zbiorczy plan działania firmy
 ```
+
+> 👉 **Nowy tutaj? Zacznij od pliku [`START-TUTAJ.md`](START-TUTAJ.md)** —
+> przeprowadzi Cię przez uruchomienie sklepu krok po kroku.
+
+### Strony sklepu
+`index.html` (sklep), `o-nas.html`, `poradnik.html` + 3 artykuły,
+`regulamin.html`, `polityka-prywatnosci.html`, `podziekowanie.html`.
+Logo i identyfikacja: `assets/logo/` (znak, wersja pozioma, wersje mono).
 
 ## 🖼️ Generator mockupów „obraz na ścianie"
 

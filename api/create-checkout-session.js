@@ -18,6 +18,12 @@ const PRICES = {
   "50×70 cm": 22900,
   "60×90 cm": 29900,
 };
+// Opcje dodatkowe (grosze) — muszą odpowiadać wartościom na stronie.
+const ADDONS = {
+  ekspres: { label: "Ekspres 48h", price: 4900 },
+  cyfrowa: { label: "Wersja cyfrowa", price: 2900 },
+  rama: { label: "Rama drewniana", price: 7900 },
+};
 const SHIPPING = 1500;        // 15 zł
 const FREE_SHIPPING_FROM = 25000; // darmowa dostawa od 250 zł
 
@@ -50,12 +56,18 @@ module.exports = async (req, res) => {
   try {
     const body =
       typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-    const { style, size, name, email } = body;
+    const { style, size, orient, addons, name, email } = body;
 
     const unit = PRICES[size];
     if (!unit) return res.status(400).json({ error: "Nieprawidłowy rozmiar." });
 
-    const shipping = unit >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
+    // wybrane dodatki (tylko znane kody)
+    const chosen = (Array.isArray(addons) ? addons : [])
+      .map((c) => ADDONS[c])
+      .filter(Boolean);
+    const addonsTotal = chosen.reduce((s, a) => s + a.price, 0);
+    const subtotal = unit + addonsTotal;
+    const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
     const origin =
       req.headers.origin ||
       (req.headers.host ? "https://" + req.headers.host : "");
@@ -67,12 +79,22 @@ module.exports = async (req, res) => {
           unit_amount: unit,
           product_data: {
             name: "Obraz na płótnie — " + (style || "wybrany styl"),
-            description: "Rozmiar: " + size,
+            description: "Rozmiar: " + size + (orient ? " · " + orient : ""),
           },
         },
         quantity: 1,
       },
     ];
+    chosen.forEach((a) => {
+      line_items.push({
+        price_data: {
+          currency: "pln",
+          unit_amount: a.price,
+          product_data: { name: "Dodatek: " + a.label },
+        },
+        quantity: 1,
+      });
+    });
     if (shipping > 0) {
       line_items.push({
         price_data: {
@@ -92,6 +114,8 @@ module.exports = async (req, res) => {
       metadata: {
         styl: style || "",
         rozmiar: size || "",
+        orientacja: orient || "",
+        dodatki: chosen.map((a) => a.label).join(", ") || "brak",
         klient: name || "",
       },
       success_url: origin + "/podziekowanie.html?status=success",

@@ -14,6 +14,11 @@ const PRICES = {
   "50×70 cm": 22900,
   "60×90 cm": 29900,
 };
+const ADDONS = {
+  ekspres: { label: "Ekspres 48h", price: 4900 },
+  cyfrowa: { label: "Wersja cyfrowa", price: 2900 },
+  rama: { label: "Rama drewniana", price: 7900 },
+};
 const SHIPPING = 1500;
 const FREE_SHIPPING_FROM = 25000;
 
@@ -46,12 +51,17 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || "{}");
-    const { style, size, name, email } = body;
+    const { style, size, orient, addons, name, email } = body;
 
     const unit = PRICES[size];
     if (!unit) return json(400, { error: "Nieprawidłowy rozmiar." });
 
-    const shipping = unit >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
+    const chosen = (Array.isArray(addons) ? addons : [])
+      .map((c) => ADDONS[c])
+      .filter(Boolean);
+    const addonsTotal = chosen.reduce((s, a) => s + a.price, 0);
+    const subtotal = unit + addonsTotal;
+    const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
     const proto = event.headers["x-forwarded-proto"] || "https";
     const host = event.headers.host || "";
     const origin = event.headers.origin || (host ? proto + "://" + host : "");
@@ -63,12 +73,22 @@ exports.handler = async (event) => {
           unit_amount: unit,
           product_data: {
             name: "Obraz na płótnie — " + (style || "wybrany styl"),
-            description: "Rozmiar: " + size,
+            description: "Rozmiar: " + size + (orient ? " · " + orient : ""),
           },
         },
         quantity: 1,
       },
     ];
+    chosen.forEach((a) => {
+      line_items.push({
+        price_data: {
+          currency: "pln",
+          unit_amount: a.price,
+          product_data: { name: "Dodatek: " + a.label },
+        },
+        quantity: 1,
+      });
+    });
     if (shipping > 0) {
       line_items.push({
         price_data: {
@@ -85,7 +105,13 @@ exports.handler = async (event) => {
       payment_method_types: ["card", "blik", "p24"],
       line_items,
       customer_email: email || undefined,
-      metadata: { styl: style || "", rozmiar: size || "", klient: name || "" },
+      metadata: {
+        styl: style || "",
+        rozmiar: size || "",
+        orientacja: orient || "",
+        dodatki: chosen.map((a) => a.label).join(", ") || "brak",
+        klient: name || "",
+      },
       success_url: origin + "/podziekowanie.html?status=success",
       cancel_url: origin + "/index.html#konfigurator",
     });

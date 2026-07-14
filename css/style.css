@@ -98,12 +98,13 @@ img { max-width: 100%; display: block; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--graphite-900); }
 .brand__mark {
-  display: grid; place-items: center;
-  width: 38px; height: 38px;
-  background: var(--graphite-900); color: var(--gold);
-  border-radius: 10px; font-size: 1.3rem;
+  width: 40px; height: 40px;
+  background: url("../assets/logo/logo-icon.svg") center/contain no-repeat;
+  font-size: 0; color: transparent; /* ukrywa zapasową literę „P" */
+  flex: 0 0 auto;
 }
 .brand--light, .brand--light .brand__name { color: #fff; }
+.brand--light .brand__mark { background-image: url("../assets/logo/logo-icon-white.svg"); }
 .nav__links { display: flex; align-items: center; gap: 1.8rem; }
 .nav__links a { font-size: .95rem; font-weight: 400; }
 .nav__links a:not(.btn):hover { color: var(--gold-dark); }
@@ -189,6 +190,34 @@ img { max-width: 100%; display: block; }
 .size input:checked ~ .size__dim,
 .size:has(input:checked) { border-color: var(--gold-dark); }
 .size:has(input:checked) { background: var(--beige-100); box-shadow: 0 0 0 2px var(--gold-soft) inset; }
+
+/* Opcje dodatkowe */
+.legend-opt { font-family: var(--font-sans); font-size: .8rem; font-weight: 400; color: var(--graphite-500); letter-spacing: normal; }
+.addons { display: flex; flex-direction: column; gap: .7rem; }
+.addon { display: flex; align-items: center; gap: 1rem; border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: .9rem 1.1rem; cursor: pointer; background: #fff; transition: .2s; }
+.addon:hover { border-color: var(--gold); }
+.addon input { width: 20px; height: 20px; accent-color: var(--gold-dark); flex: 0 0 auto; }
+.addon__box { flex: 1; display: flex; flex-direction: column; }
+.addon__title { font-weight: 500; color: var(--graphite-900); }
+.addon__desc { font-size: .82rem; color: var(--graphite-500); }
+.addon__price { font-family: var(--font-serif); font-weight: 600; color: var(--gold-dark); white-space: nowrap; }
+.addon:has(input:checked) { border-color: var(--gold-dark); background: var(--beige-100); box-shadow: 0 0 0 2px var(--gold-soft) inset; }
+
+/* Notka pod galerią */
+.gallery__more { text-align: center; margin: 2.2rem auto 0; max-width: 640px; color: var(--graphite-700); font-size: .95rem; }
+.gallery__more a { color: var(--gold-dark); text-decoration: underline; }
+
+/* Bon podarunkowy + Program poleceń (kafle) */
+.feature-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+.feature { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); padding: 2.2rem; box-shadow: var(--shadow-sm); }
+.feature__icon { font-size: 2rem; margin-bottom: .6rem; }
+.feature h3 { font-size: 1.5rem; }
+.feature p { color: var(--graphite-700); }
+.feature ul { padding-left: 1.1rem; color: var(--graphite-700); margin: .6rem 0 1.2rem; }
+.feature li { margin-bottom: .35rem; }
+.feature .denoms { display: flex; gap: .5rem; flex-wrap: wrap; margin: .4rem 0 1.2rem; }
+.feature .denoms span { border: 1.5px solid var(--beige-300); border-radius: 100px; padding: .35rem .9rem; font-weight: 500; font-family: var(--font-serif); }
+@media (max-width: 720px) { .feature-2 { grid-template-columns: 1fr; } }
 
 /* Upload */
 .upload { display: block; border: 2px dashed var(--beige-300); border-radius: var(--radius); background: #fff; padding: 2rem; text-align: center; cursor: pointer; transition: .2s; }

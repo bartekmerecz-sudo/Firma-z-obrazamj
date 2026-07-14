@@ -12,6 +12,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://[adres-strony]/poradnik.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://[adres-strony]/poradnik-prezent-na-rocznice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://[adres-strony]/poradnik-jak-wybrac-zdjecie.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://[adres-strony]/poradnik-jaki-styl-wybrac.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://[adres-strony]/regulamin.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

@@ -70,10 +70,15 @@
 
   const sumStyle = $("#sumStyle");
   const sumSize = $("#sumSize");
+  const sumOrient = $("#sumOrient");
+  const sumAddons = $("#sumAddons");
+  const sumAddonsRow = $("#sumAddonsRow");
   const sumShip = $("#sumShip");
   const sumTotal = $("#sumTotal");
   const fStyle = $("#fStyle");
   const fSize = $("#fSize");
+  const fOrient = $("#fOrient");
+  const fAddons = $("#fAddons");
   const fTotal = $("#fTotal");
 
   function selectedStyle() {
@@ -86,26 +91,51 @@
       ? { label: el.value, price: parseInt(el.dataset.price, 10) || 0 }
       : { label: "", price: 0 };
   }
+  function selectedOrient() {
+    const el = $('input[name="orient_radio"]:checked');
+    return el ? el.value : "Pionowa";
+  }
+  function selectedAddons() {
+    return $$('input[name="addon"]:checked').map((el) => ({
+      code: el.value,
+      label: el.dataset.label || el.value,
+      price: parseInt(el.dataset.price, 10) || 0,
+    }));
+  }
 
   function recalc() {
     const style = selectedStyle();
     const size = selectedSize();
-    const shipping = size.price >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
-    const total = size.price + shipping;
+    const orient = selectedOrient();
+    const addons = selectedAddons();
+    const addonsTotal = addons.reduce((s, a) => s + a.price, 0);
+    const subtotal = size.price + addonsTotal;
+    const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
+    const total = subtotal + shipping;
 
     if (sumStyle) sumStyle.textContent = style || "—";
     if (sumSize) sumSize.textContent = size.label || "—";
+    if (sumOrient) sumOrient.textContent = orient;
+    if (sumAddonsRow) sumAddonsRow.hidden = addons.length === 0;
+    if (sumAddons)
+      sumAddons.textContent = addons.length
+        ? addons.map((a) => a.label + " (+" + a.price + " zł)").join(", ")
+        : "—";
     if (sumShip) sumShip.textContent = shipping === 0 ? "Gratis" : shipping + " zł";
     if (sumTotal) sumTotal.textContent = total + " zł";
 
     if (fStyle) fStyle.value = style;
     if (fSize) fSize.value = size.label;
-    if (fTotal) fTotal.value = total + " zł (w tym dostawa: " + (shipping === 0 ? "gratis" : shipping + " zł") + ")";
+    if (fOrient) fOrient.value = orient;
+    if (fAddons) fAddons.value = addons.length ? addons.map((a) => a.label).join(", ") : "brak";
+    if (fTotal)
+      fTotal.value =
+        total + " zł (w tym dostawa: " + (shipping === 0 ? "gratis" : shipping + " zł") + ")";
   }
 
-  $$('input[name="style_radio"], input[name="size_radio"]').forEach((el) =>
-    el.addEventListener("change", recalc)
-  );
+  $$(
+    'input[name="style_radio"], input[name="size_radio"], input[name="orient_radio"], input[name="addon"]'
+  ).forEach((el) => el.addEventListener("change", recalc));
   recalc();
 
   /* ---------- Klik w kartę galerii → wybierz styl + przewiń ---------- */
@@ -182,6 +212,8 @@
     const order = {
       style: selectedStyle(),
       size: selectedSize().label,
+      orient: selectedOrient(),
+      addons: selectedAddons().map((a) => a.code),
       name: (($("#name") || {}).value || "").trim(),
       email: (($("#email") || {}).value || "").trim(),
     };
