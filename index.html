@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelPędzel — Twoje zdjęcie jako dzieło sztuki na płótnie</title>
+  <meta name="description" content="Prześlij jedno zdjęcie, a my zamienimy je w spersonalizowane dzieło sztuki w wybranym stylu i wydrukujemy na wysokiej jakości płótnie. Olej, Van Gogh, Cyberpunk, szkic i więcej." />
+  <meta name="theme-color" content="#2b2b2b" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="PixelPędzel — Twoje zdjęcie jako dzieło sztuki na płótnie" />
+  <meta property="og:description" content="Jedno zdjęcie. Twój styl. Ręcznie dopracowany obraz na płótnie premium." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/gallery/van-gogh.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232b2b2b'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23c9a24b' font-family='serif'%3EP%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#top" class="brand" aria-label="PixelPędzel — strona główna">
+        <span class="brand__mark">P</span>
+        <span class="brand__name">PixelPędzel</span>
+      </a>
+      <nav class="nav__links" aria-label="Nawigacja główna">
+        <a href="#jak-to-dziala">Jak to działa</a>
+        <a href="#style">Style</a>
+        <a href="#konfigurator">Konfigurator</a>
+        <a href="#cennik">Cennik</a>
+        <a href="#faq">FAQ</a>
+        <a href="#konfigurator" class="btn btn--gold btn--sm">Zamów obraz</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">Personalizowane obrazy na płótnie</p>
+        <h1>Twoje zdjęcie.<br />Twój styl.<br /><span class="gold">Twoje dzieło sztuki.</span></h1>
+        <p class="lead">
+          Prześlij nam <strong>jedno zdjęcie</strong>, a my zamienimy je w wyjątkową,
+          artystyczną wizualizację w wybranym stylu i wydrukujemy na wysokiej jakości
+          płótnie. Idealny prezent i ozdoba wnętrza, której nikt inny nie ma.
+        </p>
+        <div class="hero__cta">
+          <a href="#konfigurator" class="btn btn--gold">Stwórz swój obraz</a>
+          <a href="#style" class="btn btn--ghost">Zobacz style</a>
+        </div>
+        <ul class="hero__badges">
+          <li>✦ Ręczne dopracowanie</li>
+          <li>✦ Płótno premium</li>
+          <li>✦ Wysyłka w całej Polsce</li>
+        </ul>
+      </div>
+      <div class="hero__art">
+        <figure class="hero__frame hero__frame--1"><img src="assets/gallery/van-gogh.jpg" alt="Para na tle gór w stylu malarstwa Van Gogha" loading="eager" /></figure>
+        <figure class="hero__frame hero__frame--2"><img src="assets/gallery/cyberpunk.jpg" alt="Para w scenerii cyberpunk z neonami" loading="lazy" /></figure>
+        <figure class="hero__frame hero__frame--3"><img src="assets/gallery/szkic-olowek.jpg" alt="Zaręczyny nad morzem w stylu szkicu ołówkiem" loading="lazy" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= JAK TO DZIAŁA ================= -->
+  <section id="jak-to-dziala" class="section">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Prosto i wygodnie</p>
+        <h2>Jak to działa</h2>
+        <p class="section__sub">Od zdjęcia do gotowego obrazu na ścianie — w czterech krokach.</p>
+      </header>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__num">1</span>
+          <h3>Wybierz styl</h3>
+          <p>Przejrzyj naszą galerię i wybierz styl, który najbardziej Cię urzeka — od klasycznego oleju po neonowy cyberpunk.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">2</span>
+          <h3>Prześlij zdjęcie</h3>
+          <p>Wgraj <strong>jedno</strong> ulubione zdjęcie w konfiguratorze. Im lepsza jakość i światło, tym piękniejszy efekt.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">3</span>
+          <h3>My tworzymy dzieło</h3>
+          <p>Przerabiamy Twoje zdjęcie w wybranym stylu i ręcznie dopracowujemy detale. Podgląd wysyłamy do akceptacji.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">4</span>
+          <h3>Druk i wysyłka</h3>
+          <p>Po akceptacji drukujemy obraz na płótnie premium i wysyłamy go prosto pod Twoje drzwi.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= GALERIA STYLÓW ================= -->
+  <section id="style" class="section section--alt">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Nasza kolekcja</p>
+        <h2>Style, które pokochasz</h2>
+        <p class="section__sub">Każdy styl to inny charakter. Wybierz swój — a resztą zajmiemy się my.</p>
+      </header>
+
+      <div class="gallery">
+        <article class="card" data-style="Olejny Klasyk">
+          <div class="card__img"><img src="assets/gallery/olej-klasyczny.jpg" alt="Para na tle gór w stylu klasycznego malarstwa olejnego" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Olejny Klasyk</h3>
+            <p class="card__tag">Malarstwo olejne</p>
+            <p>Ponadczasowa elegancja. Twoje zdjęcie jak ręcznie malowane przez mistrza pędzla — głęboka tekstura i klasyczny charakter.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Gwiaździsty Van Gogh">
+          <div class="card__img"><img src="assets/gallery/van-gogh.jpg" alt="Para w stylu obrazów Vincenta van Gogha" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Gwiaździsty Van Gogh</h3>
+            <p class="card__tag">Impresjonizm</p>
+            <p>Wirujące pociągnięcia pędzla i emocja rodem z „Gwiaździstej nocy". Obraz, który żyje kolorem i ruchem.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Neon Cyberpunk">
+          <div class="card__img"><img src="assets/gallery/cyberpunk.jpg" alt="Para w futurystycznej scenerii cyberpunk" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Neon Cyberpunk</h3>
+            <p class="card__tag">Sci-Fi / Neon</p>
+            <p>Klimat metropolii przyszłości — mrok, neony i barwy fioletu, różu i cyjanu. Dla fanów nowoczesnych, loftowych wnętrz.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Szkic Ołówkiem">
+          <div class="card__img"><img src="assets/gallery/szkic-olowek.jpg" alt="Zaręczyny nad morzem w stylu szkicu ołówkiem" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Szkic Ołówkiem</h3>
+            <p class="card__tag">Rysunek / Grafika</p>
+            <p>Subtelny, nastrojowy szkic w odcieniach grafitu. Elegancki minimalizm, który pasuje do każdego wnętrza.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Pastelowe Marzenie">
+          <div class="card__img"><img src="assets/gallery/pastel.jpg" alt="Para o zachodzie słońca w stylu pastelowej ilustracji" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Pastelowe Marzenie</h3>
+            <p class="card__tag">Ilustracja</p>
+            <p>Miękkie, baśniowe barwy i ciepły klimat. Romantyczna ilustracja jak z okładki wymarzonej książki.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Nowoczesny Wektor">
+          <div class="card__img"><img src="assets/gallery/wektor.jpg" alt="Para w górach w nowoczesnym stylu wektorowym" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Nowoczesny Wektor</h3>
+            <p class="card__tag">Flat / Wektor</p>
+            <p>Czyste kształty i nowoczesna, graficzna forma. Stylowy, designerski akcent na ścianę.</p>
+          </div>
+        </article>
+
+        <article class="card" data-style="Mozaika Witrażowa">
+          <div class="card__img"><img src="assets/gallery/mozaika.jpg" alt="Para w stylu mozaiki witrażowej" loading="lazy" /></div>
+          <div class="card__body">
+            <h3>Mozaika Witrażowa</h3>
+            <p class="card__tag">Witraż / Mozaika</p>
+            <p>Tysiące barwnych fragmentów układających się w Waszą historię. Efekt szlachetnego witrażu.</p>
+          </div>
+        </article>
+
+        <article class="card card--soon" data-style="Klockowy Świat">
+          <div class="card__img card__img--placeholder">
+            <span>LEGO</span>
+          </div>
+          <div class="card__body">
+            <h3>Klockowy Świat</h3>
+            <p class="card__tag">Klocki / Pop-art</p>
+            <p>Trójwymiarowa konstrukcja z kultowych klocków. Nasycone kolory i zabawa formą — dostępny na zamówienie.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KONFIGURATOR + ZAMÓWIENIE ================= -->
+  <section id="konfigurator" class="section">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Stwórz swój obraz</p>
+        <h2>Konfigurator zamówienia</h2>
+        <p class="section__sub">Wybierz styl i rozmiar, prześlij zdjęcie — cenę policzymy na bieżąco.</p>
+      </header>
+
+      <!-- WAŻNE: podmień FORM_ID na własny identyfikator z Formspree (patrz README) -->
+      <form class="config" id="orderForm" action="https://formspree.io/f/FORM_ID" method="POST" enctype="multipart/form-data" novalidate>
+
+        <div class="config__grid">
+          <!-- LEWA: wybory -->
+          <div class="config__choices">
+            <fieldset class="field">
+              <legend>1. Wybierz styl</legend>
+              <div class="chips" id="styleChips">
+                <label class="chip"><input type="radio" name="style_radio" value="Olejny Klasyk" checked /><span>Olejny Klasyk</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Gwiaździsty Van Gogh" /><span>Van Gogh</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Neon Cyberpunk" /><span>Neon Cyberpunk</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Szkic Ołówkiem" /><span>Szkic Ołówkiem</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Pastelowe Marzenie" /><span>Pastelowe Marzenie</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Nowoczesny Wektor" /><span>Nowoczesny Wektor</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Mozaika Witrażowa" /><span>Mozaika</span></label>
+                <label class="chip"><input type="radio" name="style_radio" value="Klockowy Świat" /><span>Klockowy Świat</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>2. Wybierz rozmiar płótna</legend>
+              <div class="sizes" id="sizeOptions">
+                <label class="size"><input type="radio" name="size_radio" value="30×40 cm" data-price="129" checked /><span class="size__dim">30×40 cm</span><span class="size__price">129 zł</span></label>
+                <label class="size"><input type="radio" name="size_radio" value="40×50 cm" data-price="169" /><span class="size__dim">40×50 cm</span><span class="size__price">169 zł</span></label>
+                <label class="size"><input type="radio" name="size_radio" value="50×70 cm" data-price="229" /><span class="size__dim">50×70 cm</span><span class="size__price">229 zł</span></label>
+                <label class="size"><input type="radio" name="size_radio" value="60×90 cm" data-price="299" /><span class="size__dim">60×90 cm</span><span class="size__price">299 zł</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>3. Prześlij swoje zdjęcie</legend>
+              <label class="upload" id="uploadBox">
+                <input type="file" name="zdjecie" id="photoInput" accept="image/*" />
+                <div class="upload__inner">
+                  <span class="upload__icon">📷</span>
+                  <span class="upload__text" id="uploadText">Kliknij, aby wybrać zdjęcie<br /><small>JPG lub PNG, max ~10 MB, jedno zdjęcie</small></span>
+                  <img class="upload__preview" id="uploadPreview" alt="Podgląd przesłanego zdjęcia" hidden />
+                </div>
+              </label>
+              <p class="hint">Nie masz zdjęcia pod ręką? Zaznacz styl i rozmiar, wyślij zamówienie, a zdjęcie prześlesz nam później w odpowiedzi na e-mail potwierdzający.</p>
+            </fieldset>
+          </div>
+
+          <!-- PRAWA: podsumowanie + dane -->
+          <aside class="config__summary">
+            <div class="summary card-elevated">
+              <h3>Twoje zamówienie</h3>
+              <dl class="summary__list">
+                <div><dt>Styl</dt><dd id="sumStyle">Olejny Klasyk</dd></div>
+                <div><dt>Rozmiar</dt><dd id="sumSize">30×40 cm</dd></div>
+                <div><dt>Dostawa</dt><dd id="sumShip">15 zł</dd></div>
+              </dl>
+              <div class="summary__total">
+                <span>Razem</span>
+                <strong id="sumTotal">144 zł</strong>
+              </div>
+              <p class="summary__note">Darmowa dostawa od 250 zł. Płatność przelewem / BLIK po potwierdzeniu zamówienia.</p>
+            </div>
+
+            <div class="fields-contact">
+              <div class="field-row">
+                <label for="name">Imię i nazwisko</label>
+                <input type="text" id="name" name="imie_nazwisko" required />
+              </div>
+              <div class="field-row">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="field-row">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="telefon" />
+              </div>
+              <div class="field-row">
+                <label for="notes">Uwagi (opcjonalnie)</label>
+                <textarea id="notes" name="uwagi" rows="3" placeholder="Np. napis na obrazie, ważne detale, sugestie kolorów..."></textarea>
+              </div>
+
+              <!-- pola ukryte wypełniane automatycznie -->
+              <input type="hidden" name="wybrany_styl" id="fStyle" />
+              <input type="hidden" name="wybrany_rozmiar" id="fSize" />
+              <input type="hidden" name="cena_lacznie" id="fTotal" />
+              <input type="hidden" name="_subject" value="Nowe zamówienie PixelPędzel" />
+
+              <label class="consent">
+                <input type="checkbox" required />
+                <span>Akceptuję <a href="regulamin.html" target="_blank">regulamin</a> i wyrażam zgodę na przetwarzanie danych w celu realizacji zamówienia (<a href="polityka-prywatnosci.html" target="_blank">polityka prywatności</a>).</span>
+              </label>
+
+              <button type="submit" class="btn btn--gold btn--block">Wyślij zamówienie</button>
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+            </div>
+          </aside>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= CENNIK ================= -->
+  <section id="cennik" class="section section--alt">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Przejrzyste ceny</p>
+        <h2>Cennik</h2>
+        <p class="section__sub">Cena obejmuje przeróbkę zdjęcia w wybranym stylu i druk na płótnie premium.</p>
+      </header>
+      <div class="pricing">
+        <div class="price-card">
+          <h3>30×40 cm</h3>
+          <p class="price-card__price">129 <span>zł</span></p>
+          <p class="price-card__desc">Idealny na biurko lub półkę.</p>
+          <a href="#konfigurator" class="btn btn--ghost btn--sm">Wybieram</a>
+        </div>
+        <div class="price-card price-card--featured">
+          <span class="price-card__badge">Najczęściej wybierany</span>
+          <h3>40×50 cm</h3>
+          <p class="price-card__price">169 <span>zł</span></p>
+          <p class="price-card__desc">Uniwersalny rozmiar na ścianę.</p>
+          <a href="#konfigurator" class="btn btn--gold btn--sm">Wybieram</a>
+        </div>
+        <div class="price-card">
+          <h3>50×70 cm</h3>
+          <p class="price-card__price">229 <span>zł</span></p>
+          <p class="price-card__desc">Wyrazisty punkt centralny.</p>
+          <a href="#konfigurator" class="btn btn--ghost btn--sm">Wybieram</a>
+        </div>
+        <div class="price-card">
+          <h3>60×90 cm</h3>
+          <p class="price-card__price">299 <span>zł</span></p>
+          <p class="price-card__desc">Efektowna dominanta salonu.</p>
+          <a href="#konfigurator" class="btn btn--ghost btn--sm">Wybieram</a>
+        </div>
+      </div>
+      <p class="pricing__foot">Dostawa 15 zł (kurier). <strong>Darmowa dostawa od 250 zł.</strong> Realizacja zwykle 3–7 dni roboczych.</p>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="section">
+    <div class="container container--narrow">
+      <header class="section__head">
+        <p class="eyebrow">Masz pytania?</p>
+        <h2>Najczęściej zadawane pytania</h2>
+      </header>
+      <div class="faq">
+        <details class="faq__item">
+          <summary>Ile zdjęć muszę przesłać?</summary>
+          <p>Wystarczy <strong>jedno</strong> dobrej jakości zdjęcie. Na jego podstawie tworzymy obraz w wybranym stylu.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Jakie zdjęcie sprawdzi się najlepiej?</summary>
+          <p>Ostre, dobrze oświetlone, z wyraźnie widocznymi twarzami/sylwetkami. Unikaj mocno rozmytych i bardzo ciemnych kadrów — im lepszy materiał, tym piękniejszy efekt.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Czy zobaczę projekt przed drukiem?</summary>
+          <p>Tak. Przed drukiem wysyłamy Ci cyfrowy podgląd do akceptacji. Możesz zgłosić poprawki.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Jak wygląda płatność?</summary>
+          <p>Po złożeniu zamówienia otrzymasz e-mail z potwierdzeniem i danymi do płatności (przelew lub BLIK). Do realizacji przystępujemy po zaksięgowaniu wpłaty.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Ile trwa realizacja i wysyłka?</summary>
+          <p>Przygotowanie projektu i druk to zwykle 3–7 dni roboczych. Wysyłkę realizujemy kurierem na terenie całej Polski.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Co z prawami do mojego zdjęcia?</summary>
+          <p>Wykorzystujemy Twoje zdjęcie wyłącznie do realizacji zamówienia. Za publikację gotowej pracy w naszym portfolio pytamy o zgodę. Szczegóły w <a href="polityka-prywatnosci.html">polityce prywatności</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA STOPKA ================= -->
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <h2>Gotowy, by zamienić wspomnienie w dzieło sztuki?</h2>
+      <a href="#konfigurator" class="btn btn--gold">Stwórz swój obraz</a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#top" class="brand brand--light">
+          <span class="brand__mark">P</span>
+          <span class="brand__name">PixelPędzel</span>
+        </a>
+        <p>Personalizowane obrazy na płótnie. Twoje zdjęcie, Twój styl.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Sklep</h4>
+        <a href="#style">Style</a>
+        <a href="#konfigurator">Konfigurator</a>
+        <a href="#cennik">Cennik</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer__col">
+        <h4>Kontakt</h4>
+        <a href="mailto:kontakt@pixelpedzel.pl">kontakt@pixelpedzel.pl</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <div class="footer__col">
+        <h4>Informacje</h4>
+        <a href="regulamin.html">Regulamin</a>
+        <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© <span id="year">2026</span> PixelPędzel. Wszelkie prawa zastrzeżone.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
