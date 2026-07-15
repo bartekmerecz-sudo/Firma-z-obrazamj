@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Jost",sans-serif}
+  body{background:#777}
+  /* PROFILOWE 1080x1080 */
+  #profile{width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:radial-gradient(120% 100% at 50% 30%, #343434 0%, #1c1c1c 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+  #profile .mark{width:360px;height:360px}
+  #profile .name{font-family:"Cormorant Garamond",serif;font-size:104px;font-weight:700;color:#fff}
+  #profile .name span{color:#d9a94a}
+  #profile .tag{color:#c9bfa8;letter-spacing:.34em;text-transform:uppercase;font-size:24px}
+  /* OKLADKA 1640x664 */
+  #cover{width:1640px;height:664px;position:relative;overflow:hidden;
+    background:radial-gradient(130% 120% at 82% 10%, rgba(201,162,75,.16), rgba(255,255,255,0) 55%),
+      linear-gradient(120deg,#faf6ef 0%,#efe5d3 100%);display:flex;align-items:center;padding:0 90px;gap:60px}
+  #cover .left{flex:1}
+  #cover .brand{display:flex;align-items:center;gap:22px;margin-bottom:30px}
+  #cover .brand img{width:82px;height:82px}
+  #cover .brand b{font-family:"Cormorant Garamond",serif;font-size:52px;font-weight:700;color:#242424}
+  #cover .brand b span{color:#b8860b}
+  #cover h1{font-family:"Cormorant Garamond",serif;font-size:70px;font-weight:700;color:#242424;line-height:1.05;max-width:15ch}
+  #cover h1 em{color:#b8860b;font-style:normal}
+  #cover p{margin-top:22px;font-size:27px;color:#5f5f5f;max-width:26ch}
+  #cover .arts{display:flex;gap:26px}
+  #cover .arts img{width:230px;height:307px;object-fit:cover;border:7px solid #fff;border-radius:8px;
+    box-shadow:12px 16px 34px rgba(0,0,0,.22)}
+  #cover .arts img:nth-child(1){transform:rotate(-4deg)}
+  #cover .arts img:nth-child(2){transform:rotate(3deg);margin-top:24px}
+</style></head><body>
+<div id="profile">
+  <img class="mark" src="../assets/logo/logo-icon.svg">
+  <div class="name">Pixel<span>Pędzel</span></div>
+  <div class="tag">Obrazy na płótnie</div>
+</div>
+<div id="cover">
+  <div class="left">
+    <div class="brand"><img src="../assets/logo/logo-icon.svg"><b>Pixel<span>Pędzel</span></b></div>
+    <h1>Twoje zdjęcie jako <em>dzieło sztuki</em></h1>
+    <p>Personalizowane obrazy na płótnie. Jedno zdjęcie, Twój styl.</p>
+  </div>
+  <div class="arts">
+    <img src="../assets/gallery/van-gogh.jpg">
+    <img src="../assets/gallery/akwarela.jpg">
+  </div>
+</div>
+</body></html>
