@@ -233,7 +233,7 @@ img { max-width: 100%; display: block; }
 
 /* Summary */
 .card-elevated { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
-.summary { padding: 1.8rem; margin-bottom: 1.5rem; position: sticky; top: 90px; }
+.summary { padding: 1.8rem; margin-bottom: 1.5rem; }
 .summary h3 { font-size: 1.4rem; margin-bottom: 1.2rem; }
 .summary__list { margin: 0 0 1.2rem; }
 .summary__list > div { display: flex; justify-content: space-between; padding: .6rem 0; border-bottom: 1px solid var(--beige-200); }
