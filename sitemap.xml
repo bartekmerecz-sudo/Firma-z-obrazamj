@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Po wdrożeniu podmień [adres-strony] na własną domenę (np. pixelpedzel.pl) -->
+<!-- Mapa strony dla wyszukiwarek -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://[adres-strony]/</loc>
+    <loc>https://pixelpedzel.pl/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/o-nas.html</loc>
+    <loc>https://pixelpedzel.pl/o-nas.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik-prezent-na-rocznice.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik-prezent-na-rocznice.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik-jak-wybrac-zdjecie.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik-jak-wybrac-zdjecie.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik-jaki-styl-wybrac.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik-jaki-styl-wybrac.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik-prezent-dla-niej-dla-niego.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik-prezent-dla-niej-dla-niego.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/poradnik-obraz-ze-zdjecia-pupila.html</loc>
+    <loc>https://pixelpedzel.pl/poradnik-obraz-ze-zdjecia-pupila.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/regulamin.html</loc>
+    <loc>https://pixelpedzel.pl/regulamin.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://[adres-strony]/polityka-prywatnosci.html</loc>
+    <loc>https://pixelpedzel.pl/polityka-prywatnosci.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

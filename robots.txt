@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Po wdrożeniu podmień adres poniżej na własną domenę:
-Sitemap: https://[adres-strony]/sitemap.xml
+Sitemap: https://pixelpedzel.pl/sitemap.xml
