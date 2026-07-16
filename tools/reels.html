@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Jost",sans-serif}
+.f{width:1080px;height:1920px;position:relative;overflow:hidden}
+.logo{position:absolute;top:60px;left:60px;display:flex;align-items:center;gap:16px;z-index:5}
+.logo img{width:70px;height:70px}.logo b{font-family:"Cormorant Garamond",serif;font-size:44px}
+.url{position:absolute;bottom:70px;left:0;right:0;text-align:center;font-size:38px;font-weight:700;letter-spacing:.02em}
+/* F1 hook */
+#f1{background:radial-gradient(120% 90% at 50% 25%,#343434,#181818)}
+#f1 .logo b{color:#fff}#f1 .logo b span{color:#d9a94a}
+#f1 img.art{position:absolute;top:640px;left:50%;transform:translateX(-50%) rotate(-3deg);width:620px;height:820px;object-fit:cover;border:12px solid #fff;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+#f1 h1{position:absolute;top:200px;left:70px;right:70px;color:#fff;font-family:"Cormorant Garamond",serif;font-size:96px;font-weight:700;line-height:1.05;text-align:center}
+#f1 h1 span{color:#d9a94a}
+#f1 .url{color:#e8d6a8}
+/* F2 style grid */
+#f2{background:linear-gradient(135deg,#faf6ef,#efe5d3)}
+#f2 .logo b{color:#242424}#f2 .logo b span{color:#b8860b}
+#f2 h1{position:absolute;top:200px;left:70px;right:70px;text-align:center;font-family:"Cormorant Garamond",serif;font-size:82px;color:#242424;font-weight:700}
+#f2 h1 span{color:#b8860b}
+#f2 .row{position:absolute;top:440px;left:60px;right:60px;display:flex;flex-direction:column;gap:26px}
+#f2 .row .it{display:flex;align-items:center;gap:30px}
+#f2 .row img{width:300px;height:230px;object-fit:cover;border:8px solid #fff;border-radius:10px;box-shadow:0 14px 34px rgba(0,0,0,.2)}
+#f2 .row .lab{font-family:"Cormorant Garamond",serif;font-size:60px;color:#242424}
+#f2 .url{color:#8a6a12}
+/* F3 gift */
+#f3{background:linear-gradient(135deg,#2b2b2b,#1c1c1c)}
+#f3 .logo b{color:#fff}#f3 .logo b span{color:#d9a94a}
+#f3 img.art{position:absolute;top:560px;left:50%;transform:translateX(-50%);width:760px;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+#f3 h1{position:absolute;top:210px;left:70px;right:70px;text-align:center;color:#fff;font-family:"Cormorant Garamond",serif;font-size:88px;font-weight:700}
+#f3 h1 span{color:#d9a94a}
+#f3 .url{color:#e8d6a8}
+/* F4 CTA */
+#f4{background:radial-gradient(120% 90% at 50% 30%,#343434,#181818);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+#f4 img.mk{width:340px;height:340px}
+#f4 h1{color:#fff;font-family:"Cormorant Garamond",serif;font-size:100px;font-weight:700;text-align:center;line-height:1.05}
+#f4 h1 span{color:#d9a94a}
+#f4 p{color:#c9bfa8;font-size:40px;text-align:center;max-width:20ch}
+#f4 .btn{margin-top:20px;background:linear-gradient(135deg,#c9a24b,#b8860b);color:#fff;font-size:44px;font-weight:700;padding:34px 70px;border-radius:100px}
+</style></head><body>
+<div class="f" id="f1">
+  <div class="logo"><img src="../assets/logo/logo-icon.svg"><b>Pixel<span>Pędzel</span></b></div>
+  <h1>Zamieniam Wasze zdjęcia w <span>obrazy na płótnie</span> 🎨</h1>
+  <img class="art" src="../assets/gallery/van-gogh.jpg">
+  <div class="url">pixelpedzel.pl</div>
+</div>
+<div class="f" id="f2">
+  <div class="logo"><img src="../assets/logo/logo-icon.svg"><b>Pixel<span>Pędzel</span></b></div>
+  <h1>1 zdjęcie = <span>wiele stylów</span></h1>
+  <div class="row">
+    <div class="it"><img src="../assets/gallery/olej-klasyczny.jpg"><span class="lab">Olej</span></div>
+    <div class="it"><img src="../assets/gallery/van-gogh.jpg"><span class="lab">Van Gogh</span></div>
+    <div class="it"><img src="../assets/gallery/akwarela.jpg"><span class="lab">Akwarela</span></div>
+    <div class="it"><img src="../assets/gallery/cyberpunk.jpg"><span class="lab">Cyberpunk</span></div>
+  </div>
+  <div class="url">pixelpedzel.pl</div>
+</div>
+<div class="f" id="f3">
+  <div class="logo"><img src="../assets/logo/logo-icon.svg"><b>Pixel<span>Pędzel</span></b></div>
+  <h1>Szukasz <span>prezentu</span>? 🎁</h1>
+  <img class="art" src="../assets/mockups/social-akwarela.png">
+  <div class="url">pixelpedzel.pl</div>
+</div>
+<div class="f" id="f4">
+  <img class="mk" src="../assets/logo/logo-icon.svg">
+  <h1>Twoje zdjęcie<br><span>= dzieło sztuki</span></h1>
+  <p>Personalizowane obrazy na płótnie</p>
+  <div class="btn">Zamów: pixelpedzel.pl</div>
+</div>
+</body></html>
