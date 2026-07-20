@@ -28,3 +28,18 @@ pierwsze zamówienie. pixelpedzel.pl" (grafika: reel-f4.png).
 ## Hashtagi (dorzuć 8–12 do dowolnego posta)
 #obraznaplotnie #personalizowanyprezent #prezentdlapary #prezent #dekoracjawnetrz
 #handmadepl #polskiemarki #obrazzezdjecia #prezentnaslub #pomyslnaprezent
+
+## CZĘŚĆ 2 — kolejne posty (15–24)
+
+| # | Grafika/wideo | Treść |
+|---|---|---|
+| 15 | tt-metamorfoza-para.mp4 | To samo zdjęcie, 5 stylów 😱 Który Twój? pixelpedzel.pl |
+| 16 | tt-prezent.mp4 | Prezent, który zaskakuje 🎁 Obraz ze zdjęcia lub bon. pixelpedzel.pl |
+| 17 | tt-na-scianie.mp4 | Tak to wygląda na ścianie 😍 pixelpedzel.pl |
+| 18 | reel-f2.png | ANKIETA: który styl najlepszy? 1️⃣ Olej 2️⃣ Van Gogh 3️⃣ Akwarela 4️⃣ Cyberpunk — pisz w komentarzu! |
+| 19 | mockups/szkic-olowek.png | Minimalizm w odcieniach grafitu ✏️ Szkic ze zdjęcia. pixelpedzel.pl |
+| 20 | mockups/mozaika.png | Efekt witrażu 🪟 Tysiące barwnych fragmentów. pixelpedzel.pl |
+| 21 | tt-metamorfoza-zareczyny.mp4 | Od szkicu po cyberpunk ✨ Jedno zdjęcie, nieskończone możliwości. pixelpedzel.pl |
+| 22 | reel-f3.png | Ceny od 129 zł 💛 Przeróbka + druk + podgląd przed drukiem w cenie. pixelpedzel.pl |
+| 23 | mockups/social-van-gogh.png | Pytanie: jakie zdjęcie byś przerobił/a? Napisz w komentarzu 👇 |
+| 24 | reel-f4.png | START20 = −20% na pierwsze zamówienie 🎉 pixelpedzel.pl |
