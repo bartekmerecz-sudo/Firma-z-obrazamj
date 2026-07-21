@@ -20,7 +20,7 @@ API = "https://graph.facebook.com/v21.0"
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 DRY = os.environ.get("DRY_RUN", "0") == "1"
-BASE = os.environ.get("SITE_BASE_URL", "https://pixelpedzel.pl").rstrip("/")
+BASE = (os.environ.get("SITE_BASE_URL") or "https://pixelpedzel.pl").rstrip("/")
 PAGE_ID = os.environ.get("FB_PAGE_ID", "")
 PAGE_TOKEN = os.environ.get("FB_PAGE_TOKEN", "")
 IG_ID = os.environ.get("IG_USER_ID", "")
