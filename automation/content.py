@@ -24,6 +24,16 @@ POSTS = [
      "Zbudowani z miłości 🧱 Wasze zdjęcie w klockowym świecie.\n"
      "👉 pixelpedzel.pl\n\n#klocki #obraznaplotnie #prezent #pomysłnaprezent"),
 
+    # === FILMY METAMORFOZY (reveal zdjecie -> dzielo) ===
+    ("video", "assets/video/tt-metamorfoza-wektor3d.mp4",
+     "Zwykłe zdjęcie? A może dzieło sztuki 🎨 Zobacz metamorfozę: jedno zdjęcie, "
+     "różne style. Podgląd przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#metamorfoza #obraznaplotnie #personalizowanyprezent #prezentdlapary"),
+    ("video", "assets/video/tt-metamorfoza-komikslego.mp4",
+     "Wasza miłość w kilku odsłonach 💥🧱 Z jednego zdjęcia — pop-art i klocki. "
+     "Który styl Wasz? 👉 pixelpedzel.pl\n\n"
+     "#metamorfoza #popart #obraznaplotnie #prezentdlapary #pomysłnaprezent"),
+
     # 1. Pamiatka (emocja) — grafika
     ("image", "assets/social/post-pamiatka.png",
      "Za rok, za dziesięć lat — to zdjęcie wciąż będzie wisiało na ścianie. 🤍\n"
