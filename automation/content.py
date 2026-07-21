@@ -9,6 +9,21 @@ Zasada: sprzedajemy EMOCJE i MOMENT, nie produkt. Rotacja: grafika emocjonalna -
 """
 
 POSTS = [
+    # === METAMORFOZY PRZED -> PO (najlepiej klikajacy sie typ) ===
+    ("image", "assets/social/post-po-wektor.png",
+     "Jedno zdjęcie — tyle możliwości ✨ Oto ta sama para w stylu wektorowym.\n"
+     "Podgląd przed drukiem, płacisz gdy Ci się spodoba 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #personalizowanyprezent #prezentdlapary #wektor"),
+    ("image", "assets/social/post-po-komiks.png",
+     "Wasza miłość jak z komiksu 💥 Zwykłe zdjęcie → pop-art na płótnie.\n"
+     "👉 pixelpedzel.pl\n\n#popart #komiks #obraznaplotnie #prezentdlapary #prezent"),
+    ("image", "assets/social/post-po-bajka3d.png",
+     "Wasze zdjęcie jak kadr z animacji 🎬 Styl bajkowy 3D.\n"
+     "👉 pixelpedzel.pl\n\n#obraznaplotnie #3d #prezentdlapary #personalizowanyprezent"),
+    ("image", "assets/social/post-po-lego.png",
+     "Zbudowani z miłości 🧱 Wasze zdjęcie w klockowym świecie.\n"
+     "👉 pixelpedzel.pl\n\n#klocki #obraznaplotnie #prezent #pomysłnaprezent"),
+
     # 1. Pamiatka (emocja) — grafika
     ("image", "assets/social/post-pamiatka.png",
      "Za rok, za dziesięć lat — to zdjęcie wciąż będzie wisiało na ścianie. 🤍\n"

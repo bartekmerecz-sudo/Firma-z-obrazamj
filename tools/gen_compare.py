@@ -66,7 +66,7 @@ def make(before, after, style_label, headline, idx, out_name):
 
     # --- HERO: dwa panele przed|po ---
     gx0,gy0 = m+34, m+96
-    gx1,gy1 = W-m-34, m+96+690
+    gx1,gy1 = W-m-34, m+96+588
     pw = (gx1-gx0-6)//2
     ph = gy1-gy0
     left  = panel(before, pw, ph, ["TWOJE", "ZDJĘCIE"])
