@@ -1,0 +1,35 @@
+name: Auto-post (Facebook / Instagram)
+
+# Robot publikujacy PixelPedzel.
+# Odpala sie codziennie i publikuje post zaplanowany na dzisiaj (automation/queue.json).
+# Mozna tez odpalic recznie (workflow_dispatch), np. do testu z DRY_RUN.
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 09:00 UTC = 11:00 w Polsce (lato). Zmien wg potrzeb.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Test bez publikacji (1 = tak)"
+        required: false
+        default: "0"
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Publikuj zaplanowany post
+        working-directory: automation
+        env:
+          FB_PAGE_ID:    ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID:    ${{ secrets.IG_USER_ID }}
+          SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
+          DRY_RUN:       ${{ github.event.inputs.dry_run }}
+        run: python3 post.py

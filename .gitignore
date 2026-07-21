@@ -15,3 +15,7 @@ dist/
 *.log
 .env
 .netlify/
+__pycache__/
+*.pyc
+tools/_frames/
+tools/_check/
