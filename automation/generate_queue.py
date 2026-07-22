@@ -22,9 +22,20 @@ def main():
 
     y, m, dd = map(int, start.split("-"))
     d0 = date(y, m, dd)
+
+    # przeplatanie: film co 3 dni (dzien indeks 2, 5, 8...), reszta grafiki
+    images = [p for p in POSTS if p[0] == "image"]
+    videos = [p for p in POSTS if p[0] == "video"]
+    seq, ii, vi = [], 0, 0
+    for i in range(days):
+        if videos and i % 3 == 2:
+            seq.append(videos[vi % len(videos)]); vi += 1
+        else:
+            seq.append(images[ii % len(images)]); ii += 1
+
     queue = []
     for i in range(days):
-        typ, media, text = POSTS[i % len(POSTS)]
+        typ, media, text = seq[i]
         queue.append({
             "date": (d0 + timedelta(days=i)).isoformat(),
             "time": post_time,

@@ -70,6 +70,14 @@ POSTS = [
      "Ze zwykłego zdjęcia — witraż i grafika ✨ Zobacz, jak Wasze zdjęcie staje się "
      "obrazem na płótnie 👉 pixelpedzel.pl\n\n"
      "#metamorfoza #witraż #obraznaplotnie #prezentdlapary #sztuka"),
+    ("video", "assets/video/tt-na-prezent.mp4",
+     "Nie wiesz, co kupić? 🎁 Obraz ze zdjęcia to prezent na rocznicę, urodziny, "
+     "Dzień Matki czy święta — który zostaje na lata.\n👉 pixelpedzel.pl\n\n"
+     "#pomysłnaprezent #prezent #obraznaplotnie #prezentdlaniej #prezentdlaniego"),
+    ("video", "assets/video/tt-na-scianie.mp4",
+     "Tak Wasz obraz wygląda naprawdę na ścianie 🖼️ Prawdziwy wydruk na płótnie, "
+     "gotowy do powieszenia.\n👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #dekoracjawnętrz #wystrójwnętrz #homedecor #prezent"),
 
     # 1. Pamiatka (emocja) — grafika
     ("image", "assets/social/post-pamiatka.png",
