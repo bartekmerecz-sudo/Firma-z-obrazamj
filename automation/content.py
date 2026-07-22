@@ -24,6 +24,27 @@ POSTS = [
      "Zbudowani z miłości 🧱 Wasze zdjęcie w klockowym świecie.\n"
      "👉 pixelpedzel.pl\n\n#klocki #obraznaplotnie #prezent #pomysłnaprezent"),
 
+    # === METAMORFOZY — kolejne pary/style ===
+    ("image", "assets/social/post-po-olej.png",
+     "Wasz zachód słońca zamieniony w obraz olejny 🌅 Z jednego zdjęcia — dzieło.\n"
+     "👉 pixelpedzel.pl\n\n#obraznaplotnie #olej #prezentdlapary #personalizowanyprezent"),
+    ("image", "assets/social/post-po-szkic.png",
+     "Tyle lat, jedna miłość ❤️ Idealny prezent dla rodziców lub dziadków — "
+     "ich wspólne zdjęcie jako ręczny szkic na płótnie.\n"
+     "👉 pixelpedzel.pl\n\n#prezentdladziadków #rocznicaślubu #obraznaplotnie #szkic"),
+    ("image", "assets/social/post-po-cyberpunk.png",
+     "Wasza miłość w roku 2099 🌆 Styl neon cyberpunk ze zwykłego zdjęcia.\n"
+     "👉 pixelpedzel.pl\n\n#cyberpunk #neon #obraznaplotnie #prezentdlaniego"),
+    ("image", "assets/social/post-po-vangogh.png",
+     "Wasza miłość jak dzieło Van Gogha 🎨 Wzruszający prezent na rocznicę ślubu.\n"
+     "👉 pixelpedzel.pl\n\n#vangogh #rocznicaślubu #prezentdlarodziców #obraznaplotnie"),
+    ("image", "assets/social/post-po-witraz.png",
+     "Miłość jak witraż ✨ Wasze zdjęcie w stylu mozaiki witrażowej.\n"
+     "👉 pixelpedzel.pl\n\n#witraż #obraznaplotnie #sztuka #prezentdlapary"),
+    ("image", "assets/social/post-po-wektor-plaza.png",
+     "Wasz własny plakat retro 🌊 Nowoczesny styl wektorowy ze zdjęcia.\n"
+     "👉 pixelpedzel.pl\n\n#wektor #plakat #obraznaplotnie #prezent"),
+
     # === FILMY METAMORFOZY (reveal zdjecie -> dzielo) ===
     ("video", "assets/video/tt-metamorfoza-wektor3d.mp4",
      "Zwykłe zdjęcie? A może dzieło sztuki 🎨 Zobacz metamorfozę: jedno zdjęcie, "
@@ -33,6 +54,14 @@ POSTS = [
      "Wasza miłość w kilku odsłonach 💥🧱 Z jednego zdjęcia — pop-art i klocki. "
      "Który styl Wasz? 👉 pixelpedzel.pl\n\n"
      "#metamorfoza #popart #obraznaplotnie #prezentdlapary #pomysłnaprezent"),
+    ("video", "assets/video/tt-metamorfoza-plaza.mp4",
+     "Zwykłe zdjęcie z wakacji → dzieło na płótnie 🌅 Zobacz metamorfozę i obraz "
+     "gotowy na ścianę. Podgląd przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#metamorfoza #obraznaplotnie #prezentdlapary #olej #cyberpunk"),
+    ("video", "assets/video/tt-metamorfoza-rocznica.mp4",
+     "Prezent na rocznicę, który wzruszy 🥹 Zdjęcie rodziców/dziadków zamienione "
+     "w dzieło na płótnie. Zobacz metamorfozę 👉 pixelpedzel.pl\n\n"
+     "#prezentnarocznice #prezentdladziadków #vangogh #obraznaplotnie #metamorfoza"),
 
     # 1. Pamiatka (emocja) — grafika
     ("image", "assets/social/post-pamiatka.png",

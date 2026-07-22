@@ -93,6 +93,36 @@ def cta():
     fl=font(F_SUB,40); lk="kliknij link w bio ↑"; d.text(((W-d.textlength(lk,font=fl))//2,H-230),lk,font=fl,fill=(200,192,178,255))
     return im
 
+def wall_scene(img_path, kicker="Twój obraz na płótnie"):
+    """Obraz w bialej ramie (canvas) z cieniem na ciepłym tle studyjnym."""
+    from PIL import ImageFilter
+    # tlo: pionowy gradient cream -> taupe (studyjne)
+    bg=Image.new("RGB",(W,H),(238,232,222)); px=bg.load()
+    for y in range(H):
+        t=y/H; r=int(238-40*t); g=int(232-42*t); b=int(222-44*t)
+        for x in range(W): px[x,y]=(r,g,b)
+    d=ImageDraw.Draw(bg,"RGBA")
+    # canvas (obraz) + biala rama
+    cw,ch=650,868
+    art=ImageOps.fit(Image.open(img_path).convert("RGB"),(cw,ch),method=Image.LANCZOS)
+    frame=Image.new("RGB",(cw+40,ch+40),(250,248,244)); frame.paste(art,(20,20))
+    fx=(W-frame.size[0])//2; fy=430
+    # cien
+    sh=Image.new("RGBA",(W,H),(0,0,0,0)); ds=ImageDraw.Draw(sh)
+    ds.rounded_rectangle([fx+16,fy+30,fx+frame.size[0]+16,fy+frame.size[1]+30],10,fill=(40,32,26,150))
+    bg=Image.alpha_composite(bg.convert("RGBA"), sh.filter(ImageFilter.GaussianBlur(26))).convert("RGB")
+    bg.paste(frame,(fx,fy))
+    d=ImageDraw.Draw(bg,"RGBA")
+    d.rectangle([fx,fy,fx+frame.size[0]-1,fy+frame.size[1]-1],outline=(210,202,190,255),width=1)
+    # kicker + marka
+    fk=font(F_KICK,40); center_ls(d,300,kicker.upper(),fk,(196,162,96,255),6)
+    d.line([(W//2-70,356),(W//2+70,356)],fill=(196,162,96,220),width=2)
+    fb=font(F_HEAD,52); dom=font(F_SUB,38)
+    bt="PixelPędzel"; bx=(W-(d.textlength(bt,font=fb)+d.textlength("  ·  pixelpedzel.pl",font=dom)))//2
+    x=text_ls(d,(bx,H-210),bt,fb,(40,34,28,255),1)
+    d.text((x+16,H-196),"·  pixelpedzel.pl",font=dom,fill=(150,120,70,255))
+    return bg
+
 def build(name, frames, durs, trans):
     """frames: list PIL; durs: sek na scene; trans: lista przejsc miedzy scenami."""
     paths=[]
@@ -115,20 +145,22 @@ def build(name, frames, durs, trans):
 
 def main():
     U=os.path.join(ROOT,"assets","uploads")
-    # Film 1: para przy zielonej scianie -> wektor -> bajka 3D
-    build("tt-metamorfoza-wektor3d",
-      [ frame(f"{U}/para1-przed.jpg","1 zdjęcie, różne style","PRZED", hook="Zwykłe zdjęcie?"),
-        frame(f"{U}/para1-wektor-clean.png",None,"PO · WEKTOR"),
-        frame(f"{U}/para1-bajka3d-clean.png",None,"PO · BAJKOWY 3D"),
+    # Film 3: mloda para (plaza) -> olej -> cyberpunk -> NA PLOTNIE
+    build("tt-metamorfoza-plaza",
+      [ frame(f"{U}/para3-przed.jpg","1 zdjęcie, różne style","PRZED", hook="Zwykłe zdjęcie?"),
+        frame(f"{U}/para3-olej-clean.png",None,"PO · OLEJ"),
+        frame(f"{U}/para3-cyberpunk-clean.png",None,"PO · CYBERPUNK"),
+        wall_scene(f"{U}/para3-olej-clean.png"),
         cta() ],
-      [2.4,2.4,2.6,3.0], ["wipeleft","wipeleft","fade"])
-    # Film 2: para na pomoscie -> komiks -> lego
-    build("tt-metamorfoza-komikslego",
-      [ frame(f"{U}/para2-przed.jpg","1 zdjęcie, różne style","PRZED", hook="A może dzieło?"),
-        frame(f"{U}/para2-komiks-clean.png",None,"PO · POP-ART"),
-        frame(f"{U}/para2-lego-clean.png",None,"PO · KLOCKI"),
+      [2.3,2.2,2.2,2.6,3.0], ["wipeleft","wipeleft","fade","fade"])
+    # Film 4: starsze malzenstwo -> szkic -> van gogh -> NA PLOTNIE (prezent na rocznice)
+    build("tt-metamorfoza-rocznica",
+      [ frame(f"{U}/para4-przed.jpg","Prezent na rocznicę","PRZED", hook="Tyle lat razem…"),
+        frame(f"{U}/para4-szkic-clean.png",None,"PO · SZKIC"),
+        frame(f"{U}/para4-vangogh-clean.png",None,"PO · VAN GOGH"),
+        wall_scene(f"{U}/para4-vangogh-clean.png"),
         cta() ],
-      [2.4,2.4,2.6,3.0], ["wipeleft","wipeleft","fade"])
+      [2.3,2.2,2.2,2.6,3.0], ["wipeleft","wipeleft","fade","fade"])
 
 if __name__=="__main__":
     main()
