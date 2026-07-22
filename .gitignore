@@ -19,3 +19,7 @@ __pycache__/
 *.pyc
 tools/_frames/
 tools/_check/
+tools/_vframes/
+tools/_gc/
+tools/_wc/
+tools/_vcheck/
