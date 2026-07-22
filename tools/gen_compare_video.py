@@ -123,6 +123,34 @@ def wall_scene(img_path, kicker="Twój obraz na płótnie"):
     d.text((x+16,H-196),"·  pixelpedzel.pl",font=dom,fill=(150,120,70,255))
     return bg
 
+def grid_scene(img_paths, kicker="Jedno zdjęcie · cztery style"):
+    """Siatka 2x2 przerobek na ciepłym tle — format 'wiele stylow naraz'."""
+    bg=Image.new("RGB",(W,H),(238,232,222)); px=bg.load()
+    for y in range(H):
+        t=y/H; px  # gradient
+        val=(int(238-30*t),int(232-32*t),int(222-34*t))
+        for x in range(W): px[x,y]=val
+    d=ImageDraw.Draw(bg,"RGBA")
+    m=40
+    d.rectangle([m,m,W-m-1,H-m-1],outline=(24,21,18,60),width=2)
+    # kicker
+    fk=font(F_KICK,42); center_ls(d,150,kicker.upper(),fk,(196,162,96,255),6)
+    d.line([(W//2-70,206),(W//2+70,206)],fill=(196,162,96,220),width=2)
+    # siatka 2x2
+    gap=26; gx0=100; gy0=280; cw=(W-2*gx0-gap)//2; ch=int(cw*1.34)
+    pos=[(gx0,gy0),(gx0+cw+gap,gy0),(gx0,gy0+ch+gap),(gx0+cw+gap,gy0+ch+gap)]
+    for p,(x,y) in zip(img_paths,pos):
+        art=ImageOps.fit(Image.open(p).convert("RGB"),(cw,ch),method=Image.LANCZOS)
+        fr=Image.new("RGB",(cw+16,ch+16),(250,248,244)); fr.paste(art,(8,8))
+        bg.paste(fr,(x-8,y-8))
+        d.rectangle([x-8,y-8,x+cw+7,y+ch+7],outline=(210,202,190,255),width=1)
+    # marka
+    fb=font(F_HEAD,52); dom=font(F_SUB,38)
+    bt="PixelPędzel"; bx=(W-(d.textlength(bt,font=fb)+d.textlength("  ·  pixelpedzel.pl",font=dom)))//2
+    x=text_ls(d,(bx,H-200),bt,fb,(40,34,28,255),1)
+    d.text((x+16,H-186),"·  pixelpedzel.pl",font=dom,fill=(150,120,70,255))
+    return bg
+
 def build(name, frames, durs, trans):
     """frames: list PIL; durs: sek na scene; trans: lista przejsc miedzy scenami."""
     paths=[]

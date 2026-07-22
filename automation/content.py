@@ -62,6 +62,14 @@ POSTS = [
      "Prezent na rocznicę, który wzruszy 🥹 Zdjęcie rodziców/dziadków zamienione "
      "w dzieło na płótnie. Zobacz metamorfozę 👉 pixelpedzel.pl\n\n"
      "#prezentnarocznice #prezentdladziadków #vangogh #obraznaplotnie #metamorfoza"),
+    ("video", "assets/video/tt-style-grid-plaza.mp4",
+     "Jedno zdjęcie — cztery style 🎨 Olej, witraż, wektor, cyberpunk. "
+     "Który wybierasz? Napisz w komentarzu 👇 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #metamorfoza #prezentdlapary #personalizowanyprezent"),
+    ("video", "assets/video/tt-metamorfoza-witraz.mp4",
+     "Ze zwykłego zdjęcia — witraż i grafika ✨ Zobacz, jak Wasze zdjęcie staje się "
+     "obrazem na płótnie 👉 pixelpedzel.pl\n\n"
+     "#metamorfoza #witraż #obraznaplotnie #prezentdlapary #sztuka"),
 
     # 1. Pamiatka (emocja) — grafika
     ("image", "assets/social/post-pamiatka.png",
