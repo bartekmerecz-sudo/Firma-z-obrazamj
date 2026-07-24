@@ -363,3 +363,12 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* ===== Bon podarunkowy — zakup ===== */
+.bon-label { margin: 1rem 0 .5rem; font-weight: 600; color: var(--graphite-700); }
+.bon-amounts { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: .8rem; }
+.bon-amt { min-width: 84px; }
+.bon-custom { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.bon-custom input { flex: 1 1 140px; min-width: 120px; padding: .6rem .8rem; border: 1px solid #d9d2c6; border-radius: 8px; font: inherit; }
+.bon-custom input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+#bonStatus.err { color: #b23b3b; }

@@ -199,6 +199,51 @@
     recalc();
   }
 
+  // --- BON PODARUNKOWY: zakup przez Stripe Checkout ---
+  async function orderBon(amount) {
+    const st = document.querySelector("#bonStatus");
+    const zl = parseInt(amount, 10);
+    const say = (m, cls) => {
+      if (st) st.className = "hint" + (cls ? " " + cls : "");
+      if (st) st.textContent = m;
+    };
+    if (!zl || zl < 50 || zl > 2000) {
+      say("Podaj kwotę od 50 do 2000 zł.", "err");
+      return;
+    }
+    say("Przenoszę do bezpiecznej płatności…");
+    try {
+      const r = await fetch(PAYMENT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bon: true, amount: zl }),
+      });
+      if (r.ok) {
+        const d = await r.json().catch(() => ({}));
+        if (d && d.url) {
+          window.location.href = d.url;
+          return;
+        }
+      }
+      const d = await r.json().catch(() => ({}));
+      say(
+        d.error ||
+          "Płatności chwilowo niedostępne. Napisz: pixelpedzelkontakt@gmail.com",
+        "err"
+      );
+    } catch (_) {
+      say("Błąd połączenia. Spróbuj ponownie.", "err");
+    }
+  }
+  document.querySelectorAll(".bon-amt").forEach((b) =>
+    b.addEventListener("click", () => orderBon(b.getAttribute("data-amount")))
+  );
+  const bonCustomBtn = document.querySelector("#bonCustomBtn");
+  if (bonCustomBtn)
+    bonCustomBtn.addEventListener("click", () =>
+      orderBon((document.querySelector("#bonCustom") || {}).value)
+    );
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     recalc();

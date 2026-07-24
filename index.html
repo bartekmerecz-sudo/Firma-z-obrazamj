@@ -531,13 +531,21 @@
           <h3>Bon podarunkowy</h3>
           <p>Idealny prezent, gdy chcesz dać komuś wolną rękę w wyborze zdjęcia i stylu. Obdarowany sam tworzy swój obraz w konfiguratorze.</p>
           <a href="assets/bon/bon-przyklad.pdf" target="_blank" rel="noopener"><img src="assets/bon/bon-przyklad.png" alt="Przykładowy bon podarunkowy PixelPędzel" loading="lazy" style="width:100%;border-radius:12px;box-shadow:var(--shadow-sm);margin:.4rem 0 1rem" /></a>
-          <div class="denoms"><span>100 zł</span><span>150 zł</span><span>200 zł</span><span>dowolna kwota</span></div>
           <ul>
             <li>Wysyłamy elegancki bon w PDF (do wydruku lub na e-mail).</li>
             <li>Ważny 6 miesięcy, do wykorzystania na dowolny obraz.</li>
           </ul>
-          <a href="#konfigurator" class="btn btn--gold btn--sm">Zamów bon</a>
-          <p class="hint">Zaznacz w uwagach „Bon podarunkowy" i podaj kwotę — resztą się zajmiemy.</p>
+          <p class="bon-label">Wybierz kwotę bonu:</p>
+          <div class="bon-amounts">
+            <button type="button" class="btn btn--ghost btn--sm bon-amt" data-amount="100">100 zł</button>
+            <button type="button" class="btn btn--ghost btn--sm bon-amt" data-amount="150">150 zł</button>
+            <button type="button" class="btn btn--ghost btn--sm bon-amt" data-amount="200">200 zł</button>
+          </div>
+          <div class="bon-custom">
+            <input id="bonCustom" type="number" min="50" max="2000" step="10" inputmode="numeric" placeholder="Inna kwota (zł)" aria-label="Inna kwota bonu w złotych" />
+            <button type="button" class="btn btn--gold btn--sm" id="bonCustomBtn">Kup bon</button>
+          </div>
+          <p class="hint" id="bonStatus" role="status">Klikasz kwotę → przechodzisz do bezpiecznej płatności. Bon (PDF) wyślemy na Twój e-mail.</p>
         </div>
 
         <div class="feature">

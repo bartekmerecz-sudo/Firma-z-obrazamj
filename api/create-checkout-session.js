@@ -56,6 +56,43 @@ module.exports = async (req, res) => {
   try {
     const body =
       typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+
+    const origin =
+      req.headers.origin ||
+      (req.headers.host ? "https://" + req.headers.host : "");
+
+    // --- BON PODARUNKOWY (osobny tryb: płatność za sam bon) ---
+    if (body.bon) {
+      const zl = parseInt(body.amount, 10);
+      if (!zl || zl < 50 || zl > 2000)
+        return res
+          .status(400)
+          .json({ error: "Nieprawidłowa kwota bonu (50–2000 zł)." });
+      const bonSession = await stripe.checkout.sessions.create({
+        mode: "payment",
+        payment_method_types: ["card", "blik", "p24"],
+        line_items: [
+          {
+            price_data: {
+              currency: "pln",
+              unit_amount: zl * 100,
+              product_data: {
+                name: "Bon podarunkowy PixelPędzel — " + zl + " zł",
+                description:
+                  "Ważny 6 miesięcy, do wykorzystania na dowolny obraz.",
+              },
+            },
+            quantity: 1,
+          },
+        ],
+        customer_email: body.email || undefined,
+        metadata: { typ: "bon", kwota: zl + " zł" },
+        success_url: origin + "/podziekowanie.html?status=bon",
+        cancel_url: origin + "/index.html#bon",
+      });
+      return res.status(200).json({ url: bonSession.url });
+    }
+
     const { style, size, orient, addons, name, email } = body;
 
     const unit = PRICES[size];
@@ -68,9 +105,6 @@ module.exports = async (req, res) => {
     const addonsTotal = chosen.reduce((s, a) => s + a.price, 0);
     const subtotal = unit + addonsTotal;
     const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING;
-    const origin =
-      req.headers.origin ||
-      (req.headers.host ? "https://" + req.headers.host : "");
 
     const line_items = [
       {

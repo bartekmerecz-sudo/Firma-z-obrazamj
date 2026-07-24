@@ -28,12 +28,12 @@
   <main class="thanks container container--narrow">
     <div>
       <div class="thanks__icon">🎉</div>
-      <h1>Dziękujemy za zamówienie!</h1>
-      <p>Twoja płatność została przyjęta, a zamówienie trafiło do realizacji.
+      <h1 id="thanksTitle">Dziękujemy za zamówienie!</h1>
+      <p id="thanksIntro">Twoja płatność została przyjęta, a zamówienie trafiło do realizacji.
          Na Twój e-mail wyślemy potwierdzenie oraz — po przygotowaniu projektu —
          <strong>cyfrowy podgląd do akceptacji</strong>.</p>
 
-      <ol class="steps-mini">
+      <ol class="steps-mini" id="stepsMini">
         <li>Przygotowujemy Twój obraz w wybranym stylu.</li>
         <li>Wysyłamy podgląd — akceptujesz lub prosisz o poprawki.</li>
         <li>Drukujemy na płótnie premium i wysyłamy kurierem.</li>
@@ -53,8 +53,18 @@
     // Drobne "święto" — nic krytycznego.
     try {
       var p = new URLSearchParams(location.search);
-      if (p.get("status") === "success") {
+      var status = p.get("status");
+      if (status === "success") {
         document.getElementById("reminderPhoto").hidden = false;
+      } else if (status === "bon") {
+        document.getElementById("thanksTitle").textContent =
+          "Dziękujemy za zakup bonu! 🎁";
+        document.getElementById("thanksIntro").innerHTML =
+          "Płatność przyjęta. <strong>Bon podarunkowy (PDF)</strong> wyślemy na Twój " +
+          "e-mail w ciągu 24 godzin. Obdarowany wykorzysta go w konfiguratorze — " +
+          "bon ważny 6 miesięcy.";
+        var sm = document.getElementById("stepsMini");
+        if (sm) sm.hidden = true;
       }
     } catch (e) {}
   </script>
