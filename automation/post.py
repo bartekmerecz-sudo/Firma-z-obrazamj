@@ -128,7 +128,15 @@ def main():
                 ig_post(item)
         except Exception as e:
             errors += 1
-            print("  BLAD publikacji:", e)
+            msg = str(e)
+            print("  BLAD publikacji:", msg)
+            if ("OAuthException" in msg or '"code":190' in msg
+                    or '"code":200' in msg or "access token" in msg.lower()):
+                print("  >> DIAGNOZA: token strony (FB_PAGE_TOKEN) jest niewazny "
+                      "lub wygasl.")
+                print("  >> Wygeneruj TRWALY token strony i wklej go do sekretu "
+                      "FB_PAGE_TOKEN w GitHub. Instrukcja: docs/23-automatyczne-posty.md, "
+                      "sekcja A.")
     if errors:
         sys.exit(1)
 

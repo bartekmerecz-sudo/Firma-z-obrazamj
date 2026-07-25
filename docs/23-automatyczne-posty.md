@@ -28,26 +28,47 @@ tam być wgrane (są, bo publikujemy je razem z tym systemem).
 
 ## Podłączenie — krok po kroku (jednorazowo, ~20 min)
 
-### A. Załóż aplikację Meta i zdobądź token
-1. Wejdź na **developers.facebook.com** → zaloguj się → **My Apps** → **Create App**.
-   Wybierz typ **Business**. Nazwij np. „PixelPedzel Poster". Zostaw ją w trybie
-   **Development** (nie musisz przechodzić weryfikacji, żeby postować na SWOJĄ stronę).
-2. Wejdź w **Tools → Graph API Explorer**.
-3. Po prawej wybierz swoją aplikację, a przy „User or Page" wybierz **Get Page
-   Access Token** i wskaż swoją stronę.
-4. W polu uprawnień dodaj: `pages_manage_posts`, `pages_read_engagement`
-   (dla Instagrama dodatkowo: `instagram_basic`, `instagram_content_publish`).
-5. Kliknij **Generate Access Token** i zatwierdź. Skopiuj token.
+### A. Załóż aplikację Meta i zdobądź TRWAŁY token strony
 
-> Ten token jest krótki (wygasa). Zamień go na **długożyciowy (60 dni)**:
-> w Graph API Explorer użyj narzędzia **Access Token Debugger** (Tools → Debug),
-> wklej token → **Extend Access Token**. Skopiuj przedłużony.
-> Co ~2 miesiące trzeba go odświeżyć (przypomnę w kalendarzu).
+> **WAŻNE (to najczęstsza przyczyna, że robot przestaje działać):** token strony
+> wzięty prosto z Graph API Explorer **wygasa po kilku godzinach/dniach** — i wtedy
+> robot zgłasza błąd `OAuthException` („Cannot call API for app… on behalf of user…").
+> Żeby token **nigdy nie wygasał**, trzeba zrobić 2 kroki: najpierw przedłużyć
+> **token użytkownika** do 60 dni, a dopiero z niego pobrać **token strony** —
+> taki token strony jest **bezterminowy**. Poniżej dokładnie jak.
 
-### B. Zdobądź ID strony
-- W Graph API Explorer wpisz zapytanie `me?fields=id,name` z tokenem strony —
-  zwróci **ID strony** (ciąg cyfr). Skopiuj.
-- (Instagram, opcjonalnie) `me?fields=instagram_business_account` → dostaniesz `IG_USER_ID`.
+1. Wejdź na **developers.facebook.com** → **My Apps** → **Create App** (typ
+   **Business**, nazwa np. „PixelPedzel Poster"). Zostaw tryb **Development**.
+   Zapisz sobie **App ID** i **App Secret** (Settings → Basic → „Show" przy secret).
+2. Wejdź w **Tools → Graph API Explorer**. Po prawej wybierz swoją aplikację.
+3. Przy „User or Page" wybierz **User Token** (na razie użytkownika, nie strony).
+   W „Permissions" dodaj: `pages_show_list`, `pages_manage_posts`,
+   `pages_read_engagement` (dla Instagrama dodatkowo `instagram_basic`,
+   `instagram_content_publish`). Kliknij **Generate Access Token** i zatwierdź
+   wszystkie zgody. Skopiuj ten token — to **krótki token użytkownika**.
+4. **Przedłuż token użytkownika do 60 dni.** W przeglądarce otwórz (podmień 3 rzeczy):
+   ```
+   https://graph.facebook.com/v21.0/oauth/access_token?grant_type=fb_exchange_token&client_id=APP_ID&client_secret=APP_SECRET&fb_exchange_token=KROTKI_TOKEN
+   ```
+   Dostaniesz JSON z `access_token` — to **długi token użytkownika (60 dni)**. Skopiuj go.
+5. **Pobierz bezterminowy token strony.** W przeglądarce otwórz:
+   ```
+   https://graph.facebook.com/v21.0/me/accounts?access_token=DLUGI_TOKEN_UZYTKOWNIKA
+   ```
+   Zobaczysz listę swoich stron. Przy swojej stronie skopiuj wartość `access_token`
+   **oraz** `id`. **Ten token strony nie wygasa** (dopóki nie zmienisz hasła FB ani
+   nie cofniesz zgód aplikacji). To jest token do sekretu `FB_PAGE_TOKEN`, a `id`
+   do `FB_PAGE_ID`.
+
+> Nie chcesz kombinować z URL-ami? Alternatywa: w Graph API Explorer wygeneruj token
+> użytkownika (krok 3), kliknij ikonę **„i"** obok tokenu → **Open in Access Token Tool**
+> → **Extend Access Token** (to daje długi token użytkownika), wróć do Explorera,
+> wklej długi token, wpisz zapytanie `me/accounts` i skopiuj `access_token` strony.
+
+### B. ID strony
+- **ID strony** masz już z kroku A5 (`id` obok tokenu strony w `me/accounts`).
+- (Instagram, opcjonalnie) w Graph API Explorer wpisz `PAGE_ID?fields=instagram_business_account`
+  z tokenem strony → dostaniesz `IG_USER_ID`.
 
 ### C. Wklej sekrety do GitHuba
 1. Wejdź na swój repozytorium na GitHubie → **Settings** → **Secrets and variables**
@@ -81,10 +102,14 @@ tam być wgrane (są, bo publikujemy je razem z tym systemem).
 ## Ważne / bezpieczeństwo
 - **Nie wysyłaj mi tokenów ani haseł.** Wklejasz je tylko do sekretów GitHuba —
   ja ich nie widzę i nie potrzebuję.
-- Token strony wygasa ~co 60 dni — trzeba go odświeżyć (punkt A). Wpisz sobie
-  przypomnienie co 6–8 tygodni.
-- Jeśli robot zgłosi błąd, zajrzyj w **Actions → ostatni bieg → logi**. Najczęstszy
-  powód: wygasły token (odśwież) albo plik nie jest jeszcze na `pixelpedzel.pl`.
+- Jeśli token strony zdobyłeś sposobem z sekcji A (najpierw **długi token
+  użytkownika**, potem `me/accounts`), token strony **jest bezterminowy** — nic
+  nie musisz odświeżać. Przestaje działać tylko, gdy zmienisz hasło do Facebooka
+  albo cofniesz zgody aplikacji.
+- Jeśli robot zgłosi błąd, zajrzyj w **Actions → ostatni bieg → logi**. Robot sam
+  napisze diagnozę. Najczęstszy powód: **niewłaściwy / krótki token** (`OAuthException`,
+  „Cannot call API… on behalf of user") — wygeneruj token jeszcze raz **całą** sekcją
+  A (kroki 3→4→5), inaczej znów wygaśnie. Rzadziej: plik nie jest jeszcze na `pixelpedzel.pl`.
 
 ## Co jest w środku (dla ciekawych)
 - `automation/content.py` — teksty postów + przypisane pliki.
