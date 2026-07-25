@@ -70,7 +70,6 @@ module.exports = async (req, res) => {
           .json({ error: "Nieprawidłowa kwota bonu (50–2000 zł)." });
       const bonSession = await stripe.checkout.sessions.create({
         mode: "payment",
-        payment_method_types: ["card", "blik", "p24"],
         line_items: [
           {
             price_data: {
@@ -142,7 +141,6 @@ module.exports = async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      payment_method_types: ["card", "blik", "p24"],
       line_items,
       customer_email: email || undefined,
       metadata: {
