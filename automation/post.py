@@ -14,7 +14,7 @@ Sekrety (ustawiane w GitHub -> Settings -> Secrets):
 Tryb testowy bez publikacji:  DRY_RUN=1 python3 automation/post.py
 Wymuszenie konkretnej daty:   POST_DATE=2026-07-22 python3 automation/post.py
 """
-import json, os, sys, time, urllib.request, urllib.parse
+import json, os, sys, time, urllib.request, urllib.parse, urllib.error
 
 API = "https://graph.facebook.com/v21.0"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -41,14 +41,22 @@ def today_warsaw():
 def http_post(url, params):
     data = urllib.parse.urlencode(params).encode()
     req = urllib.request.Request(url, data=data, method="POST")
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")
+        raise RuntimeError(f"HTTP {e.code}: {body}")
 
 
 def http_get(url, params):
     q = urllib.parse.urlencode(params)
-    with urllib.request.urlopen(f"{url}?{q}", timeout=60) as r:
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(f"{url}?{q}", timeout=60) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")
+        raise RuntimeError(f"HTTP {e.code}: {body}")
 
 
 def media_url(path):
