@@ -9,6 +9,59 @@ Zasada: sprzedajemy EMOCJE i MOMENT, nie produkt. Rotacja: grafika emocjonalna -
 """
 
 POSTS = [
+    # === POSTY SPRZEDAZOWE (PRIORYTET — ida jako pierwsze) ==================
+    # Dotychczasowe posty pokazywaly STYLE. Te zdejmuja obiekcje i daja powod,
+    # zeby napisac DZIS. Firma bez klientow potrzebuje najpierw tych.
+    ("image", "assets/social/post-oferta-start.png",
+     "Startuję z pracownią i szukam 5 pierwszych osób. 🤍\n\n"
+     "Robię obraz z Waszego zdjęcia ze zniżką założycielską — w zamian proszę "
+     "tylko o zdjęcie obrazu na Waszej ścianie i szczerą opinię.\n\n"
+     "Projekt pokazuję przed drukiem. Nie spodoba się — nie płacisz.\n"
+     "Napisz w komentarzu CHCĘ albo w wiadomości 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #personalizowanyprezent #handmadepl #prezent"),
+    ("image", "assets/social/post-bez-ryzyka.png",
+     "„A jak mi się nie spodoba?” — to najczęstsze pytanie, więc mówię wprost:\n\n"
+     "Przysyłasz zdjęcie. Robię projekt. Pokazuję Ci go ZANIM cokolwiek zapłacisz.\n"
+     "Nie podoba się? Nie płacisz i się rozchodzimy. Podoba się? Wtedy drukuję.\n\n"
+     "Całe ryzyko jest po mojej stronie 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #prezent #personalizowanyprezent #handmadepl"),
+    ("image", "assets/social/post-cennik.png",
+     "Ile kosztuje obraz z Waszego zdjęcia? Bez ukrywania cen w wiadomościach 👇\n\n"
+     "30×40 — 129 zł · 40×50 — 169 zł · 50×70 — 229 zł · 60×90 — 299 zł\n"
+     "Projekt i podgląd gratis. Dostawa 15 zł, od 250 zł za darmo.\n\n"
+     "Płacisz dopiero, gdy zaakceptujesz projekt 👉 pixelpedzel.pl\n\n"
+     "#cennik #obraznaplotnie #prezent #personalizowanyprezent"),
+    ("image", "assets/social/post-jak-dziala.png",
+     "Jak zamówić obraz ze zdjęcia? Trzy kroki, cała reszta po mojej stronie:\n\n"
+     "1. Wysyłasz zdjęcie (telefonem, jak wygodnie)\n"
+     "2. Wybierasz styl — olej, komiks, szkic, witraż i inne\n"
+     "3. Odbierasz gotowy obraz na płótnie\n\n"
+     "Podgląd przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #jaktodziala #prezent #personalizowanyprezent"),
+    ("image", "assets/social/post-ktory-styl.png",
+     "Pytanie do Was — który styl wybralibyście dla siebie?\n\n"
+     "A — olej klasyczny\nB — pop-art komiks\nC — szkic ołówkiem\nD — witraż\n\n"
+     "Napiszcie literę w komentarzu, jestem ciekaw co wygra 👇\n"
+     "(a jak chcecie zobaczyć swoje zdjęcie w tym stylu — pixelpedzel.pl)\n\n"
+     "#obraznaplotnie #sztuka #prezent #ankieta"),
+    ("image", "assets/social/post-wakacje.png",
+     "Wróciliście z wakacji z tysiącem zdjęć w telefonie.\n"
+     "Ile z nich jeszcze kiedyś obejrzycie? 📱\n\n"
+     "Jedno z nich zasługuje na ścianę, nie na kartę pamięci.\n"
+     "Wybierzcie to jedno — resztę zrobię ja 👉 pixelpedzel.pl\n\n"
+     "#wakacje2026 #obraznaplotnie #pamiątka #dekoracjawnętrz"),
+    ("image", "assets/social/post-slub.png",
+     "Sezon ślubny w pełni — a prezenty wciąż te same: ręczniki, świeczniki, koperta.\n\n"
+     "Obraz z ich wspólnego zdjęcia to prezent, którego nie schowają do szafy.\n"
+     "Zostaje na ścianie na lata 👉 pixelpedzel.pl\n\n"
+     "#prezentślubny #ślub2026 #wesele #obraznaplotnie #prezent"),
+    ("image", "assets/social/post-prezent-argument.png",
+     "Kwiaty zwiędną. Perfumy się skończą. Czekolada zniknie w dwa dni.\n"
+     "Obraz z Waszego wspólnego zdjęcia zostanie na ścianie. 🤍\n\n"
+     "Nie masz pomysłu na prezent? Weź bon — obdarowany sam wybierze zdjęcie i styl.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#pomysłnaprezent #prezent #bonpodarunkowy #obraznaplotnie"),
+
     # === METAMORFOZY PRZED -> PO (najlepiej klikajacy sie typ) ===
     ("image", "assets/social/post-po-wektor.png",
      "Jedno zdjęcie — tyle możliwości ✨ Oto ta sama para w stylu wektorowym.\n"
