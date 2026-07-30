@@ -10,7 +10,7 @@ W, H = G.W, G.H
 GOLD=(196,162,96); INK=(24,21,18)
 font=G.font; text_ls=G.text_ls; center_ls=G.center_ls; wrap=G.wrap
 F_HEAD=G.F_HEAD; F_KICK=G.F_KICK; F_SUB=G.F_SUB
-U=os.path.join(G.ROOT,"assets","uploads")
+U=os.path.join(G.ROOT,"assets","uploads","final")
 
 def wall_bg(warm=True):
     col=Image.new("RGB",(1,H)); p=col.load()

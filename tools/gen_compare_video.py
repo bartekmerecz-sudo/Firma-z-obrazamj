@@ -172,7 +172,7 @@ def build(name, frames, durs, trans):
     print("OK",name+".mp4", round(os.path.getsize(outp)/1024),"KB, ~",round(cum,1),"s")
 
 def main():
-    U=os.path.join(ROOT,"assets","uploads")
+    U=os.path.join(ROOT,"assets","uploads","final")
     # Film 3: mloda para (plaza) -> olej -> cyberpunk -> NA PLOTNIE
     build("tt-metamorfoza-plaza",
       [ frame(f"{U}/para3-przed.jpg","1 zdjęcie, różne style","PRZED", hook="Zwykłe zdjęcie?"),
