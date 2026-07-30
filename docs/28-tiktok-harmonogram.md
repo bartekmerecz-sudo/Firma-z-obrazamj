@@ -1,6 +1,6 @@
 # TikTok — rozpiska dzień po dniu
 
-18 filmów, 1 dziennie, od 30.07 do 16.08.2026.
+26 filmów, 1 dziennie, od 30.07 do 24.08.2026.
 Wszystko gotowe do wrzucenia: plik + opis do skopiowania + hasztagi.
 
 ✅ **Wszystkie filmy z tej listy są bez znaku wodnego.** Rendery źródłowe miały
@@ -134,6 +134,62 @@ odpisz każdemu, kto poda cyfrę. Komentarze robią tu robotę.
 
 ---
 
+## Tydzień 4 — druga partia `reel-*` (inne kąty, nie kolejne style)
+
+Osiem filmów zbudowanych na tym samym schemacie zaczyna wyglądać tak samo,
+a TikTok karze powtarzalność mocniej niż słabą jakość. Ta partia dokłada kąty,
+których wcześniej nie było: obiekcja, poradnik, porównanie, proces, okazja.
+Mają też inne sceny — plansze tekstowe i widok „przed i po naraz".
+
+### Dzień 19 · pon 17.08 · `reel-a-jak-sie-nie-spodoba.mp4`
+> „A jak mi się nie spodoba?" — pytacie o to najczęściej. Odpowiadam raz a dobrze.
+>
+> #obraznaplotnie #bezryzyka #personalizowanyprezent #pomyslnaprezent
+
+### Dzień 20 · wt 18.08 · `reel-jakie-zdjecie.mp4`
+> Trzy rzeczy, które decydują, czy zdjęcie nada się na obraz 👇
+>
+> #poradnik #jakiezdjecie #obraznaplotnie #personalizowanyprezent
+
+**To najlepszy kandydat na zapisy.** Format poradnikowy ludzie zapisują,
+a zapisy liczą się w rankingu wyżej niż polubienia.
+
+### Dzień 21 · śr 19.08 · `reel-stare-zdjecie.mp4`
+> Zdjęcia z albumu zostają w albumie. Szkoda.
+>
+> #pamiatkarodzinna #szkicolowkiem #prezentdlarodzicow #starezdjecia
+
+### Dzień 22 · czw 20.08 · `reel-plakat-vs-obraz.mp4`
+> Plakat z sieciówki wisi u trzech Twoich znajomych.
+>
+> #dekoracjawnetrz #wystrojwnetrz #obrazdosalonu #homedecorpolska
+
+### Dzień 23 · pt 21.08 · `reel-do-jakiego-wnetrza.mp4`
+> Ściągawka: jaki styl do jakiego wnętrza?
+>
+> #dekoracjawnetrz #obrazdosalonu #poradnik #wystrojwnetrz
+
+### Dzień 24 · sob 22.08 · `reel-proces.mp4`
+> Co się dzieje po tym, jak wyślecie mi zdjęcie.
+>
+> #zakulisami #rekodzielo #obraznaplotnie #procestworzenia
+
+### Dzień 25 · nd 23.08 · `reel-urodziny.mp4`
+> Urodziny za tydzień. Znowu perfumy?
+>
+> #urodziny #pomyslnaprezent #prezentdlaniej #prezentdlaniego
+
+### Dzień 26 · pon 24.08 · `reel-ile-kosztuje.mp4`
+> „Pewnie kosztuje majątek." Zgadnijcie, ile 👇
+>
+> #cennik #obraznaplotnie #personalizowanyprezent #pomyslnaprezent
+
+**Uwaga:** ten film kończy się pytaniem „zgadnij, ile". Odpowiadaj każdemu,
+kto poda kwotę — to najprostszy sposób, żeby zebrać komentarze pod filmem
+o cenie, który normalnie ludzie przewijają.
+
+---
+
 ## ⛔ Czego NIE wrzucać
 
 ### Zmyślone opinie — 4 filmy
@@ -155,9 +211,9 @@ Dla TikToka to czysta reklama. **Zostają na Facebooku** — robot je publikuje.
 
 ---
 
-## Co dalej po 16.08
+## Co dalej po 24.08
 
-18 filmów to nie jest strategia na stałe, tylko materiał pomostowy.
+26 filmów to nie jest strategia na stałe, tylko materiał pomostowy.
 Przełom da dopiero to, czego nie da się wygenerować:
 
 1. **Rozpakowanie** — Twoje ręce, karton, wyciągasz obraz, obracasz do kamery. 8–15 s.

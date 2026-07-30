@@ -38,25 +38,62 @@ def today_warsaw():
         return (datetime.now(timezone.utc) + timedelta(hours=2)).date().isoformat()
 
 
-def http_post(url, params):
-    data = urllib.parse.urlencode(params).encode()
-    req = urllib.request.Request(url, data=data, method="POST")
+# Kody bledow Meta, ktore znacza "sprobuj pozniej", a nie "cos jest zle
+# skonfigurowane". Kod 1 to najczestszy: generyczny blad backendu Facebooka,
+# ktory potrafi przewrocic publikacje mimo poprawnego tokenu i poprawnego pliku.
+TRANSIENT_FB_CODES = {1, 2, 4, 17, 32, 341, 613}
+RETRY_DELAYS = [5, 20, 60]   # sekundy
+
+
+def _is_transient(status, body):
+    if status is not None and 500 <= status < 600:
+        return True
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        body = e.read().decode(errors="replace")
-        raise RuntimeError(f"HTTP {e.code}: {body}")
+        code = json.loads(body)["error"]["code"]
+    except Exception:
+        return False
+    return code in TRANSIENT_FB_CODES
+
+
+def _request(url, params, method):
+    """Jedno zapytanie do Graph API z ponawianiem bledow przejsciowych.
+
+    Bez tego pojedyncza czkawka po stronie Facebooka kasuje caly dzien —
+    workflow chodzi raz na dobe, wiec nie ma drugiej szansy."""
+    last = None
+    for attempt in range(len(RETRY_DELAYS) + 1):
+        try:
+            if method == "POST":
+                data = urllib.parse.urlencode(params).encode()
+                req = urllib.request.Request(url, data=data, method="POST")
+                with urllib.request.urlopen(req, timeout=120) as r:
+                    return json.loads(r.read().decode())
+            q = urllib.parse.urlencode(params)
+            with urllib.request.urlopen(f"{url}?{q}", timeout=60) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            body = e.read().decode(errors="replace")
+            last = RuntimeError(f"HTTP {e.code}: {body}")
+            transient = _is_transient(e.code, body)
+        except urllib.error.URLError as e:
+            last = RuntimeError(f"Blad sieci: {e.reason}")
+            transient = True
+
+        if not transient or attempt == len(RETRY_DELAYS):
+            raise last
+        wait = RETRY_DELAYS[attempt]
+        print(f"  blad przejsciowy, ponawiam za {wait}s "
+              f"(proba {attempt + 2}/{len(RETRY_DELAYS) + 1}): {last}")
+        time.sleep(wait)
+    raise last
+
+
+def http_post(url, params):
+    return _request(url, params, "POST")
 
 
 def http_get(url, params):
-    q = urllib.parse.urlencode(params)
-    try:
-        with urllib.request.urlopen(f"{url}?{q}", timeout=60) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        body = e.read().decode(errors="replace")
-        raise RuntimeError(f"HTTP {e.code}: {body}")
+    return _request(url, params, "GET")
 
 
 def media_url(path):
