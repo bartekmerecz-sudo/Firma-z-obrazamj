@@ -1,7 +1,7 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_compare import make
-U="assets/uploads"
+U="assets/uploads/final"
 JOBS=[
  (f"{U}/para3-przed.jpg", f"{U}/para3-olej-clean.png",
   "Olejny klasyk", "Wasz zachód słońca — w oleju.", "05", "post-po-olej.png"),

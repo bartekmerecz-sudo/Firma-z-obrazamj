@@ -1,7 +1,7 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_compare_video import frame, wall_scene, cta, grid_scene, build
-U="assets/uploads"
+U="assets/uploads/final"
 # Film A: format SIATKA — 1 zdjecie, 4 style (mloda para)
 build("tt-style-grid-plaza",
   [ frame(f"{U}/para3-przed.jpg","1 zdjęcie · 4 style","PRZED", hook="Jedno zdjęcie."),

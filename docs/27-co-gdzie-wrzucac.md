@@ -341,7 +341,27 @@ Te cztery nie mają źródła w wysokiej rozdzielczości i **nadal są rozmyte**
 **Jak je dostarczyć:** wrzuć gotowe rendery do `assets/uploads/` pod nazwami
 `paraX-akwarela.png`, `paraX-pastel.png`, `paraX-kubizm.png`, `paraX-superbohater.png`
 (min. 1500 px szerokości), dopisz je do `STYLE_SOURCES` w `tools/gen_gallery.py`
-i odpal `python3 tools/gen_gallery.py`. Reszta zrobi się sama.
+i odpal:
+
+```
+python3 tools/strip_watermark.py     # NAJPIERW — usuwa znak wodny
+python3 tools/gen_gallery.py
+```
+
+## ⚠️ Znak wodny generatora — obowiązkowy krok przy każdym nowym renderze
+
+Surowe rendery mają w prawym dolnym rogu **półprzezroczystą gwiazdkę
+(znak wodny Gemini)**, a jeden z nich miał dodatkowo wklejoną pieczątkę
+„MODERN VECTOR / AV / ART PRINT" — obce logo, które nie jest nasze.
+Na materiale sprzedażowym oba podważają wiarygodność.
+
+`tools/strip_watermark.py` przycina dolny pas (250 px) i zapisuje czyste
+pliki do `assets/uploads/final/`. **Wszystkie generatory czytają z `final/`,
+nigdy wprost z `uploads/`.**
+
+Zasada na przyszłość: **każdy nowy render przechodzi przez `strip_watermark.py`,
+zanim trafi gdziekolwiek indziej.** Surowe pliki w `assets/uploads/` zostają
+jako archiwum i nigdy nie idą do publikacji.
 
 **Przy okazji: Superbohater ma na obrazie tarczę z literami „MP"** — to nie są
 inicjały PixelPędzla i wygląda jak przypadkowe logo. Przy nowym renderze warto

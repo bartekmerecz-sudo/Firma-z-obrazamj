@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Generuje grafiki galerii i suwakow porownania z oryginalow w assets/uploads/.
+"""Generuje grafiki galerii i suwakow porownania z assets/uploads/final/.
 
 Powod: pliki w assets/gallery/ mialy 341x512 px, a karty renderuja sie
 na ekranach retina do ~560-880 px szerokosci. Efekt: widoczne rozmycie.
 Oryginaly (1586x2376) daja ostry obraz po przeskalowaniu.
+
+UWAGA: czytamy z podkatalogu final/, a nie wprost z uploads/. Surowe rendery
+maja w prawym dolnym rogu znak wodny generatora; usuwa go
+tools/strip_watermark.py. Po dorzuceniu nowego renderu do assets/uploads/
+najpierw odpal strip_watermark.py, dopiero potem ten skrypt.
 
 Wyjscie (kadr 3:4, zgodny z .card__img i .compare w css/style.css):
   assets/gallery/<styl>.jpg      700x933   (1x)
@@ -16,7 +21,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-SRC = os.path.join(ROOT, "assets", "uploads")
+SRC = os.path.join(ROOT, "assets", "uploads", "final")
 OUT = os.path.join(ROOT, "assets", "gallery")
 
 # styl w galerii -> plik zrodlowy w assets/uploads/

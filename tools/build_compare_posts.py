@@ -1,7 +1,7 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_compare import make
-U = "assets/uploads"
+U = "assets/uploads/final"
 JOBS = [
  (f"{U}/para1-przed.jpg", f"{U}/para1-wektor-clean.png",
   "Wektor / minimalizm", "Twoje zdjęcie w nowoczesnym stylu.", "01", "post-po-wektor.png"),

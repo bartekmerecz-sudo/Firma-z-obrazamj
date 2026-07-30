@@ -139,12 +139,6 @@ POSTS = [
      "Zamień je w obraz na płótnie 👉 pixelpedzel.pl\n\n"
      "#obraznaplotnie #pamiątka #personalizowanyprezent #dekoracjawnętrz"),
 
-    # 2. Recenzja rocznica — wideo
-    ("video", "assets/video/tt-recenzja-rocznica.mp4",
-     "Prezent na rocznicę, przy którym mąż się popłakał ❤️\n"
-     "Wasze wspólne zdjęcie → obraz olejny na płótnie. Podgląd przed drukiem.\n"
-     "Kod START20 = −20% 👉 pixelpedzel.pl\n\n"
-     "#prezentnarocznice #obraznaplotnie #prezentdlapary #pomysłnaprezent"),
 
     # 3. Kocham bez slow — grafika
     ("image", "assets/social/post-kocham.png",
@@ -158,11 +152,6 @@ POSTS = [
      "Zobaczysz projekt przed drukiem — płacisz, gdy Ci się spodoba.\n"
      "👉 pixelpedzel.pl\n\n#zaręczyny #ślub2026 #prezentślubny #obraznaplotnie"),
 
-    # 5. Recenzja mama — wideo
-    ("video", "assets/video/tt-recenzja-mama.mp4",
-     "Prezent dla Mamy, który ją wzruszy 🥹\n"
-     "Wasze wspólne zdjęcie jako delikatna akwarela na płótnie. Zamów z wyprzedzeniem.\n"
-     "👉 pixelpedzel.pl\n\n#prezentdlamamy #dzieńmatki #prezent #obraznaplotnie"),
 
     # 6. Wasza historia — grafika
     ("image", "assets/social/post-historia.png",
@@ -170,11 +159,6 @@ POSTS = [
      "Nie kolejny plakat ze sklepu — Wasz obraz, jakiego nikt inny nie ma.\n"
      "👉 pixelpedzel.pl\n\n#dekoracjawnętrz #obraznaplotnie #wystrójwnętrz #homedecor"),
 
-    # 7. Recenzja zareczyny — wideo
-    ("video", "assets/video/tt-recenzja-zareczyny.mp4",
-     "Zamówione w sobotę, podgląd w poniedziałek, na ścianie w tydzień 😍\n"
-     "Jedno zdjęcie zamieniam w obraz. Płacisz, gdy Ci się spodoba.\n"
-     "👉 pixelpedzel.pl\n\n#zaręczyny #ślub2026 #obraznaplotnie #handmadepl"),
 
     # 8. Dom z dusza — grafika
     ("image", "assets/social/post-dom.png",
@@ -182,11 +166,6 @@ POSTS = [
      "Obrazy z Waszych zdjęć — Wy wybieracie chwile, my tworzymy dzieło.\n"
      "👉 pixelpedzel.pl\n\n#dekoracjawnętrz #homedecor #obraznaplotnie #wnętrza"),
 
-    # 9. Recenzja van gogh — wideo
-    ("video", "assets/video/tt-recenzja-vangogh.mp4",
-     "„Myślałem, że AI zepsuje twarze” — a wyszło lepiej niż na zdjęciu 🎨\n"
-     "Twoje zdjęcie w stylu Van Gogha na płótnie 👉 pixelpedzel.pl\n\n"
-     "#vangogh #sztuka #dekoracjawnętrz #obraznaplotnie"),
 
     # 10. Wybor stylu — grafika
     ("image", "assets/social/post-styl.png",
@@ -204,4 +183,51 @@ POSTS = [
     ("image", "assets/mockups/komiks.png",
      "Zadowolony/a z obrazu? Poleć znajomemu: on ma −15%, a Ty 25 zł za polecenie. 🤝\n"
      "👉 pixelpedzel.pl\n\n#programpolecen #obraznaplotnie #prezent"),
+
+    # === SERIA reel-* (metamorfozy zdjecie -> obraz) ========================
+    # Te same pliki ida na TikToka, ale tam BEZ linku w opisie. Tu link zostaje,
+    # bo na Facebooku to normalny post firmowy, a nie material w feedzie FYP.
+    ("video", "assets/video/reel-lata-razem.mp4",
+     "Tyle lat razem — i ani jednego wspólnego zdjęcia na ścianie.\n\n"
+     "Najczęściej słyszę to od dzieci, które szukają prezentu dla rodziców "
+     "albo dziadków. Zdjęcia są, tylko wszystkie zostały w telefonie.\n\n"
+     "Wyślij jedno, resztę zrobię ja 👉 pixelpedzel.pl\n\n"
+     "#prezentdlarodzicow #obraznaplotnie #rocznica #personalizowanyprezent"),
+    ("video", "assets/video/reel-zostalo-w-telefonie.mp4",
+     "To zdjęcie leżało w telefonie dwa lata.\n\n"
+     "Tak kończy się większość naszych najlepszych zdjęć — przewijamy je raz "
+     "w roku i lecimy dalej. A wystarczy jedno, żeby zawisło na ścianie.\n\n"
+     "Projekt pokazuję przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #wspomnienia #personalizowanyprezent #prezent"),
+    ("video", "assets/video/reel-ktory-styl.mp4",
+     "Jedno zdjęcie, cztery style. Który wybieracie — 1, 2, 3 czy 4? 👇\n\n"
+     "Serio jestem ciekaw, bo mnie osobiście najbardziej podoba się witraż, "
+     "a klienci prawie zawsze wybierają olej.\n\n"
+     "#ankieta #obraznaplotnie #ktorystyl #personalizowanyprezent"),
+    ("video", "assets/video/reel-prezent-klocki.mp4",
+     "Zrobiłem im obraz z klocków — miny bezcenne. 🧱\n\n"
+     "Ten styl działa wszędzie tam, gdzie klasyczny obraz byłby za poważny: "
+     "urodziny, prezent dla dzieciaka, rocznica z przymrużeniem oka.\n\n"
+     "👉 pixelpedzel.pl\n\n#prezent #klocki #obraznaplotnie #personalizowanyprezent"),
+    ("video", "assets/video/reel-witraz.mp4",
+     "Nie sądziłem, że wyjdzie z tego witraż.\n\n"
+     "To chyba najbardziej niedoceniany styl w całej ofercie — na płótnie "
+     "wygląda jak szkło, a w słońcu naprawdę gra kolorami.\n\n"
+     "👉 pixelpedzel.pl\n\n#witraz #obraznaplotnie #dekoracjawnetrz #prezent"),
+    ("video", "assets/video/reel-jak-z-bajki.mp4",
+     "Zwykłe zdjęcie z sesji → kadr jak z animacji.\n\n"
+     "Ten styl najczęściej wybierają młode pary i rodzice małych dzieci. "
+     "Ciepły, kolorowy i nie nudzi się po miesiącu.\n\n"
+     "👉 pixelpedzel.pl\n\n#bajkowy3d #obraznaplotnie #prezent #personalizowanyprezent"),
+    ("video", "assets/video/reel-szkic-pamiatka.mp4",
+     "Zdjęcie sprzed lat. Ołówkiem.\n\n"
+     "Szkic wybaczy sporo — stare, ziarniste, lekko poruszone zdjęcie po "
+     "przerobieniu wygląda jak celowy zabieg, a nie wada.\n\n"
+     "Masz takie w albumie? 👉 pixelpedzel.pl\n\n"
+     "#szkic #obraznaplotnie #pamiatka #prezentdlarodzicow"),
+    ("video", "assets/video/reel-cyberpunk.mp4",
+     "Ze zdjęcia z plaży do neonowego miasta.\n\n"
+     "Najmocniejszy kontrast w całej ofercie i zdecydowanie najczęstszy wybór "
+     "przy prezentach dla nastolatków i fanów sci-fi.\n\n"
+     "👉 pixelpedzel.pl\n\n#cyberpunk #obraznaplotnie #prezent #sciencefiction"),
 ]
