@@ -36,9 +36,32 @@ z tą etykietą są spalone — nie da się ich odratować edycją.
 
 ---
 
-## Kolejność wrzucania (14 dni, 1 dziennie)
+## ⭐ NOWA SERIA `reel-*` — wrzucaj ją pierwszą
 
-Metamorfozy PRZED→PO na start — najmocniej zatrzymują scrollowanie.
+Osiem filmów zrobionych po tym, jak zasięgi ruszyły. Różnią się od starych:
+bez adresu strony w kadrze, tekst poza strefą UI TikToka, powolny zoom
+zamiast statycznej grafiki, a na końcu **pytanie zamiast oferty** —
+komentarze podbijają zasięg mocniej niż link.
+
+| # | Plik | Opis do wklejenia |
+|---|---|---|
+| 1 | `assets/video/reel-lata-razem.mp4` | Tyle lat razem i ani jednego zdjęcia na ścianie. Naprawiłem to 🖤 |
+| 2 | `assets/video/reel-zostalo-w-telefonie.mp4` | To zdjęcie leżało w telefonie dwa lata. Szkoda było |
+| 3 | `assets/video/reel-ktory-styl.mp4` | Jedno zdjęcie, cztery style. Który wybieracie — 1, 2, 3 czy 4? |
+| 4 | `assets/video/reel-prezent-klocki.mp4` | Zrobiłem im obraz z klocków. Miny bezcenne |
+| 5 | `assets/video/reel-witraz.mp4` | Nie sądziłem, że wyjdzie z tego witraż |
+| 6 | `assets/video/reel-jak-z-bajki.mp4` | Zwykłe zdjęcie z sesji → jak z animacji |
+| 7 | `assets/video/reel-szkic-pamiatka.mp4` | Zdjęcie sprzed lat, ołówkiem |
+| 8 | `assets/video/reel-cyberpunk.mp4` | Ze zdjęcia z plaży do neonowego miasta |
+
+**Odpowiadaj na komentarze.** Te filmy celowo kończą się pytaniem —
+jeśli nie odpiszesz w ciągu godziny, tracisz najmocniejszy sygnał dla algorytmu.
+
+---
+
+## Stara seria `tt-*` — dopiero po wyczerpaniu nowej
+
+Metamorfozy PRZED→PO. Nadal działają, ale mają wypalony adres strony w kadrze.
 
 | Dzień | Plik | Opis do wklejenia |
 |---|---|---|
@@ -293,11 +316,54 @@ Kategoria OLX: **Dom i Ogród → Wyposażenie → Dekoracje**.
 
 ---
 
+# CZĘŚĆ D: czego jeszcze brakuje
+
+## Zdjęcia — czy potrzeba nowych?
+
+**W większości nie.** Galeria wyglądała słabo nie dlatego, że materiał był kiepski,
+tylko dlatego, że pliki w `assets/gallery/` miały **341×512 px**, a karty na stronie
+renderują się na ekranach retina do ~560–880 px. Stąd rozmycie.
+
+Oryginały (1586×2376) leżały w `assets/uploads/` i były nieużywane.
+Galeria jest już z nich wygenerowana — `tools/gen_gallery.py`.
+
+## Czego naprawdę brakuje — 4 style
+
+Te cztery nie mają źródła w wysokiej rozdzielczości i **nadal są rozmyte**:
+
+| Styl | Plik | Czego potrzeba |
+|---|---|---|
+| Akwarela | `assets/gallery/akwarela.jpg` | render z `para1-przed.jpg` lub `para3-przed.jpg` |
+| Pastelowe Marzenie | `assets/gallery/pastel.jpg` | render z `para3-przed.jpg` |
+| Kubizm | `assets/gallery/kubizm.jpg` | render z `para2-przed.jpg` |
+| Superbohater | `assets/gallery/superbohater.jpg` | render z `para2-przed.jpg` |
+
+**Jak je dostarczyć:** wrzuć gotowe rendery do `assets/uploads/` pod nazwami
+`paraX-akwarela.png`, `paraX-pastel.png`, `paraX-kubizm.png`, `paraX-superbohater.png`
+(min. 1500 px szerokości), dopisz je do `STYLE_SOURCES` w `tools/gen_gallery.py`
+i odpal `python3 tools/gen_gallery.py`. Reszta zrobi się sama.
+
+**Przy okazji: Superbohater ma na obrazie tarczę z literami „MP"** — to nie są
+inicjały PixelPędzla i wygląda jak przypadkowe logo. Przy nowym renderze warto
+to usunąć albo zamienić na inicjały klienta.
+
+## Zdjęcia, które faktycznie warto zrobić telefonem
+
+Nie kolejne rendery — **prawdziwe zdjęcia gotowego obrazu**:
+- obraz na Twojej ścianie (naturalne światło, kadr z boku),
+- rozpakowywanie z kartonu,
+- obraz trzymany w dłoniach obok oryginalnego zdjęcia na telefonie.
+
+To jedyny materiał, którego nie da się wygenerować — i jedyny, który buduje zaufanie.
+
+---
+
 # ŚCIĄGA — jedna tabela
 
 | Plik | TikTok | Grupy FB | OLX/Marketplace |
 |---|:---:|:---:|:---:|
-| `tt-metamorfoza-*.mp4` (7 szt.) | ✅ najpierw | ✅ | — |
+| `reel-*.mp4` (8 szt., nowa seria) | ✅ **najpierw** | ✅ | — |
+| `tt-metamorfoza-*.mp4` (7 szt.) | ✅ potem | ✅ | — |
 | `tt-recenzja-*.mp4` (4 szt.) | ✅ | ✅ | — |
 | `tt-na-scianie.mp4`, `tt-na-prezent.mp4` | ✅ | ✅ | — |
 | `tt-style-grid-plaza.mp4` | ✅ | ✅ | — |
