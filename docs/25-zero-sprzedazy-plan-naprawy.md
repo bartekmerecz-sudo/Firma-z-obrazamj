@@ -121,7 +121,10 @@ Masz 18 gotowych filmów w `assets/video/` — leżą niewykorzystane.
 
 - Wrzucaj **ręcznie z telefonu** (API TikToka wymaga zatwierdzenia firmy — odpada).
 - 1 film dziennie, najlepiej metamorfozy PRZED→PO (`tt-metamorfoza-*.mp4`).
-- Opis krótki + hashtagi: `#prezent #obraznaplotnie #metamorfoza #fyp`.
+- Opis krótki + hashtagi: `#prezent #obraznaplotnie #metamorfoza #rekodzielo`
+  (bez `#fyp` — nie działa i wygląda spamersko).
+- ⛔ **Wyłącz „Treści promocyjne"** przy publikacji — to jest powód ▷ 0
+  na dotychczasowych filmach. Szczegóły: `docs/26` i `docs/27`.
 
 Jeden film, który „chwyci", potrafi dać więcej ruchu niż miesiąc postów na FB.
 

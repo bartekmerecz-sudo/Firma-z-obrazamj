@@ -103,7 +103,31 @@ Ten sam post możesz powtórzyć w tej samej grupie po ~3 tygodniach.
 
 # CZĘŚĆ 2: Dlaczego TikTok nie daje wyświetleń
 
-## Najprawdopodobniejsza przyczyna
+## ⛔ ZNALEZIONA PRZYCZYNA: etykieta „Treści promocyjne"
+
+Na filmach jest włączona etykieta **„Treści promocyjne"**
+(Więcej opcji → Treści promocyjne → „Promuję własną firmę" / „Treść markowa").
+
+To wyjaśnia ▷ 0 przy większości filmów. TikTok traktuje film z tą etykietą
+jak **płatną reklamę** i praktycznie **nie daje mu zasięgu organicznego** —
+konto nie jest zbanowane, filmy są publiczne, po prostu nikomu nie są pokazywane.
+
+**Filmów już wrzuconych z tą etykietą nie da się odratować** — edycja opisu
+nic nie zmieni, bo dystrybucja została przypisana przy publikacji.
+
+### Plan naprawczy
+1. **Anuluj wszystkie zaplanowane filmy** (te z ikoną zegara na profilu).
+2. **Usuń filmy z ▷ 0** — nie budują profilu, a psują statystyki konta.
+3. **Zrób 2–3 dni przerwy od publikowania.** W tym czasie normalnie używaj apki:
+   10–15 min scrollowania dziennie, lajki, komentarze. Konto ma wyglądać
+   na żywe, nie na kanał wrzutowy.
+4. Potem publikuj **1 film dziennie, z etykietą promocyjną WYŁĄCZONĄ**.
+
+Konkretne pliki i opisy do wrzucania: `docs/27-co-gdzie-wrzucac.md`.
+
+---
+
+## Druga przyczyna (nadal aktualna)
 
 **Nasze filmy wyglądają jak reklama, a TikTok reklam nie promuje za darmo.**
 
@@ -169,10 +193,15 @@ ale wyłącznie w formacie **nakręconym telefonem**. Nie da się tego obejść 
 - Pierwsza sekunda musi pokazać **efekt**, nie logo.
 
 ### Czego użyć z tego, co już mamy
-Filmy z `assets/video/` **nie idą na TikToka**, ale zostają przydatne:
-- ✅ Facebook (robot już je publikuje),
-- ✅ Instagram, gdy ruszysz konto,
-- ✅ jako materiał do wklejania w grupach.
+Filmy z `assets/video/` dzielą się na dwie grupy — pełna rozpiska
+z opisami i kolejnością wrzucania jest w `docs/27-co-gdzie-wrzucac.md`:
+
+- ✅ **Metamorfozy i recenzje** (`tt-metamorfoza-*`, `tt-recenzja-*`,
+  `tt-na-scianie`, `tt-na-prezent`, `tt-style-grid-plaza`) — nadają się
+  na TikToka jako materiał pomostowy, bo pokazują sam efekt PRZED→PO.
+- ❌ **Filmy z cennikiem i adresem strony** (`tiktok-oferta`, `tiktok-style`,
+  `tiktok-na-scianie`, `tt-prezent`) — dla TikToka to czysta reklama.
+  Zostają na Facebooku (robot je publikuje) i do wklejania w grupach.
 
 ---
 
