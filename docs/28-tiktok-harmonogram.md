@@ -157,7 +157,7 @@ a zapisy liczą się w rankingu wyżej niż polubienia.
 ### Dzień 21 · śr 19.08 · `reel-stare-zdjecie.mp4`
 > Zdjęcia z albumu zostają w albumie. Szkoda.
 >
-> #pamiatkarodzinna #szkicolowkiem #prezentdlarodzicow #stare zdjecia
+> #pamiatkarodzinna #szkicolowkiem #prezentdlarodzicow #starezdjecia
 
 ### Dzień 22 · czw 20.08 · `reel-plakat-vs-obraz.mp4`
 > Plakat z sieciówki wisi u trzech Twoich znajomych.
