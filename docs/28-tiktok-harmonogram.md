@@ -3,6 +3,11 @@
 18 filmów, 1 dziennie, od 30.07 do 16.08.2026.
 Wszystko gotowe do wrzucenia: plik + opis do skopiowania + hasztagi.
 
+✅ **Wszystkie filmy z tej listy są bez znaku wodnego.** Rendery źródłowe miały
+w prawym dolnym rogu gwiazdkę generatora — usuwa ją `tools/strip_watermark.py`,
+a materiał został przegenerowany z czystych plików. Jeśli kiedyś dorzucisz nowy
+render, przepuść go przez ten skrypt, zanim cokolwiek opublikujesz (`docs/27`).
+
 ---
 
 ## Zanim wrzucisz cokolwiek — 5 zasad
