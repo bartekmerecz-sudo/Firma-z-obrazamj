@@ -230,4 +230,57 @@ POSTS = [
      "Najmocniejszy kontrast w całej ofercie i zdecydowanie najczęstszy wybór "
      "przy prezentach dla nastolatków i fanów sci-fi.\n\n"
      "👉 pixelpedzel.pl\n\n#cyberpunk #obraznaplotnie #prezent #sciencefiction"),
+
+    # === SERIA reel-* DRUGA PARTIA (obiekcje, poradniki, okazje) ============
+    ("video", "assets/video/reel-a-jak-sie-nie-spodoba.mp4",
+     "„A jak mi się nie spodoba?” — pytacie o to najczęściej, więc odpowiadam raz a dobrze.\n\n"
+     "Wysyłasz zdjęcie → przygotowuję projekt → pokazuję Ci go.\n"
+     "Nie spodoba się? Nie płacisz i się rozchodzimy.\n\n"
+     "Całe ryzyko jest po mojej stronie 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #bezryzyka #personalizowanyprezent #prezent"),
+    ("video", "assets/video/reel-jakie-zdjecie.mp4",
+     "Zanim wyślesz zdjęcie — trzy rzeczy, które decydują o efekcie:\n\n"
+     "1. Ostrość (rozmyte nie da się uratować)\n"
+     "2. Światło — dzienne bije każde inne\n"
+     "3. Twarze dobrze widoczne, nie pod światło\n\n"
+     "Reszta to moja robota 👉 pixelpedzel.pl\n\n"
+     "#poradnik #obraznaplotnie #jakiezdjecie #personalizowanyprezent"),
+    ("video", "assets/video/reel-stare-zdjecie.mp4",
+     "Zdjęcia z albumu zostają w albumie. Szkoda.\n\n"
+     "Stare, ziarniste, lekko poruszone — akurat takie świetnie wychodzą "
+     "w szkicu ołówkiem. To, co w zdjęciu jest wadą, tam wygląda na zamysł.\n\n"
+     "Zajrzyj do szuflady 👉 pixelpedzel.pl\n\n"
+     "#pamiatkarodzinna #szkic #prezentdlarodzicow #obraznaplotnie"),
+    ("video", "assets/video/reel-plakat-vs-obraz.mp4",
+     "Plakat z sieciówki wisi u trzech Twoich znajomych.\n\n"
+     "Obraz z Waszego zdjęcia nie wisi u nikogo — bo takiego zdjęcia "
+     "nie ma nikt inny.\n\n"
+     "Który styl wybieracie 👉 pixelpedzel.pl\n\n"
+     "#dekoracjawnetrz #obraznaplotnie #wystrojwnetrz #homedecor"),
+    ("video", "assets/video/reel-do-jakiego-wnetrza.mp4",
+     "Ściągawka: jaki styl do jakiego wnętrza?\n\n"
+     "Salon → olej albo Van Gogh (ciepłe, klasyczne)\n"
+     "Biuro → wektor (czysty, graficzny)\n"
+     "Pokój nastolatka → cyberpunk\n"
+     "Sypialnia → akwarela, pastel\n\n"
+     "Nie wiesz? Opisz ścianę w komentarzu, podpowiem 👉 pixelpedzel.pl\n\n"
+     "#dekoracjawnetrz #obrazdosalonu #wystrojwnetrz #homedecor"),
+    ("video", "assets/video/reel-proces.mp4",
+     "Co się dzieje po wysłaniu zdjęcia?\n\n"
+     "Siadam do niego sam — dobieram styl, poprawiam kadr, dopracowuję twarze. "
+     "Potem pokazuję Ci projekt i dopiero po Twojej akceptacji idzie do druku.\n\n"
+     "Bez automatu i bez niespodzianek 👉 pixelpedzel.pl\n\n"
+     "#zakulisami #obraznaplotnie #rekodzielo #personalizowanyprezent"),
+    ("video", "assets/video/reel-urodziny.mp4",
+     "Urodziny za tydzień. Znowu perfumy? 🎁\n\n"
+     "Obraz z ich własnego zdjęcia kosztuje tyle co porządny prezent, "
+     "a zostaje na ścianie, a nie na półce w łazience.\n\n"
+     "Zdążę, jak napiszesz dziś 👉 pixelpedzel.pl\n\n"
+     "#urodziny #pomyslnaprezent #prezent #obraznaplotnie"),
+    ("video", "assets/video/reel-ile-kosztuje.mp4",
+     "„Pewnie kosztuje majątek.” — najczęstsze założenie, więc mówię wprost:\n\n"
+     "30×40 — 129 zł · 40×50 — 169 zł · 50×70 — 229 zł · 60×90 — 299 zł\n\n"
+     "Tyle, co kolacja we dwoje. Tylko że zostaje na lata.\n"
+     "Projekt i podgląd gratis 👉 pixelpedzel.pl\n\n"
+     "#cennik #obraznaplotnie #prezent #personalizowanyprezent"),
 ]
