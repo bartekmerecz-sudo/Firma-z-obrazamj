@@ -1,6 +1,6 @@
 # TikTok — rozpiska dzień po dniu
 
-26 filmów, 1 dziennie, od 30.07 do 24.08.2026.
+32 filmy, 1 dziennie. Zacznij od serii bold-* (6 szt.), potem reszta.
 Wszystko gotowe do wrzucenia: plik + opis do skopiowania + hasztagi.
 
 ✅ **Wszystkie filmy z tej listy są bez znaku wodnego.** Rendery źródłowe miały
@@ -29,7 +29,31 @@ to najmocniejszy sygnał, jaki możesz dać algorytmowi.
 
 ---
 
-## Tydzień 1 — nowa seria `reel-*` (najmocniejsza)
+## ⚡ Seria `bold-*` — wrzucaj ją przed wszystkim innym
+
+Sześć filmów w zupełnie innym stylu niż reszta: **napisy słowo po słowie**,
+cięcia co 1,5 s, gruby zwężony krój, żółty akcent na słowie kluczowym.
+To jest język, którym mówi dziś TikTok — poprzednie serie wyglądają przy nich
+jak reklama telewizyjna.
+
+Każdy ma ~6,5 s, czyli mieści się w oknie, gdzie retencja jest najwyższa.
+
+| # | Plik | Opis do wklejenia |
+|---|---|---|
+| 1 | `bold-ile-lat.mp4` | Ile lat jesteście razem? I ile Waszych zdjęć wisi na ścianie? |
+| 2 | `bold-telefon.mp4` | 4000 zdjęć w telefonie. Ile z nich jeszcze zobaczysz? |
+| 3 | `bold-nie-placisz.mp4` | Nie spodoba się — nie płacisz ani złotówki |
+| 4 | `bold-ktory.mp4` | Jeden, dwa, trzy czy cztery? Piszcie numer 👇 |
+| 5 | `bold-prezent.mp4` | Perfumy się skończą. Świeca zgaśnie. To zostaje |
+| 6 | `bold-babcia.mp4` | Dziadkowie mają wszystko. Poza jednym |
+
+Hasztagi jak niżej — dobierz zestaw pasujący tematem.
+
+**Uwaga do nr 4:** kończy się pytaniem o numer. Odpisz każdemu, kto poda cyfrę.
+
+---
+
+## Tydzień 1 — seria `reel-*`
 
 ### Dzień 1 · czw 30.07 · `reel-lata-razem.mp4`
 > Tyle lat razem i ani jednego wspólnego zdjęcia na ścianie. Naprawiłem to 🖤

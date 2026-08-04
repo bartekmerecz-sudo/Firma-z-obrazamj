@@ -283,4 +283,36 @@ POSTS = [
      "Tyle, co kolacja we dwoje. Tylko że zostaje na lata.\n"
      "Projekt i podgląd gratis 👉 pixelpedzel.pl\n\n"
      "#cennik #obraznaplotnie #prezent #personalizowanyprezent"),
+
+    # === SERIA bold-* (szybkie ciecia, napisy slowo po slowie) =============
+    # Inny charakter niz reel-*: krotsze, ostrzejsze, bez eleganckiego serifu.
+    ("video", "assets/video/bold-ile-lat.mp4",
+     "Ile lat jesteście razem? I ile Waszych wspólnych zdjęć wisi na ścianie?\n\n"
+     "Właśnie. Wyślijcie mi jedno — zrobię z niego obraz na płótnie.\n"
+     "Projekt pokazuję przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#rocznica #obraznaplotnie #prezentdlarodzicow #pamiatkarodzinna"),
+    ("video", "assets/video/bold-telefon.mp4",
+     "Masz w telefonie cztery tysiące zdjęć. Ile z nich jeszcze kiedyś obejrzysz?\n\n"
+     "Wybierz jedno. Reszta to moja robota.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#obrazzezdjecia #wspomnienia #obraznaplotnie #personalizowanyprezent"),
+    ("video", "assets/video/bold-prezent.mp4",
+     "Perfumy się skończą. Świeca zgaśnie. Bon przepadnie.\n\n"
+     "Obraz z Waszego zdjęcia zostaje na ścianie — na lata.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#pomyslnaprezent #prezent #obraznaplotnie #personalizowanyprezent"),
+    ("video", "assets/video/bold-nie-placisz.mp4",
+     "Wysyłasz zdjęcie. Robię projekt. Pokazuję Ci go.\n\n"
+     "Nie spodoba się? Nie płacisz ani złotówki. Całe ryzyko po mojej stronie.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#bezryzyka #obraznaplotnie #prezent #personalizowanyprezent"),
+    ("video", "assets/video/bold-ktory.mp4",
+     "Jeden, dwa, trzy czy cztery? Napiszcie numer w komentarzu 👇\n\n"
+     "To jedno i to samo zdjęcie w czterech stylach. Ciekawy, co wygra.\n\n"
+     "#ktorywybierasz #obraznaplotnie #sztuka #ankieta"),
+    ("video", "assets/video/bold-babcia.mp4",
+     "Dziadkowie mają wszystko i niczego nie potrzebują. Poza jednym.\n\n"
+     "Sobą — na ścianie. Ich wspólne zdjęcie jako obraz na płótnie.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#prezentdladziadkow #pamiatkarodzinna #obraznaplotnie #prezent"),
 ]
