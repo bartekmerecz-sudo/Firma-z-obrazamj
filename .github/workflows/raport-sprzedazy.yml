@@ -1,0 +1,31 @@
+name: Raport sprzedazy (Stripe)
+
+# Pobiera liczby ze Stripe i wypisuje je do logu oraz podsumowania przebiegu.
+# NIE zapisuje niczego w repozytorium — kwoty przychodu nie maja po co
+# siedziec w historii gita.
+#
+# Zapytanie leci z infrastruktury GitHuba, bo siec sesji Claude'a przepuszcza
+# wylacznie GitHuba. Klucz trzymamy w GitHub Secrets, nigdy w rozmowie.
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"   # poniedzialek 07:00 UTC = 09:00 w Polsce (lato)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  raport:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Pobierz dane ze Stripe
+        env:
+          STRIPE_RESTRICTED_KEY: ${{ secrets.STRIPE_RESTRICTED_KEY }}
+        run: python3 tools/raport_sprzedazy.py
