@@ -179,12 +179,17 @@
     });
   }
 
-  /* ---------- Wysyłka zamówienia + płatność ----------
+  /* ---------- Wysyłka zamówienia ----------
      Przepływ:
-     1) Zapis zamówienia (+ zdjęcie) przez Formspree — jeśli skonfigurowane.
-     2) Płatność online przez Stripe Checkout — jeśli skonfigurowana na serwerze.
-     3) Fallback: jeśli brak płatności online, potwierdzamy zamówienie w trybie
-        ręcznym (przelew / BLIK). Nic się nie "wywala", gdy coś nie jest gotowe.
+     1) Zapis zamówienia (+ zdjęcie) przez Formspree.
+     2) Potwierdzenie: "przygotuję projekt i odezwę się w 24 h".
+
+     Zamówienie obrazu NIE przechodzi tu przez płatność. Link do zapłaty
+     wysyłamy ręcznie, dopiero po akceptacji projektu — tak brzmi obietnica
+     powtórzona na stronie pięć razy i we wszystkich materiałach.
+
+     PAYMENT_ENDPOINT zostaje, bo korzysta z niego bon podarunkowy (orderBon):
+     tam przedpłata jest naturalna, bo nie ma projektu do zaakceptowania.
   */
   const PAYMENT_ENDPOINT = "/api/create-checkout-session";
   const statusEl = $("#formStatus");
@@ -282,52 +287,28 @@
       }
     }
 
-    // 2) Płatność online (Stripe Checkout)
-    try {
-      const r = await fetch(PAYMENT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      });
-      if (r.ok) {
-        const data = await r.json().catch(() => ({}));
-        if (data && data.url) {
-          window.location.href = data.url; // przekierowanie do bezpiecznej płatności
-          return;
-        }
-      } else if (r.status !== 501) {
-        // 501 = płatności nieskonfigurowane -> przechodzimy do fallbacku.
-        // Inny błąd i brak zapisu zamówienia -> pokaż komunikat.
-        const d = await r.json().catch(() => ({}));
-        if (!orderRecorded) {
-          setStatus(
-            d.error || "Nie udało się rozpocząć płatności. Spróbuj ponownie.",
-            "err"
-          );
-          if (btn) btn.disabled = false;
-          return;
-        }
-      }
-    } catch (_) {
-      /* brak funkcji płatności (np. hosting statyczny) -> fallback niżej */
-    }
-
-    // 3) Fallback — tryb ręczny / komunikaty
+    // 2) Potwierdzenie. Platnosci NIE pobieramy tutaj.
+    //
+    // Strona obiecuje w pieciu miejscach "placisz, gdy Ci sie spodoba" i to samo
+    // mowia wszystkie posty, TikToki oraz ogloszenie na OLX. Przekierowanie
+    // prosto do Stripe zaraz po formularzu przeczylo tej obietnicy dokladnie
+    // w momencie, w ktorym miala zadzialac. Link do platnosci wysylamy recznie,
+    // dopiero gdy klient zaakceptuje projekt.
+    //
+    // Bon podarunkowy zostaje na Stripe (orderBon) — tam przedplata jest
+    // naturalna, bo nie ma projektu do zaakceptowania.
     if (orderRecorded) {
       resetFormUI();
       setStatus(
-        "Dziękujemy! Zamówienie przyjęte. Wyślemy e-mail z potwierdzeniem i danymi do płatności (przelew / BLIK).",
+        "Dziękujemy! Zamówienie przyjęte. Przygotuję projekt i odezwę się " +
+          "na podany e-mail w ciągu 24 godzin. Płacisz dopiero, gdy projekt " +
+          "Ci się spodoba.",
         "ok"
-      );
-    } else if (!formspreeConfigured) {
-      setStatus(
-        "Sklep nie jest jeszcze w pełni skonfigurowany (formularz/płatności). " +
-          "Patrz README lub napisz na kontakt@pixelpedzel.pl.",
-        "err"
       );
     } else {
       setStatus(
-        "Nie udało się wysłać zamówienia. Spróbuj ponownie lub napisz na kontakt@pixelpedzel.pl.",
+        "Nie udało się wysłać zamówienia. Spróbuj ponownie lub napisz na " +
+          "pixelpedzelkontakt@gmail.com",
         "err"
       );
     }
