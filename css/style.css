@@ -44,6 +44,18 @@
   --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
+  /* Tokeny semantyczne. Komponenty odwoluja sie do roli ("powierzchnia"),
+     nie do konkretnego koloru — dzieki temu tryb ciemny to podmiana
+     kilku wartosci, a nie przepisywanie kazdej reguly. */
+  --surface: #ffffff;          /* karta, pole formularza */
+  --surface-sunken: var(--beige-100);
+  --hairline: rgba(30, 30, 30, .06);
+  --hairline-strong: var(--beige-300);
+  --text: var(--graphite-800);
+  --text-2: var(--graphite-700);
+  --text-3: var(--graphite-500);
+  --page: var(--beige-50);
+
   --maxw: 1180px;
 }
 
@@ -54,8 +66,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   margin: 0;
   font-family: var(--font-sans);
-  color: var(--graphite-800);
-  background: var(--beige-50);
+  color: var(--text);
+  background: var(--page);
   /* 300 bylo za cienkie: na jasnym tle traci kontrast i meczy przy
      dluzszym czytaniu. 400 + interlinia 1.5 to prog czytelnosci. */
   line-height: 1.5;
@@ -205,13 +217,18 @@ summary:focus-visible {
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
-.section--alt { background: var(--beige-100); }
-.section__head { text-align: center; max-width: 640px; margin: 0 auto clamp(2.2rem, 4vw, 3.5rem); }
+.section--alt { background: var(--surface-sunken); }
+/* Naglowki sekcji do lewej, nie na srodku. Siedem wysrodkowanych sekcji
+   pod rzad to uklad szablonu — oko nie ma sie o co zaczepic, bo kazda
+   sekcja zaczyna sie w tym samym miejscu. Do lewej jest tez szybsze
+   w czytaniu: wzrok wraca zawsze do tej samej krawedzi. */
+.section__head { max-width: 46ch; margin: 0 0 clamp(2.2rem, 4vw, 3.5rem); }
+.section__head .section__sub { max-width: 44ch; }
 .section__sub { color: var(--graphite-700); font-size: 1.08rem; line-height: 1.55; letter-spacing: 0; }
 
 /* ---------- Steps ---------- */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; counter-reset: step; }
-.step { background: #fff; border-radius: var(--radius-lg); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06); position: relative; }
+.step { background: var(--surface); border-radius: var(--radius-lg); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06); position: relative; }
 .step__num { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--beige-200); color: var(--gold-dark); font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
 .step h3 { font-size: 1.25rem; }
 .step p { font-size: .95rem; color: var(--graphite-700); margin: 0; }
@@ -219,7 +236,7 @@ summary:focus-visible {
 /* ---------- Gallery ---------- */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
 .card {
-  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--surface); border-radius: var(--radius-lg); overflow: hidden;
   box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06);
   display: flex; flex-direction: column;
   transition: transform .3s var(--ease-standard), box-shadow .3s var(--ease-standard);
@@ -247,7 +264,7 @@ summary:focus-visible {
 .chips { display: flex; flex-wrap: wrap; gap: .6rem; }
 .chip { position: relative; }
 .chip input { position: absolute; opacity: 0; }
-.chip span { display: inline-block; padding: .6rem 1.1rem; border: 1.5px solid var(--beige-300); border-radius: 100px; font-size: .9rem; cursor: pointer; transition: .2s; background: #fff; }
+.chip span { display: inline-block; padding: .6rem 1.1rem; border: 1.5px solid var(--beige-300); border-radius: 100px; font-size: .9rem; cursor: pointer; transition: .2s; background: var(--surface); }
 .chip input:checked + span { background: var(--graphite-900); color: #fff; border-color: var(--graphite-900); }
 .chip input:focus-visible + span { outline: 2px solid var(--gold-light); outline-offset: 2px; }
 
@@ -262,7 +279,7 @@ summary:focus-visible {
 .size label, .size { }
 .size input ~ .size__dim { }
 /* style the label box via the label element */
-.size { border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: 1rem 1.2rem; cursor: pointer; background: #fff; transition: .2s; }
+.size { border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: 1rem 1.2rem; cursor: pointer; background: var(--surface); transition: .2s; }
 .size:hover { border-color: var(--gold-light); }
 .size__dim { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: var(--graphite-900); }
 .size__price { font-size: .95rem; color: var(--gold-dark); font-weight: 500; }
@@ -273,7 +290,7 @@ summary:focus-visible {
 /* Opcje dodatkowe */
 .legend-opt { font-family: var(--font-sans); font-size: .8rem; font-weight: 400; color: var(--graphite-500); letter-spacing: normal; }
 .addons { display: flex; flex-direction: column; gap: .7rem; }
-.addon { display: flex; align-items: center; gap: 1rem; border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: .9rem 1.1rem; cursor: pointer; background: #fff; transition: .2s; }
+.addon { display: flex; align-items: center; gap: 1rem; border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: .9rem 1.1rem; cursor: pointer; background: var(--surface); transition: .2s; }
 .addon:hover { border-color: var(--gold-light); }
 .addon input { width: 20px; height: 20px; accent-color: var(--gold-dark); flex: 0 0 auto; }
 .addon__box { flex: 1; display: flex; flex-direction: column; }
@@ -288,7 +305,7 @@ summary:focus-visible {
 
 /* Bon podarunkowy + Program poleceń (kafle) */
 .feature-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
-.feature { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); padding: 2.2rem; box-shadow: var(--shadow-sm); }
+.feature { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius-lg); padding: 2.2rem; box-shadow: var(--shadow-sm); }
 .feature__icon { font-size: 2rem; margin-bottom: .6rem; }
 .feature h3 { font-size: 1.5rem; }
 .feature p { color: var(--graphite-700); }
@@ -299,7 +316,7 @@ summary:focus-visible {
 @media (max-width: 720px) { .feature-2 { grid-template-columns: 1fr; } }
 
 /* Upload */
-.upload { display: block; border: 2px dashed var(--beige-300); border-radius: var(--radius); background: #fff; padding: 2rem; text-align: center; cursor: pointer; transition: .2s; }
+.upload { display: block; border: 2px dashed var(--beige-300); border-radius: var(--radius); background: var(--surface); padding: 2rem; text-align: center; cursor: pointer; transition: .2s; }
 .upload:hover { border-color: var(--gold-light); background: var(--beige-50); }
 .upload input { position: absolute; opacity: 0; width: 0; height: 0; }
 .upload__inner { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
@@ -311,7 +328,7 @@ summary:focus-visible {
 .hint { font-size: .85rem; color: var(--graphite-500); margin-top: .8rem; }
 
 /* Summary */
-.card-elevated { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.card-elevated { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
 .summary { padding: 1.8rem; margin-bottom: 1.5rem; }
 .summary h3 { font-size: 1.4rem; margin-bottom: 1.2rem; }
 .summary__list { margin: 0 0 1.2rem; }
@@ -328,7 +345,7 @@ summary:focus-visible {
 .field-row label { display: block; font-size: .85rem; font-weight: 500; margin-bottom: .35rem; color: var(--graphite-700); }
 .field-row input, .field-row textarea {
   width: 100%; padding: .8rem 1rem; border: 1.5px solid var(--beige-300); border-radius: 10px;
-  font-family: var(--font-sans); font-size: .95rem; background: #fff; transition: .2s; resize: vertical;
+  font-family: var(--font-sans); font-size: .95rem; background: var(--surface); transition: .2s; resize: vertical;
 }
 .field-row input:focus, .field-row textarea:focus { outline: none; border-color: var(--gold-dark); box-shadow: 0 0 0 3px var(--gold-soft); }
 .consent { display: flex; gap: .6rem; align-items: flex-start; font-size: .82rem; color: var(--graphite-700); margin: .6rem 0 1.2rem; }
@@ -340,7 +357,7 @@ summary:focus-visible {
 
 /* ---------- Pricing ---------- */
 .pricing { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
-.price-card { background: #fff; border: 1px solid rgba(30,30,30,.06); border-radius: var(--radius-lg); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
+.price-card { background: var(--surface); border: 1px solid rgba(30,30,30,.06); border-radius: var(--radius-lg); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
 /* Wyroznienie robimy obwodka i cieniem, nie przesunieciem w gore.
    translateY lamalo wspolna linie bazowa — ceny i przyciski w czterech
    kartach siadaly na roznych wysokosciach, co czyta sie jak blad skladu. */
@@ -353,7 +370,7 @@ summary:focus-visible {
 
 /* ---------- FAQ ---------- */
 .faq { display: flex; flex-direction: column; gap: .8rem; }
-.faq__item { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 0 1.4rem; box-shadow: var(--shadow-sm); }
+.faq__item { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 0 1.4rem; box-shadow: var(--shadow-sm); }
 .faq__item summary { cursor: pointer; padding: 1.2rem 0; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--graphite-900); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary::after { content: "+"; color: var(--gold-dark); font-size: 1.6rem; transition: transform .2s; line-height: 1; }
@@ -522,3 +539,103 @@ summary:focus-visible {
 .upload__icon .ico,
 .feature__icon .ico { color: var(--gold-dark); }
 .feature__icon { line-height: 0; }
+
+
+/* ============================================================
+   Tryb ciemny
+   Cieple ciemne, nie czarne — czysty #000 pod ciepla marka wyglada
+   jak awaria podswietlenia. Warstwy rozdzielamy mala roznica jasnosci
+   plus wlosowa obwodka, nie duzym skokiem: w ciemnym motywie duze skoki
+   czytaja sie jak dziury.
+   Kontrasty przeliczone: tresc 14.7:1, tekst wtorny 9.0:1, pomocniczy 5.5:1,
+   akcent 9.4:1 — wszystkie powyzej normy 4.5:1.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page:            #17150f;
+    --surface:         #201d16;
+    --surface-sunken:  #1b1812;
+    --hairline:        rgba(236, 230, 218, .09);
+    --hairline-strong: rgba(236, 230, 218, .18);
+
+    --text:   #ece6da;
+    --text-2: #bdb5a5;
+    --text-3: #948c7d;
+
+    /* Na ciemnym tle akcent musi byc JASNIEJSZY niz w dzien, inaczej
+       ginie. Przycisk odwraca sie: ciemny tekst na jasnym akcencie. */
+    --gold-dark:  #e0b35c;
+    --gold-light: #f0cd8e;
+
+    --beige-50:  #17150f;
+    --beige-100: #1b1812;
+    --beige-200: #2a261d;
+    --beige-300: #3a3428;
+
+    --graphite-900: #ece6da;
+    --graphite-800: #ece6da;
+    --graphite-700: #bdb5a5;
+    --graphite-500: #948c7d;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
+    --shadow-md: 0 1px 3px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.45);
+    --shadow-lg: 0 2px 6px rgba(0,0,0,.55), 0 20px 50px rgba(0,0,0,.5);
+  }
+
+  body { background: var(--page); color: var(--text); }
+
+  /* Przycisk: ciemny tekst na jasnym akcencie — 9.4:1. */
+  .btn--gold { background: var(--gold-dark); color: #17150f; box-shadow: none; }
+  .btn--gold:hover { background: #f0cd8e; }
+  .btn--ghost { color: var(--text); border-color: rgba(236,230,218,.28); }
+  .btn--ghost:hover { background: rgba(236,230,218,.08); border-color: rgba(236,230,218,.45); }
+
+  /* Material paska: ciemniejsza przezroczystosc, ta sama zasada. */
+  .nav { background: rgba(23, 21, 15, .72); }
+  .nav.is-scrolled { background: rgba(23, 21, 15, .85); border-bottom-color: var(--hairline); }
+  .nav__toggle span { background: var(--text); }
+
+  /* Karty i pola: obwodka wlosowa przejmuje role cienia, ktory
+     na ciemnym tle prawie nie pracuje. */
+  .card, .step, .feature, .price-card, .faq__item, .card-elevated {
+    border-color: var(--hairline);
+  }
+  .chip span, .size, .addon, .upload, input, textarea, select {
+    background: var(--surface);
+    border-color: var(--hairline-strong);
+    color: var(--text);
+  }
+  .hero__frame { border-color: #2a261d; }
+  .hero__guarantee { background: rgba(224, 179, 92, .10); }
+  .step__num { background: var(--beige-200); color: var(--gold-dark); }
+
+  /* Stopka byla ciemna juz w dzien — w nocy musi sie odciac od tla,
+     inaczej zlewa sie ze strona. */
+  .footer { background: #100e0a; color: var(--text-2); border-top: 1px solid var(--hairline); }
+
+  /* Zdjecia lekko przygaszone: pelna jasnosc obok ciemnego interfejsu
+     razi w oczy. */
+  .card__img img, .hero__frame img, .compare__img { filter: brightness(.92); }
+
+  /* Zaznaczony kafelek. W dzien to ciemne tlo z bialym tekstem; po
+     przemapowaniu --graphite-900 na jasny kremowy wychodzilo jasne tlo
+     z bialym tekstem, czyli napis prawie niewidoczny. W nocy odwracamy:
+     jasne tlo, ciemny tekst — 13.5:1. */
+  .chip input:checked + span {
+    background: var(--text);
+    color: var(--page);
+    border-color: var(--text);
+  }
+
+  /* Wybrany rozmiar i dodatek: obwodka akcentem wystarcza, wewnetrzna
+     poswiata w jasnym zlocie robila na ciemnym tle obwodke-widmo. */
+  .size:has(input:checked),
+  .addon:has(input:checked) {
+    background: rgba(224, 179, 92, .12);
+    box-shadow: 0 0 0 1px var(--gold-dark) inset;
+  }
+
+  /* Pola wyboru rysowane przez system dostaja akcent, zeby nie byly
+     jaskrawo biale. */
+  input[type="checkbox"], input[type="radio"] { accent-color: var(--gold-dark); }
+}
