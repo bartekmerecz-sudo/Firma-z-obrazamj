@@ -17,14 +17,26 @@
   --gold-soft: #e8d6a8;
   --white: #ffffff;
 
-  --shadow-sm: 0 2px 8px rgba(30, 30, 30, 0.08);
-  --shadow-md: 0 10px 30px rgba(30, 30, 30, 0.12);
-  --shadow-lg: 0 24px 60px rgba(30, 30, 30, 0.18);
+  /* Cienie warstwowe: waska krawedz + rozproszona poswiata. Pojedynczy
+     duzy blur wyglada jak plama, dwie warstwy czytaja sie jak uniesienie. */
+  --shadow-sm: 0 1px 2px rgba(30,30,30,.06), 0 2px 8px rgba(30,30,30,.05);
+  --shadow-md: 0 1px 3px rgba(30,30,30,.07), 0 8px 24px rgba(30,30,30,.08);
+  --shadow-lg: 0 2px 6px rgba(30,30,30,.08), 0 20px 50px rgba(30,30,30,.13);
   --radius: 14px;
   --radius-lg: 22px;
 
   --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Jost", system-ui, -apple-system, sans-serif;
+  /* Tekst czytany ustawiamy na kroju systemowym. Ma juz dostrojone
+     optical sizing, tabele trackingu i hinting pod dany system — czego
+     zaden font webowy nie dowozi za darmo. Serif zostaje tam, gdzie
+     pelni role marki: w naglowkach. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+               system-ui, "Helvetica Neue", Arial, sans-serif;
+
+  /* Krzywe. "standard" to domyslne przejscie UI; "spring" ma lekkie
+     przeregulowanie i uzywamy go TYLKO tam, gdzie ruch ma ciezar. */
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
   --maxw: 1180px;
 }
@@ -38,15 +50,30 @@ body {
   font-family: var(--font-sans);
   color: var(--graphite-800);
   background: var(--beige-50);
-  line-height: 1.65;
-  font-weight: 300;
+  /* 300 bylo za cienkie: na jasnym tle traci kontrast i meczy przy
+     dluzszym czytaniu. 400 + interlinia 1.5 to prog czytelnosci. */
+  line-height: 1.5;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 1.15; margin: 0 0 .4em; color: var(--graphite-900); }
-h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
-h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
-h3 { font-size: 1.4rem; }
+/* Tracking i interlinia sa specyficzne dla rozmiaru, nie wspolne.
+   Duzy tekst czyta sie jako rozstrzelony, wiec go sciagamy; maly
+   potrzebuje odwrotnie — powietrza. Jedna wartosc dla wszystkich
+   zawsze jest bledna w ktoryms koncu skali. */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 0 0 .4em;
+  color: var(--graphite-900);
+  font-optical-sizing: auto;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.1;  letter-spacing: -0.018em; }
+h3 { font-size: 1.35rem;                    line-height: 1.25; letter-spacing: -0.008em; }
+h4 { font-size: 1.1rem;                     line-height: 1.3;  letter-spacing: 0; }
 p { margin: 0 0 1rem; }
 a { color: inherit; text-decoration: none; transition: color .2s; }
 img { max-width: 100%; display: block; }
@@ -62,8 +89,8 @@ img[hidden] { display: none; }
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: .28em;
-  font-size: .72rem;
+  letter-spacing: .16em;
+  font-size: .74rem;
   font-weight: 500;
   color: var(--gold-dark);
   margin: 0 0 .8rem;
@@ -81,23 +108,56 @@ img[hidden] { display: none; }
   letter-spacing: .02em;
   cursor: pointer;
   border: 1.5px solid transparent;
-  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+  transition: transform .22s var(--ease-standard), background .2s var(--ease-standard),
+              color .2s var(--ease-standard), border-color .2s var(--ease-standard);
   white-space: nowrap;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn--gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: #fff; box-shadow: 0 8px 22px rgba(184, 134, 11, .28); }
-.btn--gold:hover { box-shadow: 0 12px 30px rgba(184, 134, 11, .38); }
-.btn--ghost { background: transparent; color: var(--graphite-900); border-color: var(--graphite-800); }
-.btn--ghost:hover { background: var(--graphite-900); color: #fff; }
+/* Reakcja na NACISNIECIE, nie na najechanie. Podskok przy hoverze nie
+   istnieje na dotyku, a tam odbywa sie wiekszosc ruchu — i opoznia
+   informacje zwrotna do momentu puszczenia. Skala w dol jest natychmiastowa
+   i czytelna na kazdym urzadzeniu. */
+.btn:active { transform: scale(0.97); transition-duration: 80ms; }
+
+/* Plaskie wypelnienie zamiast gradientu: gradient na przycisku czyta sie
+   jako ozdoba, a przycisk ma byc powierzchnia do nacisniecia. */
+.btn--gold { background: var(--gold-dark); color: #fff; box-shadow: 0 1px 2px rgba(120, 86, 6, .2); }
+.btn--gold:hover { background: #a3760a; }
+.btn--ghost { background: transparent; color: var(--graphite-900); border-color: rgba(30,30,30,.22); }
+.btn--ghost:hover { background: rgba(30,30,30,.05); border-color: rgba(30,30,30,.4); }
+
+/* Widoczny fokus dla klawiatury — bez tego strona jest nieprzechodzalna
+   bez myszy. :focus-visible nie pokazuje sie przy kliknieciu myszka. */
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 .btn--sm { padding: .6rem 1.2rem; font-size: .85rem; }
 .btn--block { width: 100%; }
 
 /* ---------- Nav ---------- */
+/* Pasek jako warstwa materialu, pod ktora przewija sie tresc — nie jako
+   nieprzezroczysty pas zjadajacy gore ekranu. Mocniejsze rozmycie plus
+   nasycenie sprawia, ze kolory spod spodu nie robia sie szare. */
 .nav {
   position: sticky; top: 0; z-index: 50;
+  background: rgba(250, 246, 239, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: background .3s var(--ease-standard), border-color .3s var(--ease-standard);
+}
+/* Krawedz pojawia sie dopiero, gdy tresc faktycznie wchodzi pod pasek —
+   stala kreska pod nieprzewiniete strone jest kreska bez powodu.
+   Klase dokłada skrypt przy przewijaniu. */
+.nav.is-scrolled {
   background: rgba(250, 246, 239, .82);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--beige-200);
+  border-bottom-color: rgba(30, 30, 30, .08);
 }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--graphite-900); }
@@ -141,22 +201,30 @@ img[hidden] { display: none; }
 .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
 .section--alt { background: var(--beige-100); }
 .section__head { text-align: center; max-width: 640px; margin: 0 auto clamp(2.2rem, 4vw, 3.5rem); }
-.section__sub { color: var(--graphite-700); font-size: 1.08rem; }
+.section__sub { color: var(--graphite-700); font-size: 1.08rem; line-height: 1.55; letter-spacing: 0; }
 
 /* ---------- Steps ---------- */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; counter-reset: step; }
-.step { background: #fff; border-radius: var(--radius); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid var(--beige-200); position: relative; }
+.step { background: #fff; border-radius: var(--radius-lg); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06); position: relative; }
 .step__num { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--beige-200); color: var(--gold-dark); font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
 .step h3 { font-size: 1.25rem; }
 .step p { font-size: .95rem; color: var(--graphite-700); margin: 0; }
 
 /* ---------- Gallery ---------- */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-.card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--beige-200); transition: transform .25s, box-shadow .25s; display: flex; flex-direction: column; }
-.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.card {
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06);
+  display: flex; flex-direction: column;
+  transition: transform .3s var(--ease-standard), box-shadow .3s var(--ease-standard);
+}
+/* Uniesienie o 6 px bylo za duze — karta odrywala sie od siatki.
+   3 px wystarcza, zeby powiedziec "to jest klikalne". */
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.card:active { transform: scale(0.985); transition-duration: 80ms; }
 .card__img { aspect-ratio: 3/4; overflow: hidden; background: var(--beige-200); }
-.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-.card:hover .card__img img { transform: scale(1.05); }
+.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s var(--ease-standard); }
+.card:hover .card__img img { transform: scale(1.04); }
 .card__img--placeholder { display: grid; place-items: center; background: linear-gradient(135deg, var(--graphite-800), var(--graphite-700)); }
 .card__img--placeholder span { font-family: var(--font-serif); font-size: 2.4rem; letter-spacing: .3em; color: var(--gold); font-weight: 700; }
 .card__body { padding: 1.3rem 1.3rem 1.6rem; flex: 1; }
@@ -266,8 +334,11 @@ img[hidden] { display: none; }
 
 /* ---------- Pricing ---------- */
 .pricing { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
-.price-card { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
-.price-card--featured { border-color: var(--gold-dark); box-shadow: var(--shadow-md); transform: translateY(-6px); }
+.price-card { background: #fff; border: 1px solid rgba(30,30,30,.06); border-radius: var(--radius-lg); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
+/* Wyroznienie robimy obwodka i cieniem, nie przesunieciem w gore.
+   translateY lamalo wspolna linie bazowa — ceny i przyciski w czterech
+   kartach siadaly na roznych wysokosciach, co czyta sie jak blad skladu. */
+.price-card--featured { border-color: var(--gold-dark); border-width: 1.5px; box-shadow: var(--shadow-md); }
 .price-card__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold-dark); color: #fff; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .9rem; border-radius: 100px; white-space: nowrap; }
 .price-card__price { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 700; color: var(--graphite-900); margin: .3rem 0; }
 .price-card__price span { font-size: 1.1rem; color: var(--gold-dark); }
@@ -376,3 +447,53 @@ img[hidden] { display: none; }
 .bon-custom input { flex: 1 1 140px; min-width: 120px; padding: .6rem .8rem; border: 1px solid #d9d2c6; border-radius: 8px; font: inherit; }
 .bon-custom input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
 #bonStatus.err { color: #b23b3b; }
+
+
+/* ============================================================
+   Preferencje uzytkownika
+   Trzy niezalezne sygnaly, kazdy znaczy co innego. Ograniczony ruch
+   nie znaczy "bez informacji zwrotnej" — znaczy "bez ruchu, ktory
+   dziala na blednik".
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  /* Zmiana koloru i przezroczystosci zostaje — pomaga zrozumiec,
+     co sie stalo, i nie wywoluje mdlosci. */
+  .btn { transition: background .15s linear, color .15s linear !important; }
+  .btn:active { transform: none; }
+  .card:hover .card__img img { transform: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav, .nav.is-scrolled {
+    background: var(--beige-50);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: rgba(30, 30, 30, .12);
+  }
+}
+
+@media (prefers-contrast: more) {
+  body { color: #111; }
+  .btn--ghost { border-color: #111; color: #111; }
+  .hero__badges, .section__sub { color: var(--graphite-700); }
+  .card, .compare { border: 1px solid rgba(30, 30, 30, .35); }
+}
+
+
+/* Na waskim ekranie przyciski hero ida na pelna szerokosc. Dwa przyciski
+   o roznej szerokosci jeden pod drugim czytaja sie jak przypadek, a nie
+   jak wybor; rowna krawedz porzadkuje kolumne. */
+@media (max-width: 560px) {
+  .hero__cta { flex-direction: column; align-items: stretch; gap: .7rem; }
+  .hero__cta .btn { width: 100%; }
+  /* Cel dotykowy nie schodzi ponizej 44 px — ponizej tego palec chybia. */
+  .btn { min-height: 48px; }
+  .nav__links a:not(.btn) { min-height: 44px; display: flex; align-items: center; }
+}
