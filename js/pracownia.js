@@ -280,9 +280,11 @@
         if (!j.skonfigurowane) {
           kartaHaslo.hidden = true;
           panel.hidden = false;
+          var brak = (j.brakuje || []).join(" i ") || "GEMINI_API_KEY i PRACOWNIA_HASLO";
           pokazKomunikat(
-            "Pracownia nie jest jeszcze podpięta pod Google. Dodaj GEMINI_API_KEY " +
-            "i PRACOWNIA_HASLO w ustawieniach hostingu — instrukcja w docs/32.", "blad");
+            "Hosting nie widzi zmiennej: " + brak + ". Sprawdź pisownię nazwy, " +
+            "zaznaczenie środowiska Production i czy po zapisaniu był Redeploy — " +
+            "instrukcja w docs/32.", "blad");
           gotowe = false;
           odswiezPrzycisk();
           return;

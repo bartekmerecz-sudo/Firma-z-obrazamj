@@ -109,10 +109,17 @@ module.exports = async (req, res) => {
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
 
   if (req.method === "GET") {
+    // Mowimy wprost, KTOREJ zmiennej brakuje. "Nie jest skonfigurowane" nie
+    // odroznia literowki w nazwie od zmiennej dodanej tylko do srodowiska
+    // Preview, a to sa zupelnie inne poprawki. Zadnej wartosci nie zdradzamy.
+    const brakuje = ["GEMINI_API_KEY", "PRACOWNIA_HASLO"]
+      .filter((n) => !process.env[n]);
     return res.status(200).json({
       style: listaDlaUI(),
       limit: LIMIT,
-      skonfigurowane: Boolean(process.env.GEMINI_API_KEY && process.env.PRACOWNIA_HASLO),
+      model: MODEL,
+      skonfigurowane: brakuje.length === 0,
+      brakuje,
     });
   }
   if (req.method !== "POST") return res.status(405).json({ blad: "Metoda niedozwolona." });
