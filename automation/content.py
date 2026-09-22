@@ -16,13 +16,11 @@ POSTS = [
     # === POSTY SPRZEDAZOWE (PRIORYTET — ida jako pierwsze) ==================
     # Dotychczasowe posty pokazywaly STYLE. Te zdejmuja obiekcje i daja powod,
     # zeby napisac DZIS. Firma bez klientow potrzebuje najpierw tych.
-    ("image", "assets/social/post-oferta-start.png",
-     "Startuję z pracownią i szukam 5 pierwszych osób. 🤍\n\n"
-     "Robię obraz z Waszego zdjęcia ze zniżką założycielską — w zamian proszę "
-     "tylko o zdjęcie obrazu na Waszej ścianie i szczerą opinię.\n\n"
-     "Projekt pokazuję przed drukiem. Nie spodoba się — nie płacisz.\n"
-     "Napisz w komentarzu CHCĘ albo w wiadomości 👉 pixelpedzel.pl\n\n"
-     "#obraznaplotnie #personalizowanyprezent #handmadepl #prezent"),
+    # post-oferta-start.png wycofany 22.09. Obiecywal znizke dla "5 pierwszych
+    # osob", a kampania startowa mowi o "pierwszych trzech obrazach za pol ceny"
+    # i post o zwierzakach o "pierwszych trzech zwierzakach". Trzy rozne
+    # obietnice naraz to nie oferta, tylko halas — klient, ktory zobaczy dwie,
+    # przestaje wierzyc w obie. Grafika zostaje w repo, gdyby wrocila.
     ("image", "assets/social/post-bez-ryzyka.png",
      "„A jak mi się nie spodoba?” — to najczęstsze pytanie, więc mówię wprost:\n\n"
      "Przysyłasz zdjęcie. Robię projekt. Pokazuję Ci go ZANIM cokolwiek zapłacisz.\n"
@@ -388,4 +386,34 @@ POSTS = [
      "Napiszcie ŚWIĘTA w komentarzu albo w wiadomości 👉 pixelpedzel.pl\n\n"
      "#prezentnaswieta #swieta2026 #obraznaplotnie #personalizowanyprezent",
      ("2026-11-03", "2026-12-12")),
+
+    # === KAMPANIA "PIERWSZY KLIENT" (tools/gen_posty_start.py) =============
+    # Ida jako pierwsze w rotacji. Wszystkie trzy koncza sie jednym slowem do
+    # napisania w komentarzu — latwiej odpowiedziec jednym slowem niz ulozyc
+    # zdanie, a kazdy komentarz podbija zasieg postu.
+    ("image", "assets/social/post-darmowy-projekt.png",
+     "Wyślij mi zdjęcie rano — projekt zobaczysz jeszcze tego samego dnia. 🤍\n\n"
+     "Za darmo. Bez zamówienia, bez zaliczki, bez zobowiązania.\n"
+     "Spodoba się — drukuję na płótnie. Nie spodoba się — rozchodzimy się "
+     "i nie płacisz ani złotówki.\n\n"
+     "Napiszcie PROJEKT w komentarzu albo w wiadomości 👉 pixelpedzel.pl\n\n"
+     "#obrazzezdjecia #obraznaplotnie #bezryzyka #personalizowanyprezent"),
+    ("image", "assets/social/post-pabianice.png",
+     "Jestem z Pabianic. Nie z hurtowni, nie z drugiego końca Polski. 📍\n\n"
+     "Dla Was z okolicy to znaczy tyle:\n"
+     "• odbiór osobisty, bez kuriera i czekania na paczkę\n"
+     "• obraz oglądacie na żywo, zanim za niego zapłacicie\n"
+     "• Łódź i okolice — dowiozę sam\n\n"
+     "Prezent na ostatnią chwilę? Lokalnie da się zdążyć tam, gdzie kurier już nie.\n"
+     "Piszcie 👉 pixelpedzel.pl\n\n"
+     "#pabianice #łódź #lokalnie #obraznaplotnie #prezent"),
+    ("image", "assets/social/post-pierwszy-klient.png",
+     "Szczerze: nikt u mnie jeszcze nie zamówił.\n\n"
+     "Ruszyłem niedawno i nie mam się czym pochwalić — poza tym, co zrobiłem sam. "
+     "Nie będę udawał dorobku, którego nie mam.\n\n"
+     "Więc proponuję układ: **pierwsze trzy obrazy robię za pół ceny.** "
+     "W zamian proszę o zdjęcie gotowego obrazu na Waszej ścianie i szczerą opinię — "
+     "także jeśli wyjdzie kiepsko.\n\n"
+     "Ktoś musi być pierwszy. Napiszcie PIERWSZY 👇\n\n"
+     "#nowafirma #handmadepl #obraznaplotnie #wspierampolskiemarki"),
 ]
