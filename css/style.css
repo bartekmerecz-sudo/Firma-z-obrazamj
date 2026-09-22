@@ -12,19 +12,49 @@
   --graphite-800: #2b2b2b;
   --graphite-700: #3a3a3a;
   --graphite-500: #6b6b6b;
-  --gold: #c9a24b;
-  --gold-dark: #b8860b;
+  /* Akcent. Poprzednie #b8860b dawalo 3.25:1 dla bialego tekstu na
+     przycisku i 3.02:1 na tle — ponizej normy 4.5:1 w obu przypadkach,
+     czyli glowny przycisk strony byl nieczytelny dla czesci osob.
+     #8a6414 daje 5.37:1 i 4.98:1, a lezy na tyle blisko, ze marka
+     nie zmienia charakteru.
+     --gold-light NIE nadaje sie pod tekst (2.2:1) — wylacznie tla i obwodki. */
+  --gold-light: #c9a24b;
+  --gold-dark: #8a6414;
   --gold-soft: #e8d6a8;
   --white: #ffffff;
 
-  --shadow-sm: 0 2px 8px rgba(30, 30, 30, 0.08);
-  --shadow-md: 0 10px 30px rgba(30, 30, 30, 0.12);
-  --shadow-lg: 0 24px 60px rgba(30, 30, 30, 0.18);
+  /* Cienie warstwowe: waska krawedz + rozproszona poswiata. Pojedynczy
+     duzy blur wyglada jak plama, dwie warstwy czytaja sie jak uniesienie. */
+  --shadow-sm: 0 1px 2px rgba(30,30,30,.06), 0 2px 8px rgba(30,30,30,.05);
+  --shadow-md: 0 1px 3px rgba(30,30,30,.07), 0 8px 24px rgba(30,30,30,.08);
+  --shadow-lg: 0 2px 6px rgba(30,30,30,.08), 0 20px 50px rgba(30,30,30,.13);
   --radius: 14px;
   --radius-lg: 22px;
 
   --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Jost", system-ui, -apple-system, sans-serif;
+  /* Tekst czytany ustawiamy na kroju systemowym. Ma juz dostrojone
+     optical sizing, tabele trackingu i hinting pod dany system — czego
+     zaden font webowy nie dowozi za darmo. Serif zostaje tam, gdzie
+     pelni role marki: w naglowkach. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+               system-ui, "Helvetica Neue", Arial, sans-serif;
+
+  /* Krzywe. "standard" to domyslne przejscie UI; "spring" ma lekkie
+     przeregulowanie i uzywamy go TYLKO tam, gdzie ruch ma ciezar. */
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* Tokeny semantyczne. Komponenty odwoluja sie do roli ("powierzchnia"),
+     nie do konkretnego koloru — dzieki temu tryb ciemny to podmiana
+     kilku wartosci, a nie przepisywanie kazdej reguly. */
+  --surface: #ffffff;          /* karta, pole formularza */
+  --surface-sunken: var(--beige-100);
+  --hairline: rgba(30, 30, 30, .06);
+  --hairline-strong: var(--beige-300);
+  --text: var(--graphite-800);
+  --text-2: var(--graphite-700);
+  --text-3: var(--graphite-500);
+  --page: var(--beige-50);
 
   --maxw: 1180px;
 }
@@ -36,17 +66,32 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   margin: 0;
   font-family: var(--font-sans);
-  color: var(--graphite-800);
-  background: var(--beige-50);
-  line-height: 1.65;
-  font-weight: 300;
+  color: var(--text);
+  background: var(--page);
+  /* 300 bylo za cienkie: na jasnym tle traci kontrast i meczy przy
+     dluzszym czytaniu. 400 + interlinia 1.5 to prog czytelnosci. */
+  line-height: 1.5;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 1.15; margin: 0 0 .4em; color: var(--graphite-900); }
-h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
-h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
-h3 { font-size: 1.4rem; }
+/* Tracking i interlinia sa specyficzne dla rozmiaru, nie wspolne.
+   Duzy tekst czyta sie jako rozstrzelony, wiec go sciagamy; maly
+   potrzebuje odwrotnie — powietrza. Jedna wartosc dla wszystkich
+   zawsze jest bledna w ktoryms koncu skali. */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 0 0 .4em;
+  color: var(--graphite-900);
+  font-optical-sizing: auto;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.1;  letter-spacing: -0.018em; }
+h3 { font-size: 1.35rem;                    line-height: 1.25; letter-spacing: -0.008em; }
+h4 { font-size: 1.1rem;                     line-height: 1.3;  letter-spacing: 0; }
 p { margin: 0 0 1rem; }
 a { color: inherit; text-decoration: none; transition: color .2s; }
 img { max-width: 100%; display: block; }
@@ -62,8 +107,8 @@ img[hidden] { display: none; }
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: .28em;
-  font-size: .72rem;
+  letter-spacing: .16em;
+  font-size: .74rem;
   font-weight: 500;
   color: var(--gold-dark);
   margin: 0 0 .8rem;
@@ -81,23 +126,56 @@ img[hidden] { display: none; }
   letter-spacing: .02em;
   cursor: pointer;
   border: 1.5px solid transparent;
-  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+  transition: transform .22s var(--ease-standard), background .2s var(--ease-standard),
+              color .2s var(--ease-standard), border-color .2s var(--ease-standard);
   white-space: nowrap;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn--gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: #fff; box-shadow: 0 8px 22px rgba(184, 134, 11, .28); }
-.btn--gold:hover { box-shadow: 0 12px 30px rgba(184, 134, 11, .38); }
-.btn--ghost { background: transparent; color: var(--graphite-900); border-color: var(--graphite-800); }
-.btn--ghost:hover { background: var(--graphite-900); color: #fff; }
+/* Reakcja na NACISNIECIE, nie na najechanie. Podskok przy hoverze nie
+   istnieje na dotyku, a tam odbywa sie wiekszosc ruchu — i opoznia
+   informacje zwrotna do momentu puszczenia. Skala w dol jest natychmiastowa
+   i czytelna na kazdym urzadzeniu. */
+.btn:active { transform: scale(0.97); transition-duration: 80ms; }
+
+/* Plaskie wypelnienie zamiast gradientu: gradient na przycisku czyta sie
+   jako ozdoba, a przycisk ma byc powierzchnia do nacisniecia. */
+.btn--gold { background: var(--gold-dark); color: #fff; box-shadow: 0 1px 2px rgba(120, 86, 6, .2); }
+.btn--gold:hover { background: #73530f; }
+.btn--ghost { background: transparent; color: var(--graphite-900); border-color: rgba(30,30,30,.22); }
+.btn--ghost:hover { background: rgba(30,30,30,.05); border-color: rgba(30,30,30,.4); }
+
+/* Widoczny fokus dla klawiatury — bez tego strona jest nieprzechodzalna
+   bez myszy. :focus-visible nie pokazuje sie przy kliknieciu myszka. */
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 .btn--sm { padding: .6rem 1.2rem; font-size: .85rem; }
 .btn--block { width: 100%; }
 
 /* ---------- Nav ---------- */
+/* Pasek jako warstwa materialu, pod ktora przewija sie tresc — nie jako
+   nieprzezroczysty pas zjadajacy gore ekranu. Mocniejsze rozmycie plus
+   nasycenie sprawia, ze kolory spod spodu nie robia sie szare. */
 .nav {
   position: sticky; top: 0; z-index: 50;
+  background: rgba(250, 246, 239, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: background .3s var(--ease-standard), border-color .3s var(--ease-standard);
+}
+/* Krawedz pojawia sie dopiero, gdy tresc faktycznie wchodzi pod pasek —
+   stala kreska pod nieprzewiniete strone jest kreska bez powodu.
+   Klase dokłada skrypt przy przewijaniu. */
+.nav.is-scrolled {
   background: rgba(250, 246, 239, .82);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--beige-200);
+  border-bottom-color: rgba(30, 30, 30, .08);
 }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--graphite-900); }
@@ -139,26 +217,39 @@ img[hidden] { display: none; }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
-.section--alt { background: var(--beige-100); }
-.section__head { text-align: center; max-width: 640px; margin: 0 auto clamp(2.2rem, 4vw, 3.5rem); }
-.section__sub { color: var(--graphite-700); font-size: 1.08rem; }
+.section--alt { background: var(--surface-sunken); }
+/* Naglowki sekcji do lewej, nie na srodku. Siedem wysrodkowanych sekcji
+   pod rzad to uklad szablonu — oko nie ma sie o co zaczepic, bo kazda
+   sekcja zaczyna sie w tym samym miejscu. Do lewej jest tez szybsze
+   w czytaniu: wzrok wraca zawsze do tej samej krawedzi. */
+.section__head { max-width: 46ch; margin: 0 0 clamp(2.2rem, 4vw, 3.5rem); }
+.section__head .section__sub { max-width: 44ch; }
+.section__sub { color: var(--graphite-700); font-size: 1.08rem; line-height: 1.55; letter-spacing: 0; }
 
 /* ---------- Steps ---------- */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; counter-reset: step; }
-.step { background: #fff; border-radius: var(--radius); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid var(--beige-200); position: relative; }
+.step { background: var(--surface); border-radius: var(--radius-lg); padding: 2rem 1.6rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06); position: relative; }
 .step__num { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--beige-200); color: var(--gold-dark); font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
 .step h3 { font-size: 1.25rem; }
 .step p { font-size: .95rem; color: var(--graphite-700); margin: 0; }
 
 /* ---------- Gallery ---------- */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-.card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--beige-200); transition: transform .25s, box-shadow .25s; display: flex; flex-direction: column; }
-.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.card {
+  background: var(--surface); border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(30,30,30,.06);
+  display: flex; flex-direction: column;
+  transition: transform .3s var(--ease-standard), box-shadow .3s var(--ease-standard);
+}
+/* Uniesienie o 6 px bylo za duze — karta odrywala sie od siatki.
+   3 px wystarcza, zeby powiedziec "to jest klikalne". */
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.card:active { transform: scale(0.985); transition-duration: 80ms; }
 .card__img { aspect-ratio: 3/4; overflow: hidden; background: var(--beige-200); }
-.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-.card:hover .card__img img { transform: scale(1.05); }
+.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s var(--ease-standard); }
+.card:hover .card__img img { transform: scale(1.04); }
 .card__img--placeholder { display: grid; place-items: center; background: linear-gradient(135deg, var(--graphite-800), var(--graphite-700)); }
-.card__img--placeholder span { font-family: var(--font-serif); font-size: 2.4rem; letter-spacing: .3em; color: var(--gold); font-weight: 700; }
+.card__img--placeholder span { font-family: var(--font-serif); font-size: 2.4rem; letter-spacing: .3em; color: var(--gold-light); font-weight: 700; }
 .card__body { padding: 1.3rem 1.3rem 1.6rem; flex: 1; }
 .card__body h3 { font-size: 1.3rem; margin-bottom: .1rem; }
 .card__tag { text-transform: uppercase; letter-spacing: .16em; font-size: .68rem; color: var(--gold-dark); margin: 0 0 .7rem; font-weight: 500; }
@@ -173,9 +264,9 @@ img[hidden] { display: none; }
 .chips { display: flex; flex-wrap: wrap; gap: .6rem; }
 .chip { position: relative; }
 .chip input { position: absolute; opacity: 0; }
-.chip span { display: inline-block; padding: .6rem 1.1rem; border: 1.5px solid var(--beige-300); border-radius: 100px; font-size: .9rem; cursor: pointer; transition: .2s; background: #fff; }
+.chip span { display: inline-block; padding: .6rem 1.1rem; border: 1.5px solid var(--beige-300); border-radius: 100px; font-size: .9rem; cursor: pointer; transition: .2s; background: var(--surface); }
 .chip input:checked + span { background: var(--graphite-900); color: #fff; border-color: var(--graphite-900); }
-.chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.chip input:focus-visible + span { outline: 2px solid var(--gold-light); outline-offset: 2px; }
 
 .sizes { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
 .size { position: relative; }
@@ -188,8 +279,8 @@ img[hidden] { display: none; }
 .size label, .size { }
 .size input ~ .size__dim { }
 /* style the label box via the label element */
-.size { border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: 1rem 1.2rem; cursor: pointer; background: #fff; transition: .2s; }
-.size:hover { border-color: var(--gold); }
+.size { border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: 1rem 1.2rem; cursor: pointer; background: var(--surface); transition: .2s; }
+.size:hover { border-color: var(--gold-light); }
 .size__dim { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: var(--graphite-900); }
 .size__price { font-size: .95rem; color: var(--gold-dark); font-weight: 500; }
 .size input:checked ~ .size__dim,
@@ -199,8 +290,8 @@ img[hidden] { display: none; }
 /* Opcje dodatkowe */
 .legend-opt { font-family: var(--font-sans); font-size: .8rem; font-weight: 400; color: var(--graphite-500); letter-spacing: normal; }
 .addons { display: flex; flex-direction: column; gap: .7rem; }
-.addon { display: flex; align-items: center; gap: 1rem; border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: .9rem 1.1rem; cursor: pointer; background: #fff; transition: .2s; }
-.addon:hover { border-color: var(--gold); }
+.addon { display: flex; align-items: center; gap: 1rem; border: 1.5px solid var(--beige-300); border-radius: var(--radius); padding: .9rem 1.1rem; cursor: pointer; background: var(--surface); transition: .2s; }
+.addon:hover { border-color: var(--gold-light); }
 .addon input { width: 20px; height: 20px; accent-color: var(--gold-dark); flex: 0 0 auto; }
 .addon__box { flex: 1; display: flex; flex-direction: column; }
 .addon__title { font-weight: 500; color: var(--graphite-900); }
@@ -214,7 +305,7 @@ img[hidden] { display: none; }
 
 /* Bon podarunkowy + Program poleceń (kafle) */
 .feature-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
-.feature { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); padding: 2.2rem; box-shadow: var(--shadow-sm); }
+.feature { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius-lg); padding: 2.2rem; box-shadow: var(--shadow-sm); }
 .feature__icon { font-size: 2rem; margin-bottom: .6rem; }
 .feature h3 { font-size: 1.5rem; }
 .feature p { color: var(--graphite-700); }
@@ -225,8 +316,8 @@ img[hidden] { display: none; }
 @media (max-width: 720px) { .feature-2 { grid-template-columns: 1fr; } }
 
 /* Upload */
-.upload { display: block; border: 2px dashed var(--beige-300); border-radius: var(--radius); background: #fff; padding: 2rem; text-align: center; cursor: pointer; transition: .2s; }
-.upload:hover { border-color: var(--gold); background: var(--beige-50); }
+.upload { display: block; border: 2px dashed var(--beige-300); border-radius: var(--radius); background: var(--surface); padding: 2rem; text-align: center; cursor: pointer; transition: .2s; }
+.upload:hover { border-color: var(--gold-light); background: var(--beige-50); }
 .upload input { position: absolute; opacity: 0; width: 0; height: 0; }
 .upload__inner { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
 .upload__icon { font-size: 2rem; }
@@ -237,7 +328,7 @@ img[hidden] { display: none; }
 .hint { font-size: .85rem; color: var(--graphite-500); margin-top: .8rem; }
 
 /* Summary */
-.card-elevated { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.card-elevated { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
 .summary { padding: 1.8rem; margin-bottom: 1.5rem; }
 .summary h3 { font-size: 1.4rem; margin-bottom: 1.2rem; }
 .summary__list { margin: 0 0 1.2rem; }
@@ -254,7 +345,7 @@ img[hidden] { display: none; }
 .field-row label { display: block; font-size: .85rem; font-weight: 500; margin-bottom: .35rem; color: var(--graphite-700); }
 .field-row input, .field-row textarea {
   width: 100%; padding: .8rem 1rem; border: 1.5px solid var(--beige-300); border-radius: 10px;
-  font-family: var(--font-sans); font-size: .95rem; background: #fff; transition: .2s; resize: vertical;
+  font-family: var(--font-sans); font-size: .95rem; background: var(--surface); transition: .2s; resize: vertical;
 }
 .field-row input:focus, .field-row textarea:focus { outline: none; border-color: var(--gold-dark); box-shadow: 0 0 0 3px var(--gold-soft); }
 .consent { display: flex; gap: .6rem; align-items: flex-start; font-size: .82rem; color: var(--graphite-700); margin: .6rem 0 1.2rem; }
@@ -266,8 +357,11 @@ img[hidden] { display: none; }
 
 /* ---------- Pricing ---------- */
 .pricing { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
-.price-card { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
-.price-card--featured { border-color: var(--gold-dark); box-shadow: var(--shadow-md); transform: translateY(-6px); }
+.price-card { background: var(--surface); border: 1px solid rgba(30,30,30,.06); border-radius: var(--radius-lg); padding: 2rem 1.6rem; text-align: center; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; gap: .4rem; }
+/* Wyroznienie robimy obwodka i cieniem, nie przesunieciem w gore.
+   translateY lamalo wspolna linie bazowa — ceny i przyciski w czterech
+   kartach siadaly na roznych wysokosciach, co czyta sie jak blad skladu. */
+.price-card--featured { border-color: var(--gold-dark); border-width: 1.5px; box-shadow: var(--shadow-md); }
 .price-card__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold-dark); color: #fff; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .9rem; border-radius: 100px; white-space: nowrap; }
 .price-card__price { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 700; color: var(--graphite-900); margin: .3rem 0; }
 .price-card__price span { font-size: 1.1rem; color: var(--gold-dark); }
@@ -276,7 +370,7 @@ img[hidden] { display: none; }
 
 /* ---------- FAQ ---------- */
 .faq { display: flex; flex-direction: column; gap: .8rem; }
-.faq__item { background: #fff; border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 0 1.4rem; box-shadow: var(--shadow-sm); }
+.faq__item { background: var(--surface); border: 1px solid var(--beige-200); border-radius: var(--radius); padding: 0 1.4rem; box-shadow: var(--shadow-sm); }
 .faq__item summary { cursor: pointer; padding: 1.2rem 0; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--graphite-900); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary::after { content: "+"; color: var(--gold-dark); font-size: 1.6rem; transition: transform .2s; line-height: 1; }
@@ -294,7 +388,7 @@ img[hidden] { display: none; }
 .footer__brand p { color: var(--graphite-500); margin-top: .8rem; max-width: 30ch; font-size: .9rem; }
 .footer__col h4 { color: #fff; font-family: var(--font-sans); font-size: .8rem; text-transform: uppercase; letter-spacing: .16em; margin-bottom: 1rem; }
 .footer__col a { display: block; color: var(--beige-200); font-size: .92rem; padding: .3rem 0; }
-.footer__col a:hover { color: var(--gold); }
+.footer__col a:hover { color: var(--gold-light); }
 .footer__bottom { border-top: 1px solid var(--graphite-700); padding: 1.4rem 0; }
 .footer__bottom p { margin: 0; font-size: .82rem; color: var(--graphite-500); }
 
@@ -374,5 +468,174 @@ img[hidden] { display: none; }
 .bon-amt { min-width: 84px; }
 .bon-custom { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
 .bon-custom input { flex: 1 1 140px; min-width: 120px; padding: .6rem .8rem; border: 1px solid #d9d2c6; border-radius: 8px; font: inherit; }
-.bon-custom input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.bon-custom input:focus { outline: 2px solid var(--gold-light); outline-offset: 1px; }
 #bonStatus.err { color: #b23b3b; }
+
+
+/* ============================================================
+   Preferencje uzytkownika
+   Trzy niezalezne sygnaly, kazdy znaczy co innego. Ograniczony ruch
+   nie znaczy "bez informacji zwrotnej" — znaczy "bez ruchu, ktory
+   dziala na blednik".
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  /* Zmiana koloru i przezroczystosci zostaje — pomaga zrozumiec,
+     co sie stalo, i nie wywoluje mdlosci. */
+  .btn { transition: background .15s linear, color .15s linear !important; }
+  .btn:active { transform: none; }
+  .card:hover .card__img img { transform: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav, .nav.is-scrolled {
+    background: var(--beige-50);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: rgba(30, 30, 30, .12);
+  }
+}
+
+@media (prefers-contrast: more) {
+  body { color: #111; }
+  .btn--ghost { border-color: #111; color: #111; }
+  .hero__badges, .section__sub { color: var(--graphite-700); }
+  .card, .compare { border: 1px solid rgba(30, 30, 30, .35); }
+}
+
+
+/* Na waskim ekranie przyciski hero ida na pelna szerokosc. Dwa przyciski
+   o roznej szerokosci jeden pod drugim czytaja sie jak przypadek, a nie
+   jak wybor; rowna krawedz porzadkuje kolumne. */
+@media (max-width: 560px) {
+  .hero__cta { flex-direction: column; align-items: stretch; gap: .7rem; }
+  .hero__cta .btn { width: 100%; }
+  /* Cel dotykowy nie schodzi ponizej 44 px — ponizej tego palec chybia. */
+  .btn { min-height: 48px; }
+  .nav__links a:not(.btn) { min-height: 44px; display: flex; align-items: center; }
+}
+
+
+/* ---------- Ikony ----------
+   Jeden zestaw regul dla calego serwisu: ikona siada na linii pisma,
+   dziedziczy kolor tekstu i ma stala grubosc kreski. To jest roznica
+   miedzy ikonografia a emoji — kazde emoji ma wlasna wage, wlasny kolor
+   i wlasne odsuniecie od linii bazowej, wiec rzad emoji nigdy sie nie
+   wyrownuje. */
+.ico {
+  flex: 0 0 auto;
+  vertical-align: -0.125em;
+  color: var(--gold-dark);
+}
+.hero__badges li { display: flex; align-items: center; gap: .5rem; }
+.hero__badges li::first-letter { color: inherit; }
+.addon__title { display: inline-flex; align-items: center; gap: .55rem; }
+.upload__icon .ico,
+.feature__icon .ico { color: var(--gold-dark); }
+.feature__icon { line-height: 0; }
+
+
+/* ============================================================
+   Tryb ciemny
+   Cieple ciemne, nie czarne — czysty #000 pod ciepla marka wyglada
+   jak awaria podswietlenia. Warstwy rozdzielamy mala roznica jasnosci
+   plus wlosowa obwodka, nie duzym skokiem: w ciemnym motywie duze skoki
+   czytaja sie jak dziury.
+   Kontrasty przeliczone: tresc 14.7:1, tekst wtorny 9.0:1, pomocniczy 5.5:1,
+   akcent 9.4:1 — wszystkie powyzej normy 4.5:1.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page:            #17150f;
+    --surface:         #201d16;
+    --surface-sunken:  #1b1812;
+    --hairline:        rgba(236, 230, 218, .09);
+    --hairline-strong: rgba(236, 230, 218, .18);
+
+    --text:   #ece6da;
+    --text-2: #bdb5a5;
+    --text-3: #948c7d;
+
+    /* Na ciemnym tle akcent musi byc JASNIEJSZY niz w dzien, inaczej
+       ginie. Przycisk odwraca sie: ciemny tekst na jasnym akcencie. */
+    --gold-dark:  #e0b35c;
+    --gold-light: #f0cd8e;
+
+    --beige-50:  #17150f;
+    --beige-100: #1b1812;
+    --beige-200: #2a261d;
+    --beige-300: #3a3428;
+
+    --graphite-900: #ece6da;
+    --graphite-800: #ece6da;
+    --graphite-700: #bdb5a5;
+    --graphite-500: #948c7d;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
+    --shadow-md: 0 1px 3px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.45);
+    --shadow-lg: 0 2px 6px rgba(0,0,0,.55), 0 20px 50px rgba(0,0,0,.5);
+  }
+
+  body { background: var(--page); color: var(--text); }
+
+  /* Przycisk: ciemny tekst na jasnym akcencie — 9.4:1. */
+  .btn--gold { background: var(--gold-dark); color: #17150f; box-shadow: none; }
+  .btn--gold:hover { background: #f0cd8e; }
+  .btn--ghost { color: var(--text); border-color: rgba(236,230,218,.28); }
+  .btn--ghost:hover { background: rgba(236,230,218,.08); border-color: rgba(236,230,218,.45); }
+
+  /* Material paska: ciemniejsza przezroczystosc, ta sama zasada. */
+  .nav { background: rgba(23, 21, 15, .72); }
+  .nav.is-scrolled { background: rgba(23, 21, 15, .85); border-bottom-color: var(--hairline); }
+  .nav__toggle span { background: var(--text); }
+
+  /* Karty i pola: obwodka wlosowa przejmuje role cienia, ktory
+     na ciemnym tle prawie nie pracuje. */
+  .card, .step, .feature, .price-card, .faq__item, .card-elevated {
+    border-color: var(--hairline);
+  }
+  .chip span, .size, .addon, .upload, input, textarea, select {
+    background: var(--surface);
+    border-color: var(--hairline-strong);
+    color: var(--text);
+  }
+  .hero__frame { border-color: #2a261d; }
+  .hero__guarantee { background: rgba(224, 179, 92, .10); }
+  .step__num { background: var(--beige-200); color: var(--gold-dark); }
+
+  /* Stopka byla ciemna juz w dzien — w nocy musi sie odciac od tla,
+     inaczej zlewa sie ze strona. */
+  .footer { background: #100e0a; color: var(--text-2); border-top: 1px solid var(--hairline); }
+
+  /* Zdjecia lekko przygaszone: pelna jasnosc obok ciemnego interfejsu
+     razi w oczy. */
+  .card__img img, .hero__frame img, .compare__img { filter: brightness(.92); }
+
+  /* Zaznaczony kafelek. W dzien to ciemne tlo z bialym tekstem; po
+     przemapowaniu --graphite-900 na jasny kremowy wychodzilo jasne tlo
+     z bialym tekstem, czyli napis prawie niewidoczny. W nocy odwracamy:
+     jasne tlo, ciemny tekst — 13.5:1. */
+  .chip input:checked + span {
+    background: var(--text);
+    color: var(--page);
+    border-color: var(--text);
+  }
+
+  /* Wybrany rozmiar i dodatek: obwodka akcentem wystarcza, wewnetrzna
+     poswiata w jasnym zlocie robila na ciemnym tle obwodke-widmo. */
+  .size:has(input:checked),
+  .addon:has(input:checked) {
+    background: rgba(224, 179, 92, .12);
+    box-shadow: 0 0 0 1px var(--gold-dark) inset;
+  }
+
+  /* Pola wyboru rysowane przez system dostaja akcent, zeby nie byly
+     jaskrawo biale. */
+  input[type="checkbox"], input[type="radio"] { accent-color: var(--gold-dark); }
+}

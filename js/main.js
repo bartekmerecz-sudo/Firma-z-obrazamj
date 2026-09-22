@@ -315,6 +315,23 @@
     if (btn) btn.disabled = false;
   });
 
+  /* Krawedz pod paskiem nawigacji pojawia sie dopiero, gdy tresc pod niego
+     wchodzi. Nasluch jest pasywny i odczytuje scrollY raz na klatke —
+     handler scrolla wykonywany synchronicznie potrafi zaciac przewijanie. */
+  (function navScrollEdge() {
+    const nav = document.querySelector(".nav");
+    if (!nav) return;
+    let ticking = false;
+    const apply = () => {
+      nav.classList.toggle("is-scrolled", window.scrollY > 8);
+      ticking = false;
+    };
+    addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(apply); }
+    }, { passive: true });
+    apply();
+  })();
+
   function setStatus(msg, kind) {
     if (!statusEl) return;
     statusEl.textContent = msg;
