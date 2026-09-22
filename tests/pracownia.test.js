@@ -166,6 +166,26 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     assert.ok(r.tresc.wyniki.some((w) => /Limit zapytań/.test(w.blad || "")));
   });
 
+  // 429 ma dwa zupelnie rozne znaczenia i musza dac rozne komunikaty:
+  // zerowy limit darmowego poziomu (czekanie nic nie da) kontra chwilowe
+  // przekroczenie tempa (czekanie pomoze).
+  await sprawdz("429 z zerowym limitem mówi o płatnościach", async () => {
+    tryb = () => ({ kod: 429, tresc: { error: { message: "Quota exceeded",
+      details: [{ quotaId: "GenerateRequestsPerDayPerProjectPerModel-FreeTier",
+                  quota_limit_value: "0" }] } } });
+    const r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"] });
+    const b = r.tresc.wyniki[0].blad;
+    assert.match(b, /Darmowy poziom/, "powinno wskazywać na darmowy poziom: " + b);
+    assert.match(b, /FreeTier/, "powinno cytować limit podany przez Google");
+    assert.doesNotMatch(b, /Odczekaj/, "czekanie tu nic nie da, nie sugerujmy tego");
+  });
+
+  await sprawdz("429 bez zerowego limitu proponuje odczekać", async () => {
+    tryb = () => ({ kod: 429, tresc: { error: { message: "Too many requests" } } });
+    const r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"] });
+    assert.match(r.tresc.wyniki[0].blad, /Odczekaj/);
+  });
+
   serwer.close();
   console.log(bledy ? `\n${bledy} testow nie przeszlo` : "\nWszystkie testy przeszly");
   process.exit(bledy ? 1 : 0);

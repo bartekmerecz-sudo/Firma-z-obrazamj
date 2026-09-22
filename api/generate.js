@@ -76,8 +76,18 @@ async function generuj(klucz, dane, mime, prompt, proporcje, bezImageConfig) {
       throw new Error("Klucz nie ma dostępu do tego modelu. Sprawdź, czy projekt w Google ma włączone płatności.");
     if (r.status === 404)
       throw new Error(`Model „${MODEL}" nie istnieje pod tym kluczem. Ustaw zmienną GEMINI_MODEL na aktualną nazwę.`);
-    if (r.status === 429)
-      throw new Error("Limit zapytań wyczerpany. Odczekaj minutę albo podnieś limit w Google AI Studio.");
+    if (r.status === 429) {
+      // 429 przy pierwszej probie to najczesciej nie "za szybko", tylko zerowy
+      // limit darmowego poziomu na ten model — czekanie tego nie naprawi.
+      // Pokazujemy wiec, na co konkretnie Google sie powoluje.
+      const zerowy = /quota_limit_value[^0-9]*"?0"?|limit: 0|FreeTier/i.test(tekst);
+      const szczegol = (tekst.match(/"?(?:quotaId|quota_id|quotaMetric|quota_metric)"?\s*:\s*"([^"]+)"/) || [])[1];
+      throw new Error(
+        (zerowy
+          ? `Darmowy poziom nie obejmuje generowania obrazów modelem „${MODEL}". Czekanie nic nie da — trzeba włączyć płatności w projekcie Google albo wskazać inny model zmienną GEMINI_MODEL.`
+          : "Limit zapytań chwilowo wyczerpany. Odczekaj minutę i spróbuj ponownie.") +
+        (szczegol ? ` (Google podaje limit: ${szczegol})` : ""));
+    }
     throw new Error(`Błąd Google (${r.status}): ${tekst.slice(0, 300)}`);
   }
 

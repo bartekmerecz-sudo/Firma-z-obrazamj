@@ -23,6 +23,11 @@ Nie mogę tego zrobić za Ciebie, bo wymaga Twojego konta Google i Twojej karty.
    musieliśmy przerabiać reelsy i posty. Płatny projekt tego nie robi.
 4. Skopiuj klucz
 
+> **Darmowy klucz zwykle nie wystarczy.** Google daje darmowy limit na modele
+> tekstowe, ale generowanie obrazów potrafi mieć limit zerowy — wtedy pierwsze
+> kliknięcie „Generuj" od razu kończy się błędem 429. To nie jest usterka,
+> tylko brak darmowego przydziału na ten model.
+>
 > **Sprawdź pierwszy wygenerowany obraz w powiększeniu, zanim wyślesz go
 > klientowi.** Jeśli w rogu jest jakikolwiek znaczek — napisz, dodam
 > automatyczne przycinanie, tak jak w `tools/strip_watermark.py`.
@@ -100,7 +105,8 @@ paść, a reszta wyjdzie — dostajesz to, co się udało.
 | „Klucz GEMINI_API_KEY jest nieprawidłowy" | zły klucz — skopiuj ponownie z AI Studio |
 | „Klucz nie ma dostępu do tego modelu" | płatności w projekcie Google nie są włączone |
 | „Model … nie istnieje pod tym kluczem" | Google zmienił nazwę modelu — dodaj zmienną `GEMINI_MODEL` z aktualną |
-| „Limit zapytań wyczerpany" | odczekaj minutę albo podnieś limit w AI Studio |
+| „Darmowy poziom nie obejmuje generowania obrazów" | darmowy klucz ma zerowy limit na ten model — czekanie nic nie da, trzeba włączyć płatności albo wskazać inny model przez `GEMINI_MODEL` |
+| „Limit zapytań chwilowo wyczerpany" | odczekaj minutę |
 | „Model odmówił (SAFETY)" | zwykle zdjęcie dziecka albo osoby publicznej — inne zdjęcie lub inny styl |
 
 Gdyby API Google leżało dłużej, jest wyjście awaryjne: zaznacz **jeden** styl
