@@ -639,3 +639,42 @@ summary:focus-visible {
      jaskrawo biale. */
   input[type="checkbox"], input[type="radio"] { accent-color: var(--gold-dark); }
 }
+
+/* ---------------------------------------------------------------------------
+   Szybki kontakt nad konfiguratorem
+
+   Konfigurator ma piec krokow i podsumowanie. Dla kogos, kto wlasnie kliknal
+   w post na Facebooku i chce tylko zapytac, to za duzo — a caly ruch idzie
+   wlasnie stamtad. Ten blok daje drugie wyjscie: jedno dotkniecie i rozmowa.
+   Stoi NAD formularzem celowo. Pod nim nikt by go nie zobaczyl.
+--------------------------------------------------------------------------- */
+.szybki-kontakt {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  background: var(--surface, var(--beige-50));
+  border: 1px solid var(--hairline, rgba(30, 30, 30, .1));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.szybki-kontakt__tekst {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--text, var(--graphite-700));
+  line-height: 1.55;
+}
+.szybki-kontakt__tekst strong { display: block; margin-bottom: 2px; }
+.szybki-kontakt__akcje { display: flex; flex-wrap: wrap; gap: 10px; }
+.szybki-kontakt__uwaga {
+  margin: 0;
+  font-size: .875rem;
+  color: var(--graphite-500);
+}
+@media (max-width: 560px) {
+  .szybki-kontakt { padding: 18px 16px; }
+  /* Na telefonie przyciski obok siebie robia sie za waskie na pewny dotyk. */
+  .szybki-kontakt__akcje { flex-direction: column; }
+  .szybki-kontakt__akcje .btn { width: 100%; }
+}
