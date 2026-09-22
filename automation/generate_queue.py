@@ -6,6 +6,7 @@ Uzycie:
   (start = data pierwszego postu, 28 = liczba dni)
 
 Domyslnie: start = jutro, 28 dni. Instagram wlaczamy, jesli chcesz (INSTAGRAM=1).
+KROK_WIDEO ustawia, co ktory dzien idzie film (domyslnie 2).
 
 ZACHOWAJ=1 dokleja z przodu wpisy z istniejacego queue.json, ktore juz sie
 odbyly (data < start). Bez tego przegenerowanie kolejki w polowie sezonu
@@ -15,9 +16,10 @@ Posty z oknem sezonowym (czwarty element wpisu w content.py) trafiaja tylko
 w te dni, ktore mieszcza sie w oknie — i w swoim sezonie maja pierwszenstwo
 przed zwykla rotacja, nie czesciej niz co ODSTEP_SEZON dni.
 
-OD_POSTU=post-ktore-zdjecie ustawia, od ktorej grafiki rusza rotacja. Przydaje
-sie po dopisaniu nowej partii postow na koniec content.py: bez tego czekaja
-w kolejce za cala reszta nawet miesiac.
+OD_POSTU=post-ktore-zdjecie ustawia, od ktorej grafiki rusza rotacja, a
+OD_FILMU=bold-projekt-dzis to samo dla filmow. Przydaje sie po dopisaniu nowej
+partii na koniec content.py: bez tego czekaja w kolejce za cala reszta nawet
+miesiac.
 """
 import json, os, sys
 from datetime import date, timedelta
@@ -43,7 +45,10 @@ def main():
         w = okno(post)
         return True if w is None else w[0] <= dzien.isoformat() <= w[1]
 
-    # przeplatanie: film co 3 dni (dzien indeks 2, 5, 8...), reszta grafiki
+    # Co ktory dzien idzie film. Reelsy dowoza wyraznie lepszy zasieg niz
+    # grafiki, wiec domyslnie co drugi dzien; KROK_WIDEO=3 wraca do poprzedniego
+    # ukladu, a 0 wylacza filmy calkiem.
+    krok_wideo = int(os.environ.get("KROK_WIDEO", "2"))
     images = [p for p in POSTS if p[0] == "image"]
     videos = [p for p in POSTS if p[0] == "video"]
 
@@ -59,13 +64,18 @@ def main():
                     if w["date"] < start:
                         idx[w["type"]] = idx.get(w["type"], 0) + 1
 
-    od_postu = os.environ.get("OD_POSTU", "")
-    if od_postu:
-        trafione = [i for i, p in enumerate(images) if od_postu in p[1]]
+    def ustaw_start(zmienna, pula, klucz, co):
+        wzor = os.environ.get(zmienna, "")
+        if not wzor:
+            return
+        trafione = [i for i, p in enumerate(pula) if wzor in p[1]]
         if not trafione:
-            sys.exit(f"OD_POSTU={od_postu}: nie ma takiej grafiki w content.py")
-        idx["image"] = trafione[0]
-        print(f"Rotacja grafik rusza od: {images[trafione[0]][1]}")
+            sys.exit(f"{zmienna}={wzor}: nie ma takiego pliku w content.py")
+        idx[klucz] = trafione[0]
+        print(f"Rotacja {co} rusza od: {pula[trafione[0]][1]}")
+
+    ustaw_start("OD_POSTU", images, "image", "grafik")
+    ustaw_start("OD_FILMU", videos, "video", "filmow")
 
     ODSTEP_SEZON = 7     # dni miedzy powtorzeniami postu sezonowego
 
@@ -92,7 +102,8 @@ def main():
     seq, ostatnio = [], {}
     for i in range(days):
         dzien = d0 + timedelta(days=i)
-        pula, klucz = (videos, "video") if (videos and i % 3 == 2) else (images, "image")
+        film = videos and krok_wideo > 0 and i % krok_wideo == krok_wideo - 1
+        pula, klucz = (videos, "video") if film else (images, "image")
         p = wez(pula, dzien, klucz, ostatnio)
         ostatnio[p[1]] = dzien.toordinal()
         seq.append(p)

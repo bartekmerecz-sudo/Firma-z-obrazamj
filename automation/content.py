@@ -416,4 +416,98 @@ POSTS = [
      "także jeśli wyjdzie kiepsko.\n\n"
      "Ktoś musi być pierwszy. Napiszcie PIERWSZY 👇\n\n"
      "#nowafirma #handmadepl #obraznaplotnie #wspierampolskiemarki"),
+
+    # === ZIMA I PRZEDWIOSNIE 2027 (tools/gen_posty_zima.py) ================
+    # Kolejka konczyla sie 31 grudnia, a zaraz po swietach wypadaja dwie
+    # najlepsze okazje w roku dla obrazu ze zdjecia: Dzien Babci i Dziadka
+    # oraz Walentynki. Okno zaczyna sie DWA TYGODNIE przed data — przy
+    # realizacji 3-7 dni roboczych plus wysylka ktos, kto zobaczy post
+    # dwa dni wczesniej, juz nie zdazy.
+    ("image", "assets/social/post-po-swietach.png",
+     "Ile z tegorocznych prezentów jeszcze pamiętacie?\n\n"
+     "Świeca się wypaliła, czekolada zniknęła, skarpetki poszły do szuflady.\n"
+     "Obraz z Waszego zdjęcia wisiałby dalej.\n\n"
+     "W styczniu nie ma kolejki — realizuję od ręki. Projekt pokazuję "
+     "przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#poswietach #obraznaplotnie #prezent #personalizowanyprezent",
+     ("2026-12-27", "2027-01-20")),
+    ("image", "assets/social/post-nowy-rok.png",
+     "Pusta ściana to nie minimalizm. To zwykle odkładanie na potem. 🤍\n\n"
+     "Zdjęcie macie od dawna — leży w telefonie razem z czterema tysiącami innych. "
+     "Brakuje tylko jednej decyzji.\n\n"
+     "Wyślijcie jedno, resztę zrobię ja 👉 pixelpedzel.pl\n\n"
+     "#nowyrok #postanowienia #dekoracjawnetrz #obraznaplotnie",
+     ("2026-12-28", "2027-01-25")),
+    ("image", "assets/social/post-dzien-babci.png",
+     "Dzień Babci i Dziadka — 21 i 22 stycznia. 🤍\n\n"
+     "Dziadkowie mają wszystko i niczego nie potrzebują. Poza jednym: sobą na ścianie.\n\n"
+     "Stare zdjęcie ślubne, wakacje sprzed lat, Wy razem z nimi — zrobię z tego "
+     "obraz na płótnie. Pożółkłe i podniszczone też przyjmuję.\n\n"
+     "Zamówcie do 14 stycznia, żeby zdążyć 👉 pixelpedzel.pl\n\n"
+     "#dzienbabci #dziendziadka #prezentdladziadkow #pamiatkarodzinna",
+     ("2027-01-05", "2027-01-21")),
+    ("image", "assets/social/post-zimowe-wieczory.png",
+     "Ciemno o 16:00, a ściana pusta od lat.\n\n"
+     "Jedno zdjęcie z telefonu wystarczy. Projekt pokazuję, zanim cokolwiek "
+     "zapłacicie. Od zdjęcia do ściany 3–7 dni.\n\n"
+     "Zimą i tak siedzicie w domu — niech będzie na co patrzeć 👉 pixelpedzel.pl\n\n"
+     "#zima #dekoracjawnetrz #obraznaplotnie #homedecor",
+     ("2027-01-01", "2027-01-31")),
+    ("image", "assets/social/post-walentynki.png",
+     "Walentynki: Wasze zdjęcie, nie kolejna maskotka. ❤️\n\n"
+     "Jedno wspólne zdjęcie jako obraz na płótnie. Projekt pokazuję przed drukiem — "
+     "nie spodoba się, nie płacicie.\n\n"
+     "Zamówcie do 6 lutego, żeby zdążyć na czas 👉 pixelpedzel.pl\n\n"
+     "#walentynki #prezentdlaniej #prezentdlaniego #obraznaplotnie",
+     ("2027-01-28", "2027-02-13")),
+    ("image", "assets/social/post-dzien-kobiet.png",
+     "8 marca: kwiaty zwiędną do piątku. 🌷\n\n"
+     "Obraz z Waszego wspólnego zdjęcia zostanie. Mama, żona, siostra, babcia — "
+     "każda z nich ma zdjęcie, które zasługuje na ścianę, a nie na kartę pamięci.\n\n"
+     "Zamówcie do 1 marca 👉 pixelpedzel.pl\n\n"
+     "#dzienkobiet #8marca #prezentdlaniej #obraznaplotnie",
+     ("2027-02-20", "2027-03-07")),
+
+    # === REELSY: KAMPANIA I SEZONY (tools/gen_reels4.py) ===================
+    # Wideo dowozi wyrazniej lepszy zasieg niz grafiki, wiec kolejka idzie
+    # teraz jeden do jednego i trzeba czym ja wypelnic. Zaden z tych filmow
+    # nie jest kolejnym "o stylach" — kazdy ma za soba obietnice albo date.
+    ("video", "assets/video/bold-projekt-dzis.mp4",
+     "Wyślij zdjęcie rano — projekt zobaczysz wieczorem. Za darmo, bez zaliczki.\n\n"
+     "Nie spodoba się? Nie płacisz ani złotówki i się rozchodzimy.\n"
+     "Napisz PROJEKT 👉 pixelpedzel.pl\n\n"
+     "#obrazzezdjecia #bezryzyka #obraznaplotnie #personalizowanyprezent"),
+    ("video", "assets/video/bold-pabianice.mp4",
+     "Jestem z Pabianic. Nie z hurtowni.\n\n"
+     "Odbiór osobisty, obraz oglądasz na żywo, zanim za niego zapłacisz. "
+     "Łódź i okolice — dowiozę sam.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#pabianice #łódź #lokalnie #obraznaplotnie"),
+    ("video", "assets/video/bold-pierwszy.mp4",
+     "Nikt u mnie jeszcze nie zamówił i nie będę udawał, że jest inaczej.\n\n"
+     "Pierwsze trzy obrazy robię za pół ceny — w zamian proszę o zdjęcie "
+     "gotowego obrazu na ścianie i szczerą opinię.\n\n"
+     "Ktoś musi być pierwszy. Napisz PIERWSZY 👇\n\n"
+     "#nowafirma #handmadepl #obraznaplotnie #wspierampolskiemarki"),
+    ("video", "assets/video/bold-swieta.mp4",
+     "Do świąt zostało mniej, niż myślisz. ⏳\n\n"
+     "Zamówienia przyjmuję do 12 grudnia — potem nie zdążę zrobić projektu, "
+     "przyjąć poprawek i wydrukować przed Wigilią. Wolę powiedzieć to teraz.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#prezentnaswieta #swieta2026 #obraznaplotnie",
+     ("2026-11-03", "2026-12-12")),
+    ("video", "assets/video/bold-walentynki.mp4",
+     "Znowu maskotka i pudełko czekoladek? ❤️\n\n"
+     "Macie wspólne zdjęcie. Powieście je na ścianie — zrobię z niego obraz "
+     "na płótnie. Projekt pokazuję przed drukiem.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#walentynki #prezentdlaniej #prezentdlaniego #obraznaplotnie",
+     ("2027-01-28", "2027-02-13")),
+    ("video", "assets/video/bold-dzien-babci.mp4",
+     "Co kupić babci i dziadkowi, skoro mają już wszystko? 🤍\n\n"
+     "Poza jednym: sobą na ścianie. Stare zdjęcie ślubne albo Wy razem z nimi — "
+     "zrobię z tego obraz na płótnie.\n"
+     "Zamów do 14 stycznia 👉 pixelpedzel.pl\n\n"
+     "#dzienbabci #dziendziadka #prezentdladziadkow #pamiatkarodzinna",
+     ("2027-01-05", "2027-01-21")),
 ]
