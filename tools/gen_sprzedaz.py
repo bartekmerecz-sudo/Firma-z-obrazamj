@@ -20,7 +20,8 @@ font, text_ls, ls_w, wrap = G.font, G.text_ls, G.ls_w, G.wrap
 F_HEAD, F_KICK, F_SUB = G.F_HEAD, G.F_KICK, G.F_SUB
 OUT = G.OUT
 ROOT = G.ROOT
-U = os.path.join(ROOT, "assets", "uploads")
+# final/, nie uploads/ — surowe rendery maja w rogu znak wodny generatora.
+U = os.path.join(ROOT, "assets", "uploads", "final")
 
 
 def center_ls(d, y, t, f, fill, ls=0):

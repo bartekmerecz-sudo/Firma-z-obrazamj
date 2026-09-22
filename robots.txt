@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# Narzedzie wewnetrzne — nie ma po co byc w wynikach wyszukiwania.
+Disallow: /pracownia.html
+
 # Po wdrożeniu podmień adres poniżej na własną domenę:
 Sitemap: https://pixelpedzel.pl/sitemap.xml

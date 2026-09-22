@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Pracownia — PixelPędzel</title>
+<link rel="icon" href="assets/social/profilowe.png">
+<style>
+/* Strona narzedziowa, nie marketingowa — dlatego wlasne style zamiast
+   css/style.css. Paleta ta sama, zeby nie bylo wrazenia obcej aplikacji. */
+:root{
+  --tlo:#faf6ef; --karta:#fff; --tekst:#1e1e1e; --tekst-cichy:#6b6b6b;
+  --kreska:rgba(30,30,30,.14); --akcent:#8a6414; --akcent-jasny:#c9a24b;
+  --blad:#a4352a; --ok:#2f6b46;
+  --r:14px;
+  --cien:0 1px 3px rgba(30,30,30,.07), 0 8px 24px rgba(30,30,30,.08);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --tlo:#191817; --karta:#232221; --tekst:#f0ece6; --tekst-cichy:#a39c93;
+    --kreska:rgba(240,236,230,.16); --akcent:#d9b45f; --akcent-jasny:#c9a24b;
+    --blad:#e08b80; --ok:#7fc79b;
+    --cien:0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--tlo);color:var(--tekst);font-family:var(--font);
+     font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+img[hidden]{display:none}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 16px 80px}
+header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+h1{font-size:26px;letter-spacing:-.02em;margin:0}
+.podtytul{color:var(--tekst-cichy);font-size:14px;margin:0 0 26px}
+.karta{background:var(--karta);border:1px solid var(--kreska);border-radius:var(--r);
+       padding:20px;margin-bottom:18px;box-shadow:var(--cien)}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--tekst-cichy);
+   margin:0 0 14px;font-weight:600}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+input[type=text],input[type=password],textarea,select{
+  width:100%;padding:11px 13px;font:inherit;font-size:15px;color:var(--tekst);
+  background:var(--tlo);border:1px solid var(--kreska);border-radius:10px}
+textarea{resize:vertical;min-height:70px}
+:focus-visible{outline:2px solid var(--akcent);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;font:inherit;font-size:15px;font-weight:600;border-radius:10px;
+  border:1px solid transparent;background:var(--akcent);color:#fff;cursor:pointer;
+  text-decoration:none;
+  transition:transform .12s cubic-bezier(.2,0,0,1),opacity .12s}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn--cichy{background:transparent;color:var(--tekst);border-color:var(--kreska)}
+.btn--maly{padding:7px 13px;font-size:13px}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .btn{color:#1e1e1e}
+}
+/* --- strefa zrzutu --- */
+#strefa{border:2px dashed var(--kreska);border-radius:var(--r);padding:34px 18px;
+  text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+#strefa.nad{border-color:var(--akcent);background:rgba(138,100,20,.06)}
+#strefa p{margin:6px 0;color:var(--tekst-cichy);font-size:14px}
+#strefa strong{color:var(--tekst);font-size:16px}
+#podglad{margin-top:14px;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+#podglad img{width:150px;border-radius:10px;border:1px solid var(--kreska)}
+.meta{font-size:13px;color:var(--tekst-cichy)}
+/* --- style --- */
+.chipy{display:flex;flex-wrap:wrap;gap:9px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:0;height:0}
+.chip span{display:block;padding:9px 15px;border:1px solid var(--kreska);border-radius:999px;
+  font-size:14px;cursor:pointer;user-select:none;transition:transform .12s cubic-bezier(.2,0,0,1)}
+.chip span:active{transform:scale(.96)}
+.chip input:checked + span{background:var(--akcent);color:#fff;border-color:var(--akcent)}
+.chip input:focus-visible + span{outline:2px solid var(--akcent);outline-offset:2px}
+.chip input:disabled + span{opacity:.4;cursor:not-allowed}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .chip input:checked + span{color:#1e1e1e}
+}
+.rzad{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+.rzad > div{flex:1 1 200px}
+/* --- wyniki --- */
+#wyniki{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.wynik{background:var(--karta);border:1px solid var(--kreska);border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--cien)}
+.wynik img{width:100%;background:var(--tlo)}
+.wynik .stopka{padding:12px 13px;display:flex;justify-content:space-between;
+  align-items:center;gap:8px}
+.wynik .nazwa{font-weight:600;font-size:14px}
+.wynik.pusty{padding:18px;font-size:14px;color:var(--blad)}
+.szkielet{aspect-ratio:3/4;background:linear-gradient(100deg,var(--tlo) 30%,
+  var(--kreska) 50%,var(--tlo) 70%);background-size:220% 100%;animation:fala 1.4s infinite}
+@keyframes fala{to{background-position:-120% 0}}
+@media (prefers-reduced-motion: reduce){
+  .szkielet{animation:none}
+  .btn:active,.chip span:active{transform:none}
+}
+.komunikat{padding:12px 14px;border-radius:10px;font-size:14px;margin-bottom:14px}
+.komunikat--blad{background:rgba(164,53,42,.12);color:var(--blad)}
+.komunikat--info{background:rgba(138,100,20,.1);color:var(--akcent)}
+.uwaga{font-size:13px;color:var(--tekst-cichy);margin-top:10px}
+#pasek{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Pracownia</h1>
+    <span class="meta">narzędzie wewnętrzne — nie linkuj tej strony</span>
+  </header>
+  <p class="podtytul">Zdjęcie od klienta → podgląd w kilku stylach naraz. Bez wklejania promptów.</p>
+
+  <!-- LOGOWANIE -->
+  <section class="karta" id="karta-haslo">
+    <h2>Hasło</h2>
+    <div class="rzad" style="margin-top:0">
+      <div><input type="password" id="haslo" autocomplete="current-password" placeholder="hasło pracowni"></div>
+      <div style="flex:0 0 auto"><button class="btn" id="wejdz">Wejdź</button></div>
+    </div>
+    <p class="uwaga">Hasło zostaje w tej przeglądarce, żeby nie wpisywać go za każdym razem.</p>
+  </section>
+
+  <main id="panel" hidden>
+
+    <!-- 1. ZDJECIE -->
+    <section class="karta">
+      <h2>1 · Zdjęcie od klienta</h2>
+      <div id="strefa" tabindex="0" role="button" aria-label="Wybierz zdjęcie">
+        <strong>Przeciągnij zdjęcie albo kliknij</strong>
+        <p>Możesz też wkleić ze schowka — Ctrl+V</p>
+        <p>JPG, PNG lub WEBP</p>
+      </div>
+      <input type="file" id="plik" accept="image/jpeg,image/png,image/webp" hidden>
+      <div id="podglad" hidden>
+        <img id="podglad-img" alt="Wgrane zdjęcie">
+        <div>
+          <div class="meta" id="podglad-meta"></div>
+          <button class="btn btn--cichy btn--maly" id="usun" style="margin-top:10px">Zmień zdjęcie</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. STYLE -->
+    <section class="karta">
+      <h2>2 · Style <span id="licznik" class="meta"></span></h2>
+      <div class="chipy" id="chipy"></div>
+      <div class="rzad">
+        <div>
+          <label for="orientacja">Kadr</label>
+          <select id="orientacja">
+            <option value="pion">Pionowy 3:4 — domyślny</option>
+            <option value="poziom">Poziomy 4:3</option>
+            <option value="kwadrat">Kwadrat 1:1</option>
+          </select>
+        </div>
+        <div>
+          <label for="zamowienie">Nazwa zamówienia <span class="meta">(do nazw plików)</span></label>
+          <input type="text" id="zamowienie" placeholder="np. kowalska-rocznica">
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <label for="uwagi">Uwagi do wszystkich stylów <span class="meta">(opcjonalnie, po angielsku działa lepiej)</span></label>
+        <textarea id="uwagi" placeholder="np. warmer colors, remove the background people, keep the dog"></textarea>
+      </div>
+    </section>
+
+    <!-- 3. GENEROWANIE -->
+    <section class="karta">
+      <h2>3 · Generowanie</h2>
+      <div id="komunikat"></div>
+      <div id="pasek">
+        <button class="btn" id="generuj" disabled>Generuj</button>
+        <button class="btn btn--cichy" id="kopiuj-prompt" hidden>Kopiuj prompt do Gemini</button>
+        <span class="meta" id="status"></span>
+      </div>
+      <p class="uwaga">
+        Każdy styl to osobne wywołanie płatnego API. Wyniki mają około 1024 px —
+        przed drukiem przepuść je jeszcze przez Upscayl ×4.
+      </p>
+    </section>
+
+    <section id="wyniki"></section>
+
+    <p class="uwaga" style="margin-top:28px">
+      <button class="btn btn--cichy btn--maly" id="wyloguj">Zapomnij hasło na tym urządzeniu</button>
+    </p>
+  </main>
+</div>
+<script src="js/pracownia.js"></script>
+</body>
+</html>

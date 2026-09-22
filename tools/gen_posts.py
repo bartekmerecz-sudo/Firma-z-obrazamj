@@ -9,7 +9,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MOCK = os.path.join(ROOT, "assets", "mockups")
 OUT  = os.path.join(ROOT, "assets", "social")
-FONTS = "/root/.claude/skills/canvas-design/canvas-fonts"
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from fonty import FONTS   # wspolny lokalizator fontow, patrz tools/fonty.py
 os.makedirs(OUT, exist_ok=True)
 
 W, H = 1080, 1350

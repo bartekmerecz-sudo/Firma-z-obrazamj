@@ -1,9 +1,13 @@
 """Biblioteka tresci PixelPedzel — posty + przypisane pliki (zdjecia/wideo).
 Z tego generujemy harmonogram (queue.json). Edytuj tu teksty, gdy chcesz zmienic.
 
-Kazdy wpis: (typ, plik, tekst)
+Kazdy wpis: (typ, plik, tekst) albo (typ, plik, tekst, okno)
   typ:  "image" albo "video"
   plik: sciezka w repo (bedzie serwowana z SITE_BASE_URL, np. pixelpedzel.pl)
+  okno: ("RRRR-MM-DD", "RRRR-MM-DD") — przedzial, poza ktorym post NIE wchodzi
+        do rotacji. Potrzebne, bo post o terminie zamowien na swieta wypuszczony
+        we wrzesniu jest bez sensu, a post o powrocie z wakacji w grudniu tym
+        bardziej. Bez tego pola post leci caly rok.
 
 Zasada: sprzedajemy EMOCJE i MOMENT, nie produkt. Rotacja: grafika emocjonalna -> wideo.
 """
@@ -49,7 +53,8 @@ POSTS = [
      "Ile z nich jeszcze kiedyś obejrzycie? 📱\n\n"
      "Jedno z nich zasługuje na ścianę, nie na kartę pamięci.\n"
      "Wybierzcie to jedno — resztę zrobię ja 👉 pixelpedzel.pl\n\n"
-     "#wakacje2026 #obraznaplotnie #pamiątka #dekoracjawnętrz"),
+     "#wakacje2026 #obraznaplotnie #pamiątka #dekoracjawnętrz",
+     ("2026-06-15", "2026-09-30")),
     ("image", "assets/social/post-slub.png",
      "Sezon ślubny w pełni — a prezenty wciąż te same: ręczniki, świeczniki, koperta.\n\n"
      "Obraz z ich wspólnego zdjęcia to prezent, którego nie schowają do szafy.\n"
@@ -315,4 +320,72 @@ POSTS = [
      "Sobą — na ścianie. Ich wspólne zdjęcie jako obraz na płótnie.\n"
      "👉 pixelpedzel.pl\n\n"
      "#prezentdladziadkow #pamiatkarodzinna #obraznaplotnie #prezent"),
+
+    # === PARTIA JESIENNA (tools/gen_posty_jesien.py) =======================
+    # Kolejka nie mowila dotad czterech rzeczy, ktore decyduja o zamowieniu:
+    # ktore zdjecie sie nada, kto to robi, co przychodzi kurierem i do kiedy
+    # trzeba zamowic na swieta.
+    ("image", "assets/social/post-ktore-zdjecie.png",
+     "„Chyba mam za słabe zdjęcie.” — na tym najczęściej urywa się rozmowa. "
+     "Więc mówię wprost, co się nadaje:\n\n"
+     "• zwykłe, z telefonu — wystarczy\n"
+     "• twarze wyraźne, nie z drugiego końca plaży\n"
+     "• ostre — rozmazanego nie naprawię\n"
+     "• im większy plik, tym lepiej\n\n"
+     "Odpada właściwie tylko jedno: zrzut ekranu z Instagrama albo zdjęcie zdjęcia.\n\n"
+     "Nie wiesz, czy Twoje się nada? Wyślij — sprawdzę i powiem szczerze, "
+     "zanim cokolwiek zamówisz 👉 pixelpedzel.pl\n\n"
+     "#obrazzezdjecia #obraznaplotnie #poradnik #personalizowanyprezent"),
+    ("image", "assets/social/post-kto-to-robi.png",
+     "Za PixelPędzlem nie stoi firma. Stoję ja. 🤍\n\n"
+     "Jedna osoba, Pabianice. Sam odbieram wiadomości, sam robię projekt, "
+     "sam pakuję paczkę.\n\n"
+     "Dlatego odpisuję tego samego dnia — i dlatego nie przyjmuję stu zamówień naraz.\n"
+     "Jak coś jest nie tak, piszecie do mnie, nie do infolinii 👉 pixelpedzel.pl\n\n"
+     "#lokalnybiznes #pabianice #handmadepl #obraznaplotnie"),
+    ("image", "assets/social/post-co-dostajesz.png",
+     "Co właściwie przychodzi kurierem? Bo to nie jest plik do druku.\n\n"
+     "• płótno naciągnięte na drewniany blejtram\n"
+     "• boki zadrukowane — wygląda z każdej strony, nie tylko z przodu\n"
+     "• zawieszka z tyłu, gotowa na gwóźdź\n"
+     "• zapakowane tak, żeby przeżyło kuriera\n\n"
+     "Wyjmujesz z kartonu i wieszasz. Nic nie trzeba dokupować 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #dekoracjawnetrz #prezent #personalizowanyprezent"),
+    ("image", "assets/social/post-pies.png",
+     "Psa też zrobię. Kota też. 🐶\n\n"
+     "Olej, szkic, komiks, klocki — każdy styl działa tak samo jak na portrecie.\n\n"
+     "I uczciwie: nie mam jeszcze ani jednego zwierzaka w portfolio. "
+     "Dlatego pierwsze trzy robię za pół ceny — w zamian proszę o zdjęcie "
+     "gotowego obrazu na Waszej ścianie.\n\n"
+     "Napiszcie PIES albo KOT w komentarzu 👇\n\n"
+     "#portretpsa #pies #kot #obraznaplotnie #prezentdlamilosnikazwierzat"),
+    ("image", "assets/social/post-ile-trwa.png",
+     "„Ile to trwa?” — od zdjęcia do ściany zwykle 3–7 dni roboczych:\n\n"
+     "24 h — pokazuję projekt\n"
+     "1–2 dni — poprawki, jeśli trzeba\n"
+     "2–4 dni — druk i wysyłka\n\n"
+     "Zegar rusza, gdy przyjdzie zdjęcie. Nie wcześniej 👉 pixelpedzel.pl\n\n"
+     "#obraznaplotnie #prezent #personalizowanyprezent #szybkarealizacja"),
+    ("image", "assets/social/post-dwa-obrazy.png",
+     "Jeden duży obraz czy dwa mniejsze? Dwa mniejsze robią ze ściany galerię.\n\n"
+     "Dwa razy 30×40 to 258 zł — i dostawa wtedy gratis (od 250 zł).\n"
+     "Możecie dać jedno zdjęcie w dwóch stylach albo dwa różne zdjęcia obok siebie.\n\n"
+     "Nie wiecie, co lepiej zagra na Waszej ścianie? Opiszcie ją w komentarzu, "
+     "podpowiem 👉 pixelpedzel.pl\n\n"
+     "#dekoracjawnetrz #galeriascian #obraznaplotnie #homedecor"),
+    ("image", "assets/social/post-rocznica.png",
+     "Zdjęcie ze ślubu leży w pudełku od dwudziestu lat. 🤍\n\n"
+     "Zeskanujcie je telefonem i wyślijcie — odtworzę je jako obraz na płótnie. "
+     "Tym razem na ścianie, nie w szafie.\n\n"
+     "Stare, pożółkłe i podniszczone też przyjmuję — od tego są poprawki.\n"
+     "Projekt pokazuję przed drukiem 👉 pixelpedzel.pl\n\n"
+     "#rocznicaslubu #pamiatkarodzinna #prezentdlarodzicow #obraznaplotnie"),
+    ("image", "assets/social/post-swieta-termin.png",
+     "Święta: zamówienia przyjmuję do 12 grudnia. ⏳\n\n"
+     "Później nie zdążę zrobić projektu, przyjąć poprawek i wydrukować przed Wigilią. "
+     "Wolę powiedzieć to teraz, niż obiecać i nie dowieźć.\n\n"
+     "Grudzień to jedyny miesiąc, w którym zamykam listę wcześniej.\n"
+     "Napiszcie ŚWIĘTA w komentarzu albo w wiadomości 👉 pixelpedzel.pl\n\n"
+     "#prezentnaswieta #swieta2026 #obraznaplotnie #personalizowanyprezent",
+     ("2026-11-03", "2026-12-12")),
 ]

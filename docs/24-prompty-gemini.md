@@ -1,5 +1,10 @@
 # Prompty do Gemini — generowanie zdjęć w stylach PixelPędzel
 
+> **Te same prompty są też w kodzie** — `api/_style.js`, używane przez
+> pracownię (`docs/32-pracownia.md`). Jeśli poprawiasz prompt tutaj, popraw
+> go również tam. Ta strona jest do ręcznego wklejania, gdy pracownia nie
+> działa albo chcesz coś przetestować na boku.
+
 Jak używać:
 1. Wgraj zdjęcie do Gemini.
 2. Skopiuj prompt danego stylu (niżej) i wklej razem ze zdjęciem.
