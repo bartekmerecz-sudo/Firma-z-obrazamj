@@ -186,6 +186,18 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     assert.match(r.tresc.wyniki[0].blad, /Odczekaj/);
   });
 
+  // 402 zdarzyl sie realnie przy pierwszym uruchomieniu i wygladal jak usterka,
+  // bo w konsoli Google widac bylo tysiac zlotych darmowych kredytow.
+  await sprawdz("402 kieruje do doładowania przedpłaty", async () => {
+    tryb = () => ({ kod: 402, tresc: { error: { code: 402,
+      message: "Your prepayment credits are depleted.", status: "RESOURCE_EXHAUSTED" } } });
+    const r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"] });
+    const b = r.tresc.wyniki[0].blad;
+    assert.match(b, /przedpłaty/);
+    assert.match(b, /ai\.studio/);
+    assert.doesNotMatch(b, /RESOURCE_EXHAUSTED/, "nie pokazujemy surowego JSON-a");
+  });
+
   serwer.close();
   console.log(bledy ? `\n${bledy} testow nie przeszlo` : "\nWszystkie testy przeszly");
   process.exit(bledy ? 1 : 0);

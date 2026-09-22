@@ -72,6 +72,13 @@ async function generuj(klucz, dane, mime, prompt, proporcje, bezImageConfig) {
     }
     if (r.status === 400 && /API key not valid/i.test(tekst))
       throw new Error("Klucz GEMINI_API_KEY jest nieprawidłowy.");
+    // 402 = wyczerpana przedplata. Gemini API rozlicza sie osobna pula
+    // srodkow, ktorej NIE pokrywaja darmowe kredyty Google Cloud — latwo
+    // uznac, ze cos jest zepsute, skoro w konsoli widac tysiac zlotych.
+    if (r.status === 402)
+      throw new Error(
+        "Skończyły się środki przedpłaty na Gemini API. Doładuj je na ai.studio/projects " +
+        "(to osobna pula niż darmowe kredyty Google Cloud — te jej nie pokrywają).");
     if (r.status === 403)
       throw new Error("Klucz nie ma dostępu do tego modelu. Sprawdź, czy projekt w Google ma włączone płatności.");
     if (r.status === 404)
