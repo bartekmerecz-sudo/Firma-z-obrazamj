@@ -208,6 +208,20 @@
     stopka.className = "stopka";
     var nazwa = document.createElement("span");
     nazwa.className = "nazwa"; nazwa.textContent = s.nazwa;
+    // Sama liczba pikseli nic nie mowi. DPI przy 30x40 cm mowi wszystko:
+    // ponizej 150 plik nie nadaje sie do druku bez powiekszenia.
+    var wymiar = document.createElement("span");
+    wymiar.className = "wymiar";
+    img.addEventListener("load", function () {
+      var dpi = Math.min(img.naturalWidth / (30 / 2.54), img.naturalHeight / (40 / 2.54));
+      wymiar.textContent = img.naturalWidth + "×" + img.naturalHeight +
+        " · " + Math.round(dpi) + " DPI na 30×40";
+      if (dpi < 150) {
+        wymiar.className = "wymiar slaby";
+        wymiar.textContent += " — za mało, Upscayl";
+      }
+    });
+    nazwa.appendChild(wymiar);
     var a = document.createElement("a");
     a.className = "btn btn--maly"; a.textContent = "Pobierz";
     a.href = img.src; a.download = nazwaPliku;
@@ -234,6 +248,7 @@
         mime: zdjecie.mime,
         style: ids,
         orientacja: el("orientacja").value,
+        rozmiar: el("rozmiar").value,
         uwagi: el("uwagi").value,
       }),
     })
@@ -280,9 +295,11 @@
         if (!j.skonfigurowane) {
           kartaHaslo.hidden = true;
           panel.hidden = false;
+          var brak = (j.brakuje || []).join(" i ") || "GEMINI_API_KEY i PRACOWNIA_HASLO";
           pokazKomunikat(
-            "Pracownia nie jest jeszcze podpięta pod Google. Dodaj GEMINI_API_KEY " +
-            "i PRACOWNIA_HASLO w ustawieniach hostingu — instrukcja w docs/32.", "blad");
+            "Hosting nie widzi zmiennej: " + brak + ". Sprawdź pisownię nazwy, " +
+            "zaznaczenie środowiska Production i czy po zapisaniu był Redeploy — " +
+            "instrukcja w docs/32.", "blad");
           gotowe = false;
           odswiezPrzycisk();
           return;

@@ -23,6 +23,11 @@ Nie mogę tego zrobić za Ciebie, bo wymaga Twojego konta Google i Twojej karty.
    musieliśmy przerabiać reelsy i posty. Płatny projekt tego nie robi.
 4. Skopiuj klucz
 
+> **Darmowy klucz zwykle nie wystarczy.** Google daje darmowy limit na modele
+> tekstowe, ale generowanie obrazów potrafi mieć limit zerowy — wtedy pierwsze
+> kliknięcie „Generuj" od razu kończy się błędem 429. To nie jest usterka,
+> tylko brak darmowego przydziału na ten model.
+>
 > **Sprawdź pierwszy wygenerowany obraz w powiększeniu, zanim wyślesz go
 > klientowi.** Jeśli w rogu jest jakikolwiek znaczek — napisz, dodam
 > automatyczne przycinanie, tak jak w `tools/strip_watermark.py`.
@@ -66,10 +71,36 @@ wdrożeniu.
    `remove the people in the background`, `keep the dog`
 6. **Generuj** → 15–40 sekund
 
-### Potem
+### Rozdzielczość — co wybrać
 
-Wyniki mają około 1024 px. Na wydruk 30×40 to za mało — przepuść plik przez
-**Upscayl ×4**, tak samo jak dotąd. Tego kroku pracownia nie zastępuje.
+Pod każdym wynikiem pracownia pisze, ile pikseli wyszło i **ile to DPI przy
+druku 30×40 cm**. Do druku na płótnie chcesz co najmniej **150 DPI**.
+
+| Wybór | Do czego |
+|---|---|
+| **1K** | próbny strzał, sprawdzenie czy styl pasuje — najtańsze |
+| **2K** | podgląd dla klienta (domyślne) |
+| **4K** | plik, który idzie do drukarni — droższe za obraz |
+
+Sensowny obieg: **1K albo 2K na etapie ustalania z klientem**, a dopiero po
+akceptacji **4K** tego jednego stylu, który wybrał. Nie ma powodu płacić za
+4K trzech wersji, z których dwie i tak wylecą.
+
+Jeśli API nie zna jeszcze wymuszania rozdzielczości, pracownia sama zejdzie
+do zwykłego żądania — dostaniesz obraz mniejszy, ale dostaniesz.
+
+### Jakość źródła decyduje
+
+Model nie wymyśli szczegółów, których nie ma na wejściu. Zdjęcie 640×640 da
+miękki wynik niezależnie od wybranej rozdzielczości. Dlatego w rozmowie
+z klientem proś o **oryginał z telefonu**, nie zrzut ekranu i nie zdjęcie
+wysłane Messengerem (Messenger mocno kompresuje — lepiej poprosić o wysłanie
+jako plik albo mailem).
+
+### Upscayl na koniec
+
+Gdy DPI pod wynikiem świeci na czerwono, przepuść plik przez **Upscayl ×4**
+przed wysłaniem do drukarni. Tego kroku pracownia nie zastępuje.
 
 ---
 
@@ -100,7 +131,8 @@ paść, a reszta wyjdzie — dostajesz to, co się udało.
 | „Klucz GEMINI_API_KEY jest nieprawidłowy" | zły klucz — skopiuj ponownie z AI Studio |
 | „Klucz nie ma dostępu do tego modelu" | płatności w projekcie Google nie są włączone |
 | „Model … nie istnieje pod tym kluczem" | Google zmienił nazwę modelu — dodaj zmienną `GEMINI_MODEL` z aktualną |
-| „Limit zapytań wyczerpany" | odczekaj minutę albo podnieś limit w AI Studio |
+| „Darmowy poziom nie obejmuje generowania obrazów" | darmowy klucz ma zerowy limit na ten model — czekanie nic nie da, trzeba włączyć płatności albo wskazać inny model przez `GEMINI_MODEL` |
+| „Limit zapytań chwilowo wyczerpany" | odczekaj minutę |
 | „Model odmówił (SAFETY)" | zwykle zdjęcie dziecka albo osoby publicznej — inne zdjęcie lub inny styl |
 
 Gdyby API Google leżało dłużej, jest wyjście awaryjne: zaznacz **jeden** styl
