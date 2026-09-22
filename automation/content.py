@@ -467,4 +467,47 @@ POSTS = [
      "Zamówcie do 1 marca 👉 pixelpedzel.pl\n\n"
      "#dzienkobiet #8marca #prezentdlaniej #obraznaplotnie",
      ("2027-02-20", "2027-03-07")),
+
+    # === REELSY: KAMPANIA I SEZONY (tools/gen_reels4.py) ===================
+    # Wideo dowozi wyrazniej lepszy zasieg niz grafiki, wiec kolejka idzie
+    # teraz jeden do jednego i trzeba czym ja wypelnic. Zaden z tych filmow
+    # nie jest kolejnym "o stylach" — kazdy ma za soba obietnice albo date.
+    ("video", "assets/video/bold-projekt-dzis.mp4",
+     "Wyślij zdjęcie rano — projekt zobaczysz wieczorem. Za darmo, bez zaliczki.\n\n"
+     "Nie spodoba się? Nie płacisz ani złotówki i się rozchodzimy.\n"
+     "Napisz PROJEKT 👉 pixelpedzel.pl\n\n"
+     "#obrazzezdjecia #bezryzyka #obraznaplotnie #personalizowanyprezent"),
+    ("video", "assets/video/bold-pabianice.mp4",
+     "Jestem z Pabianic. Nie z hurtowni.\n\n"
+     "Odbiór osobisty, obraz oglądasz na żywo, zanim za niego zapłacisz. "
+     "Łódź i okolice — dowiozę sam.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#pabianice #łódź #lokalnie #obraznaplotnie"),
+    ("video", "assets/video/bold-pierwszy.mp4",
+     "Nikt u mnie jeszcze nie zamówił i nie będę udawał, że jest inaczej.\n\n"
+     "Pierwsze trzy obrazy robię za pół ceny — w zamian proszę o zdjęcie "
+     "gotowego obrazu na ścianie i szczerą opinię.\n\n"
+     "Ktoś musi być pierwszy. Napisz PIERWSZY 👇\n\n"
+     "#nowafirma #handmadepl #obraznaplotnie #wspierampolskiemarki"),
+    ("video", "assets/video/bold-swieta.mp4",
+     "Do świąt zostało mniej, niż myślisz. ⏳\n\n"
+     "Zamówienia przyjmuję do 12 grudnia — potem nie zdążę zrobić projektu, "
+     "przyjąć poprawek i wydrukować przed Wigilią. Wolę powiedzieć to teraz.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#prezentnaswieta #swieta2026 #obraznaplotnie",
+     ("2026-11-03", "2026-12-12")),
+    ("video", "assets/video/bold-walentynki.mp4",
+     "Znowu maskotka i pudełko czekoladek? ❤️\n\n"
+     "Macie wspólne zdjęcie. Powieście je na ścianie — zrobię z niego obraz "
+     "na płótnie. Projekt pokazuję przed drukiem.\n"
+     "👉 pixelpedzel.pl\n\n"
+     "#walentynki #prezentdlaniej #prezentdlaniego #obraznaplotnie",
+     ("2027-01-28", "2027-02-13")),
+    ("video", "assets/video/bold-dzien-babci.mp4",
+     "Co kupić babci i dziadkowi, skoro mają już wszystko? 🤍\n\n"
+     "Poza jednym: sobą na ścianie. Stare zdjęcie ślubne albo Wy razem z nimi — "
+     "zrobię z tego obraz na płótnie.\n"
+     "Zamów do 14 stycznia 👉 pixelpedzel.pl\n\n"
+     "#dzienbabci #dziendziadka #prezentdladziadkow #pamiatkarodzinna",
+     ("2027-01-05", "2027-01-21")),
 ]
