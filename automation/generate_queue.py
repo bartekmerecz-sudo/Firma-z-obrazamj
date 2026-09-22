@@ -6,6 +6,18 @@ Uzycie:
   (start = data pierwszego postu, 28 = liczba dni)
 
 Domyslnie: start = jutro, 28 dni. Instagram wlaczamy, jesli chcesz (INSTAGRAM=1).
+
+ZACHOWAJ=1 dokleja z przodu wpisy z istniejacego queue.json, ktore juz sie
+odbyly (data < start). Bez tego przegenerowanie kolejki w polowie sezonu
+kasuje historie i robot nie wie, co juz poszlo.
+
+Posty z oknem sezonowym (czwarty element wpisu w content.py) trafiaja tylko
+w te dni, ktore mieszcza sie w oknie — i w swoim sezonie maja pierwszenstwo
+przed zwykla rotacja, nie czesciej niz co ODSTEP_SEZON dni.
+
+OD_POSTU=post-ktore-zdjecie ustawia, od ktorej grafiki rusza rotacja. Przydaje
+sie po dopisaniu nowej partii postow na koniec content.py: bez tego czekaja
+w kolejce za cala reszta nawet miesiac.
 """
 import json, os, sys
 from datetime import date, timedelta
@@ -23,19 +35,71 @@ def main():
     y, m, dd = map(int, start.split("-"))
     d0 = date(y, m, dd)
 
+    def okno(post):
+        return post[3] if len(post) >= 4 and post[3] else None
+
+    def pasuje(post, dzien):
+        """Post bez okna leci zawsze; z oknem — tylko w swoim sezonie."""
+        w = okno(post)
+        return True if w is None else w[0] <= dzien.isoformat() <= w[1]
+
     # przeplatanie: film co 3 dni (dzien indeks 2, 5, 8...), reszta grafiki
     images = [p for p in POSTS if p[0] == "image"]
     videos = [p for p in POSTS if p[0] == "video"]
-    seq, ii, vi = [], 0, 0
+
+    # Rotacja musi ruszyc tam, gdzie skonczyla poprzednia kolejka. Inaczej
+    # przegenerowanie w polowie sezonu cofa nas na poczatek listy i nowo
+    # dopisane posty czekaja na swoja kolej szesc tygodni.
+    idx = {"image": 0, "video": 0}
+    if os.environ.get("ZACHOWAJ") == "1":
+        stary = os.path.join(HERE, "queue.json")
+        if os.path.exists(stary):
+            with open(stary, encoding="utf-8") as fh:
+                for w in json.load(fh):
+                    if w["date"] < start:
+                        idx[w["type"]] = idx.get(w["type"], 0) + 1
+
+    od_postu = os.environ.get("OD_POSTU", "")
+    if od_postu:
+        trafione = [i for i, p in enumerate(images) if od_postu in p[1]]
+        if not trafione:
+            sys.exit(f"OD_POSTU={od_postu}: nie ma takiej grafiki w content.py")
+        idx["image"] = trafione[0]
+        print(f"Rotacja grafik rusza od: {images[trafione[0]][1]}")
+
+    ODSTEP_SEZON = 7     # dni miedzy powtorzeniami postu sezonowego
+
+    def wez(pula, dzien, klucz, ostatnio):
+        """Najpierw sezon, potem zwykla rotacja.
+
+        Post z oknem ma pierwszenstwo w swoim sezonie — inaczej przy puli
+        czterdziestu grafik ogloszenie o terminie zamowien na swieta poszloby
+        raz na caly listopad i grudzien. Powtarzamy go nie czesciej niz co
+        ODSTEP_SEZON dni, zeby nie zalac nim tablicy."""
+        dzis = dzien.toordinal()
+        sezonowe = [p for p in pula if okno(p) and pasuje(p, dzien)
+                    and dzis - ostatnio.get(p[1], -999) >= ODSTEP_SEZON]
+        if sezonowe:
+            return min(sezonowe, key=lambda p: ostatnio.get(p[1], -999))
+
+        for _ in range(len(pula)):
+            p = pula[idx[klucz] % len(pula)]
+            idx[klucz] += 1
+            if pasuje(p, dzien):
+                return p
+        return next((p for p in pula if pasuje(p, dzien)), pula[0])
+
+    seq, ostatnio = [], {}
     for i in range(days):
-        if videos and i % 3 == 2:
-            seq.append(videos[vi % len(videos)]); vi += 1
-        else:
-            seq.append(images[ii % len(images)]); ii += 1
+        dzien = d0 + timedelta(days=i)
+        pula, klucz = (videos, "video") if (videos and i % 3 == 2) else (images, "image")
+        p = wez(pula, dzien, klucz, ostatnio)
+        ostatnio[p[1]] = dzien.toordinal()
+        seq.append(p)
 
     queue = []
     for i in range(days):
-        typ, media, text = seq[i]
+        typ, media, text = seq[i][:3]
         queue.append({
             "date": (d0 + timedelta(days=i)).isoformat(),
             "time": post_time,
@@ -44,6 +108,14 @@ def main():
             "platforms": platforms,
             "text": text,
         })
+    if os.environ.get("ZACHOWAJ") == "1":
+        stary = os.path.join(HERE, "queue.json")
+        if os.path.exists(stary):
+            with open(stary, encoding="utf-8") as f:
+                przeszle = [w for w in json.load(f) if w["date"] < start]
+            queue = przeszle + queue
+            print(f"Zachowano {len(przeszle)} wpisow sprzed {start}")
+
     out = os.path.join(HERE, "queue.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(queue, f, ensure_ascii=False, indent=2)

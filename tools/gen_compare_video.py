@@ -9,7 +9,9 @@ import imageio_ffmpeg
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "assets", "video")
 TMP  = os.path.join(ROOT, "tools", "_vframes")
-FONTS= "/root/.claude/skills/canvas-design/canvas-fonts"
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from fonty import FONTS   # wspolny lokalizator fontow, patrz tools/fonty.py
 os.makedirs(OUT, exist_ok=True); os.makedirs(TMP, exist_ok=True)
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 
