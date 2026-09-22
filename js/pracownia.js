@@ -14,6 +14,10 @@
   var panel = el("panel"), kartaHaslo = el("karta-haslo");
   var zdjecie = null;      // { dane: base64 bez prefiksu, mime, szer, wys, nazwa }
   var style = [], limit = 4;
+  // Dopoki na hostingu nie ma klucza i hasla, nie ma czym generowac. Bez tej
+  // flagi odswiezPrzycisk() wlaczalo przycisk z powrotem przy kazdym klikniecu
+  // stylu i "Generuj" wygladal na gotowy, chociaz konczyl sie komunikatem.
+  var gotowe = true;
 
   // ---------------------------------------------------------------- pomocnicze
   function pokazKomunikat(tekst, typ) {
@@ -94,9 +98,9 @@
 
   function odswiezPrzycisk() {
     var n = wybrane().length;
-    el("generuj").disabled = !zdjecie || n === 0;
+    el("generuj").disabled = !gotowe || !zdjecie || n === 0;
     el("generuj").textContent = n > 1 ? "Generuj " + n + " style" : "Generuj";
-    el("kopiuj-prompt").hidden = n !== 1;
+    el("kopiuj-prompt").hidden = !gotowe || n !== 1;
     // Limit jest po stronie serwera i tak, ale lepiej wygasic chipy, niz dac
     // klikac i dopiero potem powiedziec "nie".
     var maks = n >= limit;
@@ -279,7 +283,8 @@
           pokazKomunikat(
             "Pracownia nie jest jeszcze podpięta pod Google. Dodaj GEMINI_API_KEY " +
             "i PRACOWNIA_HASLO w ustawieniach hostingu — instrukcja w docs/32.", "blad");
-          el("generuj").disabled = true;
+          gotowe = false;
+          odswiezPrzycisk();
           return;
         }
         if (localStorage.getItem(KLUCZ_HASLA)) odblokuj();
