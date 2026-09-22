@@ -28,6 +28,7 @@ const LIMIT = parseInt(process.env.LIMIT_NA_ZADANIE || "4", 10);
 // Vercel odrzuca zadania powyzej 4,5 MB wlasnym, nieczytelnym bledem. Nasz
 // limit jest nizszy, zeby komunikat byl zrozumialy. Po zmniejszeniu zdjecia
 // w przegladarce realnie wychodzi 200-500 kB, wiec to tylko bezpiecznik.
+const ROZMIARY = { "1K": 1, "2K": 1, "4K": 1 };   // dozwolone wartosci imageSize
 const MAX_BAJTOW = 4 * 1024 * 1024;
 
 /** Porownanie odporne na czas — haslo krotkie, ale nic nie kosztuje. */
@@ -42,72 +43,57 @@ function hasloOk(podane, prawdziwe) {
  * Jedno wywolanie modelu. Zwraca {obraz, mime} albo rzuca bledem z czytelnym
  * komunikatem po polsku — te komunikaty ogladamy potem w przegladarce.
  */
-async function generuj(klucz, dane, mime, prompt, proporcje, bezImageConfig) {
-  const body = {
-    contents: [{
-      role: "user",
-      parts: [
-        { inline_data: { mime_type: mime, data: dane } },
-        { text: prompt },
-      ],
-    }],
-  };
-  // Nowsze wersje API przyjmuja wymuszenie proporcji. Starsze odrzucaja cale
-  // zadanie z bledem 400, dlatego przy takim bledzie probujemy jeszcze raz bez
-  // tego pola, zamiast pokazywac uzytkownikowi czerwony komunikat.
-  if (!bezImageConfig) {
-    body.generationConfig = { imageConfig: { aspectRatio: proporcje } };
-  }
+async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar) {
+  // Nowsze wersje API przyjmuja wymuszenie proporcji i rozdzielczosci, starsze
+  // odrzucaja cale zadanie bledem 400. Zamiast zgadywac, ktora wersja stoi po
+  // drugiej stronie, probujemy po kolei od najbogatszej konfiguracji do golej.
+  const proby = [
+    { aspectRatio: proporcje, imageSize: rozmiar },
+    { aspectRatio: proporcje },
+    null,
+  ].filter((p, i) => i !== 0 || rozmiar);
 
-  const r = await fetch(`${API}/${MODEL}:generateContent`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": klucz },
-    body: JSON.stringify(body),
-  });
+  let ostatni = null;
+  for (let i = 0; i < proby.length; i++) {
+    const cfg = proby[i];
+    const body = {
+      contents: [{
+        role: "user",
+        parts: [
+          { inline_data: { mime_type: mime, data: dane } },
+          { text: prompt },
+        ],
+      }],
+    };
+    if (cfg) body.generationConfig = { imageConfig: cfg };
 
-  if (!r.ok) {
+    const r = await fetch(`${API}/${MODEL}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": klucz },
+      body: JSON.stringify(body),
+    });
+
+    if (r.ok) return odczytaj(await r.json());
+
     const tekst = await r.text();
-    if (r.status === 400 && !bezImageConfig && /imageConfig|aspectRatio|generationConfig/i.test(tekst)) {
-      return generuj(klucz, dane, mime, prompt, proporcje, true);
-    }
-    if (r.status === 400 && /API key not valid/i.test(tekst))
-      throw new Error("Klucz GEMINI_API_KEY jest nieprawidłowy.");
-    // 402 = wyczerpana przedplata. Gemini API rozlicza sie osobna pula
-    // srodkow, ktorej NIE pokrywaja darmowe kredyty Google Cloud — latwo
-    // uznac, ze cos jest zepsute, skoro w konsoli widac tysiac zlotych.
-    if (r.status === 402)
-      throw new Error(
-        "Skończyły się środki przedpłaty na Gemini API. Doładuj je na ai.studio/projects " +
-        "(to osobna pula niż darmowe kredyty Google Cloud — te jej nie pokrywają).");
-    if (r.status === 403)
-      throw new Error("Klucz nie ma dostępu do tego modelu. Sprawdź, czy projekt w Google ma włączone płatności.");
-    if (r.status === 404)
-      throw new Error(`Model „${MODEL}" nie istnieje pod tym kluczem. Ustaw zmienną GEMINI_MODEL na aktualną nazwę.`);
-    if (r.status === 429) {
-      // 429 przy pierwszej probie to najczesciej nie "za szybko", tylko zerowy
-      // limit darmowego poziomu na ten model — czekanie tego nie naprawi.
-      // Pokazujemy wiec, na co konkretnie Google sie powoluje.
-      const zerowy = /quota_limit_value[^0-9]*"?0"?|limit: 0|FreeTier/i.test(tekst);
-      const szczegol = (tekst.match(/"?(?:quotaId|quota_id|quotaMetric|quota_metric)"?\s*:\s*"([^"]+)"/) || [])[1];
-      throw new Error(
-        (zerowy
-          ? `Darmowy poziom nie obejmuje generowania obrazów modelem „${MODEL}". Czekanie nic nie da — trzeba włączyć płatności w projekcie Google albo wskazać inny model zmienną GEMINI_MODEL.`
-          : "Limit zapytań chwilowo wyczerpany. Odczekaj minutę i spróbuj ponownie.") +
-        (szczegol ? ` (Google podaje limit: ${szczegol})` : ""));
-    }
-    throw new Error(`Błąd Google (${r.status}): ${tekst.slice(0, 300)}`);
+    ostatni = { status: r.status, tekst };
+    const doPodmiany = /imageConfig|aspectRatio|imageSize|generationConfig/i.test(tekst);
+    if (r.status === 400 && doPodmiany && i < proby.length - 1) continue;
+    throw blad(r.status, tekst);
   }
+  throw blad(ostatni.status, ostatni.tekst);
+}
 
-  const j = await r.json();
+
+/** Zamienia odpowiedz Google na {obraz, mime} albo rzuca czytelnym bledem. */
+function odczytaj(j) {
   const kand = j.candidates && j.candidates[0];
-
   // Model potrafi odmowic zamiast zwrocic obraz — najczesciej przy zdjeciach
   // dzieci albo przy czyms, co uzna za wizerunek osoby publicznej.
   if (!kand) throw new Error("Model nic nie zwrócił. Spróbuj innego zdjęcia.");
   if (kand.finishReason && !["STOP", "MAX_TOKENS"].includes(kand.finishReason)) {
     throw new Error(`Model odmówił (${kand.finishReason}). Zwykle pomaga inne zdjęcie albo inny styl.`);
   }
-
   const czesci = (kand.content && kand.content.parts) || [];
   const obraz = czesci.find((p) => p.inlineData || p.inline_data);
   if (!obraz) {
@@ -118,6 +104,37 @@ async function generuj(klucz, dane, mime, prompt, proporcje, bezImageConfig) {
   const dd = obraz.inlineData || obraz.inline_data;
   return { obraz: dd.data, mime: dd.mimeType || dd.mime_type || "image/png" };
 }
+
+
+/** Tlumaczy kod bledu Google na zdanie, ktore mowi, co zrobic. */
+function blad(status, tekst) {
+  if (status === 400 && /API key not valid/i.test(tekst))
+    return new Error("Klucz GEMINI_API_KEY jest nieprawidłowy.");
+  // 402 = wyczerpana przedplata. Gemini API rozlicza sie osobna pula srodkow,
+  // ktorej NIE pokrywaja darmowe kredyty Google Cloud — latwo uznac, ze cos
+  // jest zepsute, skoro w konsoli widac tysiac zlotych.
+  if (status === 402)
+    return new Error(
+      "Skończyły się środki przedpłaty na Gemini API. Doładuj je na ai.studio/projects " +
+      "(to osobna pula niż darmowe kredyty Google Cloud — te jej nie pokrywają).");
+  if (status === 403)
+    return new Error("Klucz nie ma dostępu do tego modelu. Sprawdź, czy projekt w Google ma włączone płatności.");
+  if (status === 404)
+    return new Error(`Model „${MODEL}" nie istnieje pod tym kluczem. Ustaw zmienną GEMINI_MODEL na aktualną nazwę.`);
+  if (status === 429) {
+    // 429 przy pierwszej probie to najczesciej nie "za szybko", tylko zerowy
+    // limit darmowego poziomu na ten model — czekanie tego nie naprawi.
+    const zerowy = /quota_limit_value[^0-9]*"?0"?|limit: 0|FreeTier/i.test(tekst);
+    const szczegol = (tekst.match(/"?(?:quotaId|quota_id|quotaMetric|quota_metric)"?\s*:\s*"([^"]+)"/) || [])[1];
+    return new Error(
+      (zerowy
+        ? `Darmowy poziom nie obejmuje generowania obrazów modelem „${MODEL}". Czekanie nic nie da — trzeba włączyć płatności w projekcie Google albo wskazać inny model zmienną GEMINI_MODEL.`
+        : "Limit zapytań chwilowo wyczerpany. Odczekaj minutę i spróbuj ponownie.") +
+      (szczegol ? ` (Google podaje limit: ${szczegol})` : ""));
+  }
+  return new Error(`Błąd Google (${status}): ${tekst.slice(0, 300)}`);
+}
+
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
@@ -135,6 +152,7 @@ module.exports = async (req, res) => {
       style: listaDlaUI(),
       limit: LIMIT,
       model: MODEL,
+      rozmiary: Object.keys(ROZMIARY),
       skonfigurowane: brakuje.length === 0,
       brakuje,
     });
@@ -161,6 +179,7 @@ module.exports = async (req, res) => {
   }
 
   const { zdjecie, mime, orientacja, uwagi } = body;
+  const rozmiar = ROZMIARY[body.rozmiar] ? body.rozmiar : "2K";
 
   // Podglad promptu — nic nie generuje i nic nie kosztuje. Sluzy za wyjscie
   // awaryjne: gdy API Google lezy, mozna wkleic prompt do Gemini recznie
@@ -189,7 +208,7 @@ module.exports = async (req, res) => {
     const prompt = zbudujPrompt(id, orientacja, uwagi);
     if (!prompt) return { styl: id, blad: "Nieznany styl." };
     try {
-      const { obraz, mime: m } = await generuj(klucz, zdjecie, mime, prompt, proporcje, false);
+      const { obraz, mime: m } = await generuj(klucz, zdjecie, mime, prompt, proporcje, rozmiar);
       return { styl: id, obraz, mime: m };
     } catch (e) {
       return { styl: id, blad: e.message };

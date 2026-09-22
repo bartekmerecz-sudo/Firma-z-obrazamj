@@ -124,20 +124,47 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
 
   // Starsze wersje API odrzucaja pole imageConfig. Funkcja ma wtedy sprobowac
   // jeszcze raz bez niego, zamiast pokazac blad.
-  await sprawdz("ponowienie bez imageConfig", async () => {
+  await sprawdz("przy starym API schodzi do gołego żądania", async () => {
     zapytania = [];
-    let odrzucone = 0;
+    tryb = (req, body) => body.generationConfig
+      ? { kod: 400, tresc: { error: { message: 'Unknown name "imageConfig"' } } }
+      : OBRAZ_OK;
+    const r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"] });
+    assert.strictEqual(zapytania.length, 3, "drabinka ma trzy szczeble");
+    assert.strictEqual(r.tresc.udane, 1, "ostatnia próba miała się udać");
+  });
+
+  // Gdy API nie zna samego imageSize, nie wolno przy okazji zgubic proporcji —
+  // kadr 3:4 jest wazniejszy niz rozdzielczosc, bo obraz idzie na plotno.
+  await sprawdz("nieobsługiwany rozmiar nie gubi proporcji", async () => {
+    zapytania = [];
     tryb = (req, body) => {
-      if (body.generationConfig && body.generationConfig.imageConfig) {
-        odrzucone++;
-        return { kod: 400, tresc: { error: { message: 'Unknown name "imageConfig"' } } };
-      }
+      const ic = body.generationConfig && body.generationConfig.imageConfig;
+      if (ic && ic.imageSize)
+        return { kod: 400, tresc: { error: { message: 'Unknown name "imageSize"' } } };
       return OBRAZ_OK;
     };
     const r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"] });
-    assert.strictEqual(odrzucone, 1, "pierwsza próba miała iść z imageConfig");
-    assert.strictEqual(zapytania.length, 2, "miały być dokładnie dwie próby");
-    assert.strictEqual(r.tresc.udane, 1, "ponowienie bez imageConfig nie zadziałało");
+    assert.strictEqual(zapytania.length, 2, "miały wystarczyć dwie próby");
+    const druga = zapytania[1].body.generationConfig.imageConfig;
+    assert.strictEqual(druga.aspectRatio, "3:4", "proporcje miały zostać");
+    assert.ok(!druga.imageSize, "rozmiar miał zniknąć");
+    assert.strictEqual(r.tresc.udane, 1);
+  });
+
+  // Rozdzielczosc wybrana w formularzu ma faktycznie dojsc do Google.
+  await sprawdz("wybrany rozmiar trafia do żądania", async () => {
+    zapytania = [];
+    tryb = () => OBRAZ_OK;
+    await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "4K" });
+    assert.strictEqual(zapytania[0].body.generationConfig.imageConfig.imageSize, "4K");
+  });
+
+  await sprawdz("nieznany rozmiar wraca do domyślnego", async () => {
+    zapytania = [];
+    tryb = () => OBRAZ_OK;
+    await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "999K" });
+    assert.strictEqual(zapytania[0].body.generationConfig.imageConfig.imageSize, "2K");
   });
 
   // Odmowa modelu (np. przy zdjeciu dziecka) ma dac czytelny komunikat, nie 500.
