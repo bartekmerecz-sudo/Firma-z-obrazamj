@@ -73,7 +73,10 @@ async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar) {
       body: JSON.stringify(body),
     });
 
-    if (r.ok) return odczytaj(await r.json());
+    // Oddajemy tez konfiguracje, ktora przeszla. Bez tego nie da sie odroznic
+    // "API przyjelo 4K i tyle umie" od "API odrzucilo pole i zeszlismy nizej",
+    // a to sa zupelnie rozne wnioski.
+    if (r.ok) return Object.assign(odczytaj(await r.json()), { uzyty: cfg });
 
     const tekst = await r.text();
     ostatni = { status: r.status, tekst };
@@ -208,8 +211,13 @@ module.exports = async (req, res) => {
     const prompt = zbudujPrompt(id, orientacja, uwagi);
     if (!prompt) return { styl: id, blad: "Nieznany styl." };
     try {
-      const { obraz, mime: m } = await generuj(klucz, zdjecie, mime, prompt, proporcje, rozmiar);
-      return { styl: id, obraz, mime: m };
+      const w = await generuj(klucz, zdjecie, mime, prompt, proporcje, rozmiar);
+      return {
+        styl: id, obraz: w.obraz, mime: w.mime,
+        // czy Google faktycznie przyjal zadana rozdzielczosc
+        rozmiarPrzyjety: Boolean(w.uzyty && w.uzyty.imageSize),
+        rozmiarZadany: rozmiar,
+      };
     } catch (e) {
       return { styl: id, blad: e.message };
     }

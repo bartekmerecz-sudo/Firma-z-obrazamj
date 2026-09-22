@@ -220,6 +220,16 @@
         wymiar.className = "wymiar slaby";
         wymiar.textContent += " — za mało, Upscayl";
       }
+      // Gdy API odrzucilo pole rozdzielczosci, uzytkownik musi to wiedziec —
+      // inaczej bedzie w kolko przestawial suwak na 4K i dziwil sie, ze nic
+      // sie nie zmienia.
+      if (!w.rozmiarPrzyjety) {
+        var uwaga = document.createElement("span");
+        uwaga.className = "wymiar";
+        uwaga.textContent = "Google nie przyjął ustawienia " + (w.rozmiarZadany || "") +
+          " — zwrócił własny rozmiar";
+        nazwa.appendChild(uwaga);
+      }
     });
     nazwa.appendChild(wymiar);
     var a = document.createElement("a");

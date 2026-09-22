@@ -160,6 +160,24 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     assert.strictEqual(zapytania[0].body.generationConfig.imageConfig.imageSize, "4K");
   });
 
+  // Uzytkownik musi widziec, czy 4K faktycznie poszlo — inaczej bedzie w kolko
+  // przestawial suwak i dziwil sie, ze wynik ma zawsze tyle samo pikseli.
+  await sprawdz("wynik mówi, czy rozdzielczość została przyjęta", async () => {
+    tryb = () => OBRAZ_OK;
+    let r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "4K" });
+    assert.strictEqual(r.tresc.wyniki[0].rozmiarPrzyjety, true);
+
+    tryb = (req, body) => {
+      const ic = body.generationConfig && body.generationConfig.imageConfig;
+      if (ic && ic.imageSize)
+        return { kod: 400, tresc: { error: { message: 'Unknown name "imageSize"' } } };
+      return OBRAZ_OK;
+    };
+    r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "4K" });
+    assert.strictEqual(r.tresc.wyniki[0].rozmiarPrzyjety, false, "API odrzuciło rozmiar, wynik ma to pokazać");
+    assert.strictEqual(r.tresc.wyniki[0].rozmiarZadany, "4K");
+  });
+
   await sprawdz("nieznany rozmiar wraca do domyślnego", async () => {
     zapytania = [];
     tryb = () => OBRAZ_OK;
