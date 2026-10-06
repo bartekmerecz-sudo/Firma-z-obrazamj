@@ -124,6 +124,31 @@ const STYLE = [
       " composition.",
   },
   {
+    // Dodany 06.10 na prosbe pierwszej klientki. Opisujemy GATUNEK — slowianska
+    // boginia w stroju ludowym — a nie konkretny obrazek, ktory przyslala jako
+    // inspiracje. Kopiowanie cudzej pracy po pierwsze nie jest nasze, po drugie
+    // model i tak lepiej trzyma sie opisu elementow niz "w stylu tego obrazka".
+    //
+    // Swiadomie BEZ malowanej ramki, chociaz inspiracja ja miala: na plotnie
+    // brzegi zawijaja sie na blejtram, wiec ramka zostalaby obcieta z kazdej
+    // strony. Zamiast niej motywy kwiatowe rozlozone po tle.
+    id: "slowianka",
+    nazwa: "Słowiańska bogini",
+    opis: "Wianek, korale, złota aureola. Portret w stylu ludowej ikony.",
+    prompt:
+      "Transform this photo into a Slavic goddess portrait painting in the style" +
+      " of modern folk-mythology art — the person wearing a tall traditional" +
+      " Slavic flower crown (wianek) made of poppies, sunflowers, cornflowers," +
+      " wheat ears and wild herbs with long colorful woven ribbons; layered red" +
+      " coral bead necklaces; an embroidered white linen folk blouse with puffed" +
+      " sleeves and a laced vest with floral embroidery; a large flat gold-leaf" +
+      " halo disc glowing behind the head; a deep saturated jewel-tone background" +
+      " (crimson or forest green) with subtle painted folk floral motifs;" +
+      " small gold crescent moon mark on the forehead; visible acrylic brush" +
+      " strokes with gold leaf accents; frontal icon-like composition, calm" +
+      " direct gaze, head and shoulders.",
+  },
+  {
     id: "superbohater",
     nazwa: "Superbohater",
     opis: "Plakat filmowy. Prezent dla chłopaka albo taty.",
