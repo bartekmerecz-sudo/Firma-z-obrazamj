@@ -272,6 +272,26 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     }
   });
 
+  // Drozszy model tylko przy 4K: podglady zostaja na tanim.
+  await sprawdz("GEMINI_MODEL_4K działa tylko przy 4K", async () => {
+    tryb = () => OBRAZ_OK;
+    process.env.GEMINI_MODEL_4K = "model-do-druku";
+    try {
+      zapytania = [];
+      let r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "2K" });
+      assert.doesNotMatch(zapytania[0].url, /model-do-druku/, "podgląd 2K nie może iść drogim modelem");
+      zapytania = [];
+      r = await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "4K" });
+      assert.match(zapytania[0].url, /model-do-druku/, "4K miało pójść modelem do druku");
+      assert.strictEqual(r.tresc.wyniki[0].model, "model-do-druku");
+    } finally {
+      delete process.env.GEMINI_MODEL_4K;
+    }
+    zapytania = [];
+    await wywolaj(handler, { ...zdjecie, haslo: "tajne", style: ["olej"], rozmiar: "4K" });
+    assert.match(zapytania[0].url, /gemini-2\.5-flash-image/, "bez zmiennej 4K zostaje zwykły model");
+  });
+
   serwer.close();
   console.log(bledy ? `\n${bledy} testow nie przeszlo` : "\nWszystkie testy przeszly");
   process.exit(bledy ? 1 : 0);

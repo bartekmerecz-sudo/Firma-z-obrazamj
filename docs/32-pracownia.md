@@ -89,6 +89,32 @@ akceptacji **4K** tego jednego stylu, który wybrał. Nie ma powodu płacić za
 Jeśli API nie zna jeszcze wymuszania rozdzielczości, pracownia sama zejdzie
 do zwykłego żądania — dostaniesz obraz mniejszy, ale dostaniesz.
 
+### 4K naprawdę — osobny model do druku
+
+Domyślny model (`gemini-2.5-flash-image`) **przyjmuje ustawienie 4K, ale i tak
+oddaje około megapiksela** — sprawdzone na pierwszym zamówieniu: 864×1184,
+czyli 73 DPI na 30×40 cm. Kafelek mówi to wtedy wprost.
+
+Większe obrazy robią droższe modele. Żeby nie płacić drożej za podglądy,
+z których większość wyleci, jest osobna zmienna:
+
+| Zmienna | Kiedy działa |
+|---|---|
+| `GEMINI_MODEL` | podglądy 1K i 2K — tani model |
+| `GEMINI_MODEL_4K` | **tylko** gdy wybierzesz 4K — model do pliku na wydruk |
+
+Ustawienie: Vercel → Settings → Environment Variables → dodaj
+`GEMINI_MODEL_4K` z nazwą modelu, który robi 4K (w AI Studio: model z rodziny
+*Pro Image*, np. `gemini-3-pro-image-preview` — **sprawdź dokładną nazwę na
+liście modeli w AI Studio**, bo Google je zmienia). Potem Redeploy.
+
+Gdyby nazwa była zła, kafelek pokaże błąd 404 z nazwą zmiennej do poprawienia.
+Bez tej zmiennej 4K idzie zwykłym modelem — czyli dalej około megapiksela,
+i zostaje Upscayl.
+
+Obieg: **podglądy w 2K, akceptacja klientki, potem jedno generowanie w 4K**
+tego jednego wybranego stylu.
+
 ### Jakość źródła decyduje
 
 Model nie wymyśli szczegółów, których nie ma na wejściu. Zdjęcie 640×640 da

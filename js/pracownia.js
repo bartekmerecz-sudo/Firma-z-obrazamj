@@ -223,6 +223,17 @@
       // Gdy API odrzucilo pole rozdzielczosci, uzytkownik musi to wiedziec —
       // inaczej bedzie w kolko przestawial suwak na 4K i dziwil sie, ze nic
       // sie nie zmienia.
+      // Model moze przyjac ustawienie i mimo to oddac maly obraz — tak robi
+      // gemini-2.5-flash-image. Bez tego dopisku przestawianie suwaka na 4K
+      // wyglada na usterke strony.
+      var bok = Math.max(img.naturalWidth, img.naturalHeight);
+      if (w.rozmiarPrzyjety && w.rozmiarZadany === "4K" && bok < 2500) {
+        var maly = document.createElement("span");
+        maly.className = "wymiar";
+        maly.textContent = "Model " + (w.model || "") + " nie robi 4K — oddaje ok. 1 MPx." +
+          " Do druku: Upscayl albo zmienna GEMINI_MODEL_4K (docs/32).";
+        nazwa.appendChild(maly);
+      }
       if (!w.rozmiarPrzyjety) {
         var uwaga = document.createElement("span");
         uwaga.className = "wymiar";

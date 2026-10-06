@@ -10,6 +10,7 @@
  *   PRACOWNIA_HASLO    haslo do strony /pracownia.html
  * Opcjonalne:
  *   GEMINI_MODEL       domyslnie gemini-2.5-flash-image
+ *   GEMINI_MODEL_4K    model uzywany TYLKO przy rozdzielczosci 4K (patrz nizej)
  *   LIMIT_NA_ZADANIE   ile stylow naraz, domyslnie 4 (kazdy to osobna oplata)
  *
  * GET  /api/generate            -> lista stylow do zbudowania formularza
@@ -23,7 +24,25 @@ const { PROPORCJE, zbudujPrompt, listaDlaUI } = require("./_style.js");
 // wydawania pieniedzy na prawdziwe generowanie.
 const API = process.env.GEMINI_API_BASE ||
   "https://generativelanguage.googleapis.com/v1beta/models";
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash-image";
+const MODEL_DOMYSLNY = "gemini-2.5-flash-image";
+
+/**
+ * Ktory model dla danej rozdzielczosci.
+ *
+ * gemini-2.5-flash-image przyjmuje imageSize bez bledu, ale i tak oddaje okolo
+ * megapiksela — przy 4K wyszlo 864x1184, czyli 73 DPI na 30x40 cm. Wieksze
+ * obrazy robia dopiero drozsze modele. Nie chcemy placic drozszej stawki za
+ * podglady, z ktorych wiekszosc wyleci, wiec drozszy model idzie tylko przy
+ * 4K — czyli przy pliku do druku, po akceptacji klienta.
+ *
+ * Zmienne czytane przy kazdym zadaniu, nie przy starcie: zmiana na Vercelu
+ * i tak wymaga redeployu, a testy moga je ustawiac miedzy przypadkami.
+ */
+function modelDla(rozmiar) {
+  const zwykly = process.env.GEMINI_MODEL || MODEL_DOMYSLNY;
+  if (rozmiar === "4K" && process.env.GEMINI_MODEL_4K) return process.env.GEMINI_MODEL_4K;
+  return zwykly;
+}
 const LIMIT = parseInt(process.env.LIMIT_NA_ZADANIE || "4", 10);
 // Vercel odrzuca zadania powyzej 4,5 MB wlasnym, nieczytelnym bledem. Nasz
 // limit jest nizszy, zeby komunikat byl zrozumialy. Po zmniejszeniu zdjecia
@@ -43,7 +62,7 @@ function hasloOk(podane, prawdziwe) {
  * Jedno wywolanie modelu. Zwraca {obraz, mime} albo rzuca bledem z czytelnym
  * komunikatem po polsku — te komunikaty ogladamy potem w przegladarce.
  */
-async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar) {
+async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar, model) {
   // Nowsze wersje API przyjmuja wymuszenie proporcji i rozdzielczosci, starsze
   // odrzucaja cale zadanie bledem 400. Zamiast zgadywac, ktora wersja stoi po
   // drugiej stronie, probujemy po kolei od najbogatszej konfiguracji do golej.
@@ -67,7 +86,7 @@ async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar) {
     };
     if (cfg) body.generationConfig = { imageConfig: cfg };
 
-    const r = await fetch(`${API}/${MODEL}:generateContent`, {
+    const r = await fetch(`${API}/${model}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": klucz },
       body: JSON.stringify(body),
@@ -82,9 +101,9 @@ async function generuj(klucz, dane, mime, prompt, proporcje, rozmiar) {
     ostatni = { status: r.status, tekst };
     const doPodmiany = /imageConfig|aspectRatio|imageSize|generationConfig/i.test(tekst);
     if (r.status === 400 && doPodmiany && i < proby.length - 1) continue;
-    throw blad(r.status, tekst);
+    throw blad(r.status, tekst, model);
   }
-  throw blad(ostatni.status, ostatni.tekst);
+  throw blad(ostatni.status, ostatni.tekst, model);
 }
 
 
@@ -110,7 +129,7 @@ function odczytaj(j) {
 
 
 /** Tlumaczy kod bledu Google na zdanie, ktore mowi, co zrobic. */
-function blad(status, tekst) {
+function blad(status, tekst, MODEL) {
   if (status === 400 && /API key not valid/i.test(tekst))
     return new Error("Klucz GEMINI_API_KEY jest nieprawidłowy.");
   // 402 = wyczerpana przedplata. Gemini API rozlicza sie osobna pula srodkow,
@@ -123,7 +142,7 @@ function blad(status, tekst) {
   if (status === 403)
     return new Error("Klucz nie ma dostępu do tego modelu. Sprawdź, czy projekt w Google ma włączone płatności.");
   if (status === 404)
-    return new Error(`Model „${MODEL}" nie istnieje pod tym kluczem. Ustaw zmienną GEMINI_MODEL na aktualną nazwę.`);
+    return new Error(`Model „${MODEL}" nie istnieje pod tym kluczem. Popraw nazwę w zmiennej GEMINI_MODEL (albo GEMINI_MODEL_4K, jeśli to było 4K).`);
   if (status === 429) {
     // 429 przy pierwszej probie to najczesciej nie "za szybko", tylko zerowy
     // limit darmowego poziomu na ten model — czekanie tego nie naprawi.
@@ -154,7 +173,8 @@ module.exports = async (req, res) => {
     return res.status(200).json({
       style: listaDlaUI(),
       limit: LIMIT,
-      model: MODEL,
+      model: modelDla("2K"),
+      model4k: modelDla("4K"),
       rozmiary: Object.keys(ROZMIARY),
       skonfigurowane: brakuje.length === 0,
       brakuje,
@@ -211,12 +231,14 @@ module.exports = async (req, res) => {
     const prompt = zbudujPrompt(id, orientacja, uwagi);
     if (!prompt) return { styl: id, blad: "Nieznany styl." };
     try {
-      const w = await generuj(klucz, zdjecie, mime, prompt, proporcje, rozmiar);
+      const model = modelDla(rozmiar);
+      const w = await generuj(klucz, zdjecie, mime, prompt, proporcje, rozmiar, model);
       return {
         styl: id, obraz: w.obraz, mime: w.mime,
         // czy Google faktycznie przyjal zadana rozdzielczosc
         rozmiarPrzyjety: Boolean(w.uzyty && w.uzyty.imageSize),
         rozmiarZadany: rozmiar,
+        model,
       };
     } catch (e) {
       return { styl: id, blad: e.message };
