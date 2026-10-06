@@ -262,7 +262,8 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
   // Realizm ma osobna slabosc: model "upieksza" twarz i gubi podobienstwo.
   await sprawdz("style realistyczne zakazują upiększania twarzy", async () => {
     const S = require("../api/_style.js");
-    for (const id of ["slowianka-foto", "slowianka-realizm"]) {
+    for (const id of ["slowianka-foto", "slowianka-realizm",
+                      "slowianka-boska", "slowianka-pastel"]) {
       const p = S.zbudujPrompt(id, "pion", "");
       assert.ok(p, "brak stylu " + id);
       assert.match(p, /Do not slim, smooth, retouch or idealize/, id);

@@ -86,6 +86,8 @@ Do każdego stylu niżej podmieniasz część **[STYLE DESCRIPTION]** na opis st
 | Słowiańska — kokosznik | wysokie nakrycie głowy z granatami i perłami, szmaragdowe tło |
 | Słowiańska — fotorealizm | jak sesja zdjęciowa w stroju ludowym, prawdziwe kwiaty, obiektyw 85 mm |
 | Słowiańska — obraz realistyczny | klasyczny portret olejny w tradycji XIX-wiecznych portrecistów |
+| Słowiańska — boska aura | fotorealizm z aurą bogini: złota poświata, diadem z księżycem, unoszące się płatki |
+| Słowiańska — pastelowa bogini | piwonie i lawenda, róż, lila i mięta, poranna mgiełka |
 
 **Realizm trzyma twarz najlepiej**, bo model nie musi jej stylizować. Ale ma
 własną słabość: modele lubią „upiększać" — wyszczuplać twarz, wygładzać skórę,
