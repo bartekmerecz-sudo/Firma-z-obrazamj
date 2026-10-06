@@ -20,6 +20,18 @@ const PODSTAWA =
   " Ultra high detail, print-ready." +
   " No text, no watermark, no logo, no signature, no border, no frame.";
 
+// Dla wariantow, ktore celowo zmieniaja poze i kompozycje. Zwykla PODSTAWA
+// kaze trzymac "same expressions", co gryzie sie z prosba o profil albo
+// postac w polu — model dostaje sprzeczne polecenia i wychodzi cos pomiedzy.
+// Tu zostaje tylko to, co decyduje o rozpoznaniu osoby: twarz, wlosy, cera.
+const PODSTAWA_POZA =
+  " The person must stay clearly recognizable: keep the exact facial features," +
+  " face shape, eye color, hair color and texture, skin tone and freckles from" +
+  " the original photo. Pose, expression, clothing and setting change as" +
+  " described above." +
+  " Ultra high detail, print-ready." +
+  " No text, no watermark, no logo, no signature, no border, no frame.";
+
 const STYLE = [
   {
     id: "olej",
@@ -135,6 +147,9 @@ const STYLE = [
     id: "slowianka",
     nazwa: "Słowiańska bogini",
     opis: "Wianek, korale, złota aureola. Portret w stylu ludowej ikony.",
+    // Ikona patrzy spokojnie prosto, a zwykla PODSTAWA kaze trzymac mine ze
+    // zdjecia — przy usmiechnietym selfie to sprzeczne polecenia.
+    podstawa: PODSTAWA_POZA,
     prompt:
       "Transform this photo into a Slavic goddess portrait painting in the style" +
       " of modern folk-mythology art — the person wearing a tall traditional" +
@@ -147,6 +162,63 @@ const STYLE = [
       " small gold crescent moon mark on the forehead; visible acrylic brush" +
       " strokes with gold leaf accents; frontal icon-like composition, calm" +
       " direct gaze, head and shoulders.",
+  },
+  // --- Warianty slowianskie: inne pozy i kompozycje -----------------------
+  // Klientka chciala "cos w tym stylu", nie jedno konkretne ujecie. Zamiast
+  // zmieniac Uwagi przy kazdej probie — cztery gotowe kompozycje do
+  // zaznaczenia naraz, jedno klikniecie, cztery rozne propozycje.
+  {
+    id: "slowianka-profil",
+    nazwa: "Słowiańska — profil",
+    opis: "Ujęcie w trzech czwartych, włosy na wietrze, jaskółki.",
+    podstawa: PODSTAWA_POZA,
+    prompt:
+      "Transform this photo into a Slavic goddess painting — three-quarter view," +
+      " the woman turning her head to look over her shoulder, long hair flowing" +
+      " in the wind with woven ribbons, a crown of red poppies, cornflowers and" +
+      " wheat ears, red coral necklaces, embroidered folk blouse, swallows flying" +
+      " around her, a large gold-leaf halo behind, deep crimson background with" +
+      " subtle folk floral motifs, visible acrylic brush strokes and gold accents.",
+  },
+  {
+    id: "slowianka-pole",
+    nazwa: "Słowiańska — w polu",
+    opis: "Postać do pasa wśród zbóż o zachodzie. Malarska scena, nie ikona.",
+    podstawa: PODSTAWA_POZA,
+    prompt:
+      "Transform this photo into a romantic Slavic folk painting — the woman shown" +
+      " from the waist up standing in a golden wheat field at sunset, holding an" +
+      " armful of wildflowers and wheat, wearing a flower wreath with long" +
+      " ribbons, a white embroidered linen dress and red coral beads, warm golden" +
+      " light on her face and hair, soft painterly oil technique with gold leaf" +
+      " accents in the sky.",
+  },
+  {
+    id: "slowianka-kupala",
+    nazwa: "Słowiańska — noc Kupały",
+    opis: "Księżyc, świece, wianek na wodzie. Mroczna, mistyczna.",
+    podstawa: PODSTAWA_POZA,
+    prompt:
+      "Transform this photo into a mystical Slavic Kupala Night painting — the" +
+      " woman at a moonlit river at night holding a lit flower wreath with" +
+      " candles, fireflies and glowing ferns around her, a silver crescent moon" +
+      " on her forehead, a dark green and deep blue palette with warm candlelight" +
+      " on her face, white embroidered dress, coral beads, painterly acrylic" +
+      " technique with gold and silver leaf accents.",
+  },
+  {
+    id: "slowianka-kokosznik",
+    nazwa: "Słowiańska — kokosznik",
+    opis: "Wysokie nakrycie głowy z kamieniami, szmaragdowe tło.",
+    podstawa: PODSTAWA_POZA,
+    prompt:
+      "Transform this photo into a regal Slavic princess portrait painting —" +
+      " the woman wearing a tall ornate kokoshnik headdress embroidered with" +
+      " garnets, pearls and gold thread, surrounded by red apples, rowan berries" +
+      " and green leaves, layered garnet bead necklaces, a dark green velvet" +
+      " folk dress with gold embroidery, a gold-leaf circular halo behind her" +
+      " head, emerald green background, head and shoulders, visible acrylic" +
+      " brush strokes and gold accents.",
   },
   {
     id: "superbohater",
@@ -176,7 +248,7 @@ function zbudujPrompt(idStylu, orientacja, dopisek) {
   // doprecyzowanie wczesniejszych, wiec "wiecej zimnych kolorow" ma szanse
   // zadzialac, a nie zostac przykryte przez opis stylu.
   const extra = (dopisek || "").trim().slice(0, 400);
-  return s.prompt + " " + kadr + PODSTAWA + (extra ? " " + extra : "");
+  return s.prompt + " " + kadr + (s.podstawa || PODSTAWA) + (extra ? " " + extra : "");
 }
 
 /** Lista dla przegladarki — bez promptow. */

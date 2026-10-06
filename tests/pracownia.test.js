@@ -243,6 +243,22 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     assert.doesNotMatch(b, /RESOURCE_EXHAUSTED/, "nie pokazujemy surowego JSON-a");
   });
 
+  // Warianty zmieniajace poze nie moga kazac modelowi trzymac miny ze zdjecia,
+  // a zwykle style nie moga tej klauzuli zgubic.
+  await sprawdz("warianty z pozą mają własną podstawę, reszta zwykłą", async () => {
+    const S = require("../api/_style.js");
+    for (const id of ["slowianka", "slowianka-profil", "slowianka-pole",
+                      "slowianka-kupala", "slowianka-kokosznik"]) {
+      const p = S.zbudujPrompt(id, "pion", "");
+      assert.ok(p, "brak stylu " + id);
+      assert.doesNotMatch(p, /same expressions/, id + " nie może trzymać miny ze zdjęcia");
+      assert.match(p, /recognizable/, id + " musi trzymać rozpoznawalną twarz");
+      assert.doesNotMatch(p, /border(?!, no frame)/i, id + ": ramka zostałaby obcięta na blejtramie");
+    }
+    const olej = S.zbudujPrompt("olej", "pion", "");
+    assert.match(olej, /same expressions/, "zwykły styl zgubił klauzulę o minie");
+  });
+
   serwer.close();
   console.log(bledy ? `\n${bledy} testow nie przeszlo` : "\nWszystkie testy przeszly");
   process.exit(bledy ? 1 : 0);
