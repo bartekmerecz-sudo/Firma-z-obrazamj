@@ -259,6 +259,18 @@ const zdjecie = { zdjecie: PIKSEL_PNG, mime: "image/png", orientacja: "pion" };
     assert.match(olej, /same expressions/, "zwykły styl zgubił klauzulę o minie");
   });
 
+  // Realizm ma osobna slabosc: model "upieksza" twarz i gubi podobienstwo.
+  await sprawdz("style realistyczne zakazują upiększania twarzy", async () => {
+    const S = require("../api/_style.js");
+    for (const id of ["slowianka-foto", "slowianka-realizm"]) {
+      const p = S.zbudujPrompt(id, "pion", "");
+      assert.ok(p, "brak stylu " + id);
+      assert.match(p, /Do not slim, smooth, retouch or idealize/, id);
+      assert.match(p, /freckles/, id + " musi trzymać piegi");
+      assert.doesNotMatch(p, /same expressions/, id);
+    }
+  });
+
   serwer.close();
   console.log(bledy ? `\n${bledy} testow nie przeszlo` : "\nWszystkie testy przeszly");
   process.exit(bledy ? 1 : 0);
