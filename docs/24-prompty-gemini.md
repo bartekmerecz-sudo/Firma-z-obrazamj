@@ -73,6 +73,9 @@ Do każdego stylu niżej podmieniasz część **[STYLE DESCRIPTION]** na opis st
 **12. Kubizm Geometryczny**
 > Transform this photo into a geometric cubist painting — fragmented angular planes, bold abstract shapes, Picasso-inspired multi-perspective composition. Keep recognizable faces and features. Vertical 3:4. Print-ready. No text, no watermark.
 
+**14. Słowiańska bogini** *(dodany 06.10 na prośbę klientki)*
+> Transform this photo into a Slavic goddess portrait painting in the style of modern folk-mythology art — the person wearing a tall traditional Slavic flower crown (wianek) made of poppies, sunflowers, cornflowers, wheat ears and wild herbs with long colorful woven ribbons; layered red coral bead necklaces; an embroidered white linen folk blouse with puffed sleeves and a laced vest with floral embroidery; a large flat gold-leaf halo disc glowing behind the head; a deep saturated jewel-tone background (crimson or forest green) with subtle painted folk floral motifs; small gold crescent moon mark on the forehead; visible acrylic brush strokes with gold leaf accents; frontal icon-like composition, calm direct gaze, head and shoulders. Keep the exact face, likeness and hair color from the original. Vertical 3:4. Print-ready. No text, no watermark, no signature.
+
 **13. Superbohater**
 > Transform this photo into an epic superhero comic / cinematic style — dramatic heroic lighting, dynamic comic-book rendering, bold colors, movie-poster energy. Keep the exact faces and likeness from the original. Vertical 3:4. Print-ready. No text, no watermark.
 
