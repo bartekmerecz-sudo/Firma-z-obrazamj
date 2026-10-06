@@ -76,6 +76,17 @@ Do każdego stylu niżej podmieniasz część **[STYLE DESCRIPTION]** na opis st
 **14. Słowiańska bogini** *(dodany 06.10 na prośbę klientki)*
 > Transform this photo into a Slavic goddess portrait painting in the style of modern folk-mythology art — the person wearing a tall traditional Slavic flower crown (wianek) made of poppies, sunflowers, cornflowers, wheat ears and wild herbs with long colorful woven ribbons; layered red coral bead necklaces; an embroidered white linen folk blouse with puffed sleeves and a laced vest with floral embroidery; a large flat gold-leaf halo disc glowing behind the head; a deep saturated jewel-tone background (crimson or forest green) with subtle painted folk floral motifs; small gold crescent moon mark on the forehead; visible acrylic brush strokes with gold leaf accents; frontal icon-like composition, calm direct gaze, head and shoulders. Keep the exact face, likeness and hair color from the original. Vertical 3:4. Print-ready. No text, no watermark, no signature.
 
+**Warianty słowiańskie** — w pracowni jako osobne style, do zaznaczenia po cztery naraz. Pełne prompty w `api/_style.js`:
+
+| Wariant | Kompozycja |
+|---|---|
+| Słowiańska — profil | ujęcie w trzech czwartych, włosy na wietrze, jaskółki, karmazynowe tło |
+| Słowiańska — w polu | postać do pasa w zbożu o zachodzie, malarska scena zamiast ikony |
+| Słowiańska — noc Kupały | księżyc, świece, wianek, świetliki — ciemna, mistyczna |
+| Słowiańska — kokosznik | wysokie nakrycie głowy z granatami i perłami, szmaragdowe tło |
+
+Wszystkie pięć słowiańskich używa podstawy, która trzyma **twarz, kolor oczu, włosy i piegi**, ale pozwala zmienić pozę i minę. Zwykła podstawa każe trzymać minę ze zdjęcia — przy profilu albo postaci w polu to sprzeczne polecenie.
+
 **13. Superbohater**
 > Transform this photo into an epic superhero comic / cinematic style — dramatic heroic lighting, dynamic comic-book rendering, bold colors, movie-poster energy. Keep the exact faces and likeness from the original. Vertical 3:4. Print-ready. No text, no watermark.
 
