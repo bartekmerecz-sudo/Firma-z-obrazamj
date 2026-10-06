@@ -265,6 +265,47 @@ const STYLE = [
       " lighting, warm muted earthy palette with a dark atmospheric background," +
       " museum-quality fine art, head and shoulders.",
   },
+  // --- Bogini na bazie fotorealizmu ---------------------------------------
+  // Fotorealizm trzymal twarz klientki najlepiej ze wszystkich prob, ale wyszedl
+  // "dziewczyna w wianku na lace", a nie bogini. Te dwa idą o krok dalej —
+  // poswiata, diadem, unoszace sie platki — na tej samej podstawie, ktora
+  // zabrania upiekszania twarzy. Mina nie jest narzucona; jesli trzeba ja
+  // zmienic, od tego jest pole Uwagi.
+  {
+    id: "slowianka-boska",
+    nazwa: "Słowiańska — boska aura",
+    opis: "Fotorealizm z aurą bogini: złota poświata, diadem z księżycem.",
+    podstawa: PODSTAWA_REALIZM,
+    prompt:
+      "Turn this photo into a photorealistic fine-art portrait of the same woman" +
+      " as a radiant Slavic goddess — a majestic flower crown of red poppies," +
+      " sunflowers, cornflowers and golden wheat woven with delicate gold" +
+      " filigree, a small golden crescent moon diadem on her forehead, long" +
+      " flowing silk ribbons, layered red coral necklaces and a white linen gown" +
+      " with gold embroidery; a soft divine golden glow radiating behind her head" +
+      " like a halo of light, sun rays and floating golden pollen and petals in" +
+      " the air, a golden meadow at sunset softened by atmospheric haze," +
+      " cinematic warm backlighting with a gentle rim light on her hair, ethereal" +
+      " and majestic atmosphere, shot on a full-frame camera with an 85mm lens," +
+      " real skin texture, head and shoulders.",
+  },
+  {
+    id: "slowianka-pastel",
+    nazwa: "Słowiańska — pastelowa bogini",
+    opis: "Miękkie pastele, poranna mgiełka, eteryczny klimat.",
+    podstawa: PODSTAWA_REALIZM,
+    prompt:
+      "Turn this photo into a dreamy pastel fine-art portrait of the same woman" +
+      " as an ethereal Slavic goddess — a soft flower crown of blush pink" +
+      " peonies, lavender, chamomile, baby's breath and pale wheat with long" +
+      " pastel silk ribbons, a delicate necklace of pearls and rose quartz beads," +
+      " a flowing white and pale lilac embroidered linen gown; a soft pastel" +
+      " palette of blush pink, lavender, mint and cream, misty morning light with" +
+      " a gentle luminous glow around her head, floating petals and soft bokeh," +
+      " airy light atmosphere, delicate film-like photography with a subtle" +
+      " painterly softness in the background, real skin texture, head and" +
+      " shoulders.",
+  },
   {
     id: "superbohater",
     nazwa: "Superbohater",
