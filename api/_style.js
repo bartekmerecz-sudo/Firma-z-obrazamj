@@ -32,6 +32,19 @@ const PODSTAWA_POZA =
   " Ultra high detail, print-ready." +
   " No text, no watermark, no logo, no signature, no border, no frame.";
 
+// Dla stylow realistycznych. Modele maja sklonnosc do "upiekszania" twarzy:
+// wyszczuplaja, wygladzaja skore, poprawiaja rysy pod jakis wzorzec. Przy
+// portrecie konkretnej osoby to zabija podobienstwo — klientka ma zobaczyc
+// przyjaciolke, nie modelke z reklamy. Stad osobne, mocniejsze zastrzezenie.
+const PODSTAWA_REALIZM =
+  " This is a portrait of a real, specific person and must look exactly like" +
+  " her: keep the exact face shape, proportions, facial features, eye color," +
+  " eyebrows, hair color and texture, natural skin texture and freckles from" +
+  " the original photo. Do not slim, smooth, retouch or idealize the face." +
+  " Pose, clothing and setting change as described above." +
+  " Ultra high detail, print-ready." +
+  " No text, no watermark, no logo, no signature, no border, no frame.";
+
 const STYLE = [
   {
     id: "olej",
@@ -219,6 +232,38 @@ const STYLE = [
       " folk dress with gold embroidery, a gold-leaf circular halo behind her" +
       " head, emerald green background, head and shoulders, visible acrylic" +
       " brush strokes and gold accents.",
+  },
+  // --- Realizm --------------------------------------------------------------
+  // Na prosbe: "bardziej w realizmie". Dwie drogi, bo "realistycznie" znaczy
+  // dla roznych osob co innego — jedni mysla o zdjeciu, drudzy o obrazie.
+  {
+    id: "slowianka-foto",
+    nazwa: "Słowiańska — fotorealizm",
+    opis: "Jak sesja zdjęciowa w stroju ludowym. Najwierniejsza twarz.",
+    podstawa: PODSTAWA_REALIZM,
+    prompt:
+      "Turn this photo into a photorealistic professional portrait photograph" +
+      " of the same woman styled as a Slavic goddess — wearing a real lush" +
+      " flower crown of fresh red poppies, sunflowers, cornflowers and wheat" +
+      " ears with long silk ribbons, layered red coral bead necklaces, an" +
+      " authentic hand-embroidered white linen folk blouse; soft natural window" +
+      " light, warm golden tones, shallow depth of field with a softly blurred" +
+      " meadow background, shot on a full-frame camera with an 85mm portrait" +
+      " lens, real skin texture, head and shoulders.",
+  },
+  {
+    id: "slowianka-realizm",
+    nazwa: "Słowiańska — obraz realistyczny",
+    opis: "Klasyczny portret olejny, jak dawni mistrzowie. Bez stylizacji.",
+    podstawa: PODSTAWA_REALIZM,
+    prompt:
+      "Transform this photo into a realist oil portrait painting in the" +
+      " tradition of 19th-century academic portrait painters — the woman" +
+      " wearing a flower crown of poppies, cornflowers and wheat with ribbons," +
+      " red coral beads and an embroidered folk blouse; accurate anatomy and" +
+      " true-to-life proportions, subtle refined brushwork, soft chiaroscuro" +
+      " lighting, warm muted earthy palette with a dark atmospheric background," +
+      " museum-quality fine art, head and shoulders.",
   },
   {
     id: "superbohater",

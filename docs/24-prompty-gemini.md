@@ -84,6 +84,14 @@ Do każdego stylu niżej podmieniasz część **[STYLE DESCRIPTION]** na opis st
 | Słowiańska — w polu | postać do pasa w zbożu o zachodzie, malarska scena zamiast ikony |
 | Słowiańska — noc Kupały | księżyc, świece, wianek, świetliki — ciemna, mistyczna |
 | Słowiańska — kokosznik | wysokie nakrycie głowy z granatami i perłami, szmaragdowe tło |
+| Słowiańska — fotorealizm | jak sesja zdjęciowa w stroju ludowym, prawdziwe kwiaty, obiektyw 85 mm |
+| Słowiańska — obraz realistyczny | klasyczny portret olejny w tradycji XIX-wiecznych portrecistów |
+
+**Realizm trzyma twarz najlepiej**, bo model nie musi jej stylizować. Ale ma
+własną słabość: modele lubią „upiększać" — wyszczuplać twarz, wygładzać skórę,
+poprawiać rysy pod jakiś wzorzec. Dlatego oba style realistyczne mają osobne
+zastrzeżenie: *do not slim, smooth, retouch or idealize the face*. Klientka ma
+zobaczyć przyjaciółkę, nie modelkę z reklamy.
 
 Wszystkie pięć słowiańskich używa podstawy, która trzyma **twarz, kolor oczu, włosy i piegi**, ale pozwala zmienić pozę i minę. Zwykła podstawa każe trzymać minę ze zdjęcia — przy profilu albo postaci w polu to sprzeczne polecenie.
 
